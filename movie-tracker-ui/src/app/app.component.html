@@ -1,0 +1,42 @@
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    </button>
+    <h1 routerLink="/">Movie Tracker</h1>
+    
+    <span class="menu-spacer"></span>
+
+    <button mat-button routerLink="/movies/new">Add Movie</button>
+   
+    
+    <button mat-button >Add TV</button>
+   
+  
+      </mat-toolbar-row>
+  <!-- <mat-toolbar-row>
+      <span style="font-size: 12px;">A personal tracker for your favorite movies/tv shows</span>
+    </mat-toolbar-row> -->
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+
+     
+      <a routerLink="/movies" mat-list-item > Movies </a>
+      <a mat-list-item > TV Shows </a>
+     
+      <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;">
+      <router-outlet></router-outlet>
+      
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<footer></footer>
+

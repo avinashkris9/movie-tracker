@@ -1,0 +1,37 @@
+<div>
+<mat-card *ngFor ="let movie of movies " class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar  class="example-header-image"
+      [ngStyle]="{'background-image':'url('+ movie.posterPath+')'}"
+      >
+
+
+      </div>
+      <mat-card-title>
+        <a routerLink="/movies/details/{{movie.id}}">
+        {{movie.movieName}}
+         </a>
+        </mat-card-title>
+      <mat-card-subtitle>{{movie.rating}}/5 
+          <span *ngFor ="let number of [1,2,3,4,5] | slice:0:movie.rating; let i = index;">
+        <fa-icon [icon]="faCoffee" style="color:gold"></fa-icon>
+    </span>
+   <div> <span class="mat-caption"> 
+    Last Watched on {{movie.lastWatched | date :'shortDate'}}</span></div>
+        <!-- <mat-icon fontSet="fa" fontIcon="faCoffee"></mat-icon>
+        <br> -->
+        <!-- <mat-icon>home</mat-icon> <mat-icon fontSet="myfont"></mat-icon> -->
+      </mat-card-subtitle>
+    </mat-card-header>
+    
+    <img  src="{{movie.posterPath}}" alt="{{movie.movieName}}" width ="185" height="278">
+ 
+    <mat-card-content>
+      <p class="mat-small">
+      {{movie.overView}}
+      </p>
+    </mat-card-content>
+    
+  </mat-card>
+
+</div>

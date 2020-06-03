@@ -1,0 +1,90 @@
+<div>
+
+  <mat-card class="example-card">
+      <mat-card-content>
+
+      <div class="panel">
+         
+        <div class="poster">
+
+          <img src="{{movie.posterPath}}" alt="{{movie.movieName}}" width="185" height="278">
+        </div>
+        
+        <div class="movie-details">
+
+          <h1> {{movie.movieName}}</h1>
+          <div class="align-horizontal" >
+            <span *ngFor ="let number of [1,2,3,4,5] | slice:0:movie.rating; let i = index;">
+              <fa-icon [icon]="faStar" style="color:gold"></fa-icon>
+          </span>
+           
+           
+          
+          </div>
+          <p>
+            <strong><bdi>Status</bdi></strong> Released
+          </p>
+          <p>
+            <strong><bdi>Original Language</bdi></strong> {{movie.originalLanguage}}
+
+          </p>
+          <p>
+            {{movie.overView}}
+          </p>
+
+          <p>
+            <strong><bdi>Rating </bdi></strong> {{movie.rating}}/5
+          </p>
+         
+        </div>
+        
+       
+          
+      </div >
+        
+
+     
+    </mat-card-content>
+    <mat-card-footer class="align-horizontal">
+
+      <div class="cards">
+      
+      <p> Last Watched on {{ movie.lastWatched}}</p>
+      
+
+    </div>
+    <div >
+      <p class="cards"> Total Watch</p>
+      <fa-layers  [fixedWidth]="true"  style="background:MistyRose">
+        <fa-icon [icon]="faCalendar" >
+          </fa-icon>
+<fa-layers-text [inverse]="true"   transform="shrink-8 down-3" style="font-weight:900"
+
+content="{{movie.numberOfWatch}}">
+
+
+</fa-layers-text>
+
+      </fa-layers>
+      
+    </div>
+
+     
+      
+      
+    </mat-card-footer>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <h4> Review</h4>
+      <p> {{movie.review}}</p>
+    </mat-card-content>
+  </mat-card>
+</div>

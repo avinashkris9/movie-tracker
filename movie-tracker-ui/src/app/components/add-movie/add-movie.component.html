@@ -1,0 +1,69 @@
+<h1>  Watched new movie ? How was the experience ?</h1>
+
+
+<form class="example-form" [formGroup]="movieForm" (ngSubmit)="onSubmit()">
+  
+
+  <mat-form-field class="example-full-width">
+    <input type="text" [style.width.px]=327
+           placeholder=" Type movie name"
+           aria-label="name"
+           matInput
+         
+           formControlName="movieName"
+           [matAutocomplete]="auto">
+    <mat-autocomplete [panelWidth]=327  #auto="matAutocomplete" >
+      <mat-option  *ngFor="let option of movies$ | async" [value]="option.title"
+      >
+        {{option.title}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+    
+      <mat-form-field class="example-full-width">
+        <mat-label>Review</mat-label>
+        <textarea class="example-text-box" matInput placeholder="Ex. It makes me feel..." formControlName="review"></textarea>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Rating</mat-label>
+        <select matNativeControl required  formControlName="rating"> 
+          <option value="1">1/5</option>
+          <option value="2">2/5</option>
+          <option value="3">3/5</option>
+          <option value="4">4/5</option>
+          <option value="5">5/5</option>
+        </select>
+      </mat-form-field>
+
+
+      <mat-form-field color="accent">
+        <mat-label>Watched on </mat-label>
+        <input [value]="date" matInput [matDatepicker]="picker1" formControl="lastWatched">
+        <mat-datepicker-toggle matSuffix [for]="picker1"
+      
+        
+        ></mat-datepicker-toggle>
+        <mat-datepicker   #picker1></mat-datepicker>
+      </mat-form-field>
+   
+
+      <button type="submit" mat-button color="primary"
+      
+      aria-label="Snack bar notification">
+    
+   Add
+
+
+
+      </button>
+  </form>
+
+
+  <div *ngIf="message !==undefined">
+    <h2> {{message}}</h2>
+
+  </div>
+
+  
