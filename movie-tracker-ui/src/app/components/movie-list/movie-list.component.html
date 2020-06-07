@@ -1,11 +1,23 @@
 <div>
+  <mat-paginator  [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="[5, 10, 25, 100]" 
+              (page)="pageEvent = updatePageSize($event)"
+              
+              >
+</mat-paginator>
 <mat-card *ngFor ="let movie of movies " class="example-card">
     <mat-card-header>
-      <div mat-card-avatar  class="example-header-image"
+      <!-- <div mat-card-avatar  class="example-header-image"
       [ngStyle]="{'background-image':'url('+ movie.posterPath+')'}"
       >
 
+    
+      </div> -->
+      <div  class="example-header-image" mat-card-avatar >
 
+        <img   mat-card-avatar [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.movieName}}" width ="185" height="278">
+ 
       </div>
       <mat-card-title>
         <a routerLink="/movies/details/{{movie.id}}">
@@ -17,14 +29,14 @@
         <fa-icon [icon]="faCoffee" style="color:gold"></fa-icon>
     </span>
    <div> <span class="mat-caption"> 
-    Last Watched on {{movie.lastWatched | date :'shortDate'}}</span></div>
+    Last Watched on {{movie.lastWatched }}</span></div>
         <!-- <mat-icon fontSet="fa" fontIcon="faCoffee"></mat-icon>
         <br> -->
         <!-- <mat-icon>home</mat-icon> <mat-icon fontSet="myfont"></mat-icon> -->
       </mat-card-subtitle>
     </mat-card-header>
     
-    <img  src="{{movie.posterPath}}" alt="{{movie.movieName}}" width ="185" height="278">
+    <img  [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.movieName}}" width ="185" height="278">
  
     <mat-card-content>
       <p class="mat-small">

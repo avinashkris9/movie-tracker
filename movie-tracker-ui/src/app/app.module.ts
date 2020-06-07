@@ -24,9 +24,10 @@ import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatNativeDateModule } from '@angular/material/core';
 import { MessagesComponent } from './messages/messages.component';
-
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MovieEditComponent } from './components/movie-edit/movie-edit.component';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,9 +63,10 @@ import { MovieEditComponent } from './components/movie-edit/movie-edit.component
     MatDividerModule,
     AppRoutingModule,
     MatDatepickerModule,
+    MatPaginatorModule,
     FormsModule,MatNativeDateModule,MatDialogModule
   ],
-  providers: [],
+  providers:[DatePipe]      ,
   bootstrap: [AppComponent],
   // since we are dynamically adding this component
   entryComponents: [ MessagesComponent,MovieEditComponent ]

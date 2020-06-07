@@ -8,7 +8,7 @@ export class Movie {
     review:string;
     overView:string;
     imdbId: number;
-    lastWatched:Date;
+    lastWatched:string;
     posterPath: string;
     originalLanguage:string;
 

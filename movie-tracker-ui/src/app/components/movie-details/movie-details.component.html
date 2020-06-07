@@ -7,7 +7,8 @@
          
         <div class="poster">
 
-          <img src="{{movie.posterPath}}" alt="{{movie.movieName}}" width="185" height="278">
+        
+          <img   [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.movieName}}" width ="185" height="278">
         </div>
         
         <div class="movie-details">
