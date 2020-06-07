@@ -21,6 +21,7 @@ export class MovieService {
     return this.httpClient.get<Movie[]>(this.baseUrl)
     .pipe
     (
+      
       catchError(this.handleError<Movie[]>('getHeroes', []))
     )
   }
@@ -32,9 +33,24 @@ export class MovieService {
     const url=`${this.baseUrl}/${movieId}`;
     return this.httpClient.get<Movie>(url).pipe
     (
+     
       catchError(this.handleError<Movie>('getMovies'))
     )
     
+  }
+
+
+  updateMovie(movie:Movie ):Observable<any>
+  {
+    JSON.stringify(movie);
+    console.log(` Calling API for update using ${movie}`);
+    console.log(` Calling API for update using ${ JSON.stringify(movie)}`);
+    const url=`${this.baseUrl}/${movie.id}`;
+    return this.httpClient.put(url,movie).pipe
+    (
+      catchError(this.handleError<Movie>('getMovies'))
+    )
+
   }
 
   addMovie(movie:Movie):Observable<Movie>

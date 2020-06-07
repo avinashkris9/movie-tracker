@@ -14,7 +14,7 @@
 
           <h1> {{movie.movieName}}</h1>
           <div class="align-horizontal" >
-            <span *ngFor ="let number of [1,2,3,4,5] | slice:0:movie.rating; let i = index;">
+            <span *ngFor ="let number of [1,2,3,4,5] | slice:0:movie?.rating; let i = index;">
               <fa-icon [icon]="faStar" style="color:gold"></fa-icon>
           </span>
            
@@ -45,7 +45,10 @@
 
      
     </mat-card-content>
+
+   
     <mat-card-footer class="align-horizontal">
+
 
       <div class="cards">
       
@@ -74,8 +77,17 @@ content="{{movie.numberOfWatch}}">
       
     </mat-card-footer>
     <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
+      <div class="align-horizontal">
+
+        <h2 class="mat-body"> Watched Again ?</h2>
+        
+        <div style="font-size:10px">
+         <button   (click)="openUpdateDialog()"  mat-fab color="primary" aria-label="Add Movie Data">
+          <mat-icon >add_circle</mat-icon>
+        </button>
+      </div>
+     </div>
+   
     </mat-card-actions>
   </mat-card>
 
