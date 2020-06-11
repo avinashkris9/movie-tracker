@@ -39,7 +39,8 @@ export class MovieDetailsComponent implements OnInit {
            )
     }
   }
-
+ 
+ 
   openUpdateDialog()
   {
     let dialogRef = this.dialog.open(MovieEditComponent, {
@@ -58,3 +59,4 @@ export class MovieDetailsComponent implements OnInit {
 
   
 }
+

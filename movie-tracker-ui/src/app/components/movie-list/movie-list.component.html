@@ -1,12 +1,13 @@
-<div>
-  <mat-paginator  [length]="length"
-              [pageSize]="pageSize"
-              [pageSizeOptions]="[5, 10, 25, 100]" 
-              (page)="pageEvent = updatePageSize($event)"
-              
-              >
+<div> <mat-paginator  [length]="length"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[5, 10, 25, 100]" 
+  (page)="pageEvent = updatePageSize($event)"
+  
+  >
 </mat-paginator>
+ 
 <mat-card *ngFor ="let movie of movies " class="example-card">
+  
     <mat-card-header>
       <!-- <div mat-card-avatar  class="example-header-image"
       [ngStyle]="{'background-image':'url('+ movie.posterPath+')'}"
