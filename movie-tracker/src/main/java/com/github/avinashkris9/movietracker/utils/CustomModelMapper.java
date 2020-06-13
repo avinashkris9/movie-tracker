@@ -12,13 +12,12 @@ public class CustomModelMapper {
 
     movieDetails.setLastWatched(movieDetailsDTO.getLastWatched());
     movieDetails.setNumberOfWatch(movieDetailsDTO.getNumberOfWatch());
-
+  movieDetails.setExternalId(movieDetailsDTO.getExternalId());
     movieDetails.setMovieName(movieDetailsDTO.getMovieName());
     movieDetails.setRating(movieDetailsDTO.getRating());
     movieDetails.setReview(movieDetailsDTO.getReview());
     return movieDetails;
   }
-
 
   public MovieDetailsDTO MovieEntity2MovieDTO(MovieDetails movieDetails) {
     MovieDetailsDTO details = new MovieDetailsDTO();

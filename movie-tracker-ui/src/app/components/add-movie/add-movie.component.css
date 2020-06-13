@@ -3,11 +3,17 @@
     max-width: 500px;
     width: 100%;
   }
-  
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+  }
   .example-full-width {
     width: 100%;
   }
-
+  .mat-grid-tile .mat-figure {
+  
+   
+ }
   .example-text-box
   {
 

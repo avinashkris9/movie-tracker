@@ -17,15 +17,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**
+ * Business logics mainly to perform the external TheMovieDB API calls
+ */
 @Service
 public class TheMovieDBService {
 
   private final Logger logger = LoggerFactory.getLogger(TheMovieDBService.class);
   private final RestTemplate restTemplate;
+
   @Value(("${api.key}"))
   private String apiKey;
+
   @Value(("${api.url}"))
   private String baseUrl;
+
   @Value("${api.url.imagedb}")
   private String imageUrl;
   // values are injected after constructor call. So we cannot do a concatenation here.
@@ -36,10 +42,13 @@ public class TheMovieDBService {
     this.restTemplate = restTemplate;
   }
 
-/*
-   Generate url for movie search
-   */
 
+
+  /**
+   * Generate url for movie search
+   * @param movieName
+   * @return URI for the movie db
+   */
   public URI generateMovieDBSearchUrl(String movieName) {
 
     String searchUrl = baseUrl + searchUri;
@@ -51,21 +60,20 @@ public class TheMovieDBService {
       builder.queryParam(entry.getKey(), entry.getValue());
     }
     /**
-     *
-     * A small note on encoding the url.
-     * So if a movie name contain space, it needs to be encoded to %20 or + on url.
-     * If we use builder.toString  we would need to encode it manually.
-     * If we use builder.toURI , encoding will happen using RFC standard.
+     * A small note on encoding the url. So if a movie name contain space, it needs to be encoded to
+     * %20 or + on url. If we use builder.toString we would need to encode it manually. If we use
+     * builder.toURI , encoding will happen using RFC standard.
      */
-
     URI uri = builder.encode().build().toUri();
     return uri;
-
   }
 
-  /*
-  @param movieId - Movie id in themoviedb
 
+  /**
+   * Create movie id url
+   * @param movieId
+   * @return
+   * @throws URISyntaxException
    */
   public URI movieIdUrl(long movieId) throws URISyntaxException {
 
@@ -76,6 +84,11 @@ public class TheMovieDBService {
   }
 
 
+  /**
+   * Search a movie in movie db
+   * @param movieName
+   * @return
+   */
   public MovieDBDetails getMovieDetailsBySearch(String movieName) {
 
     URI uri = generateMovieDBSearchUrl(movieName);
@@ -83,25 +96,27 @@ public class TheMovieDBService {
     MovieDBDetails movieDBDetails =
         restTemplate.getForObject(generateMovieDBSearchUrl(movieName), MovieDBDetails.class);
 
-    if (movieDBDetails.getMovieDBDetails().size() == 0) {
+    if (movieDBDetails.getMovieDBDetails().isEmpty()) {
       logger.error(" No movie info present for {} " + movieName);
     }
 
-    Optional<MovieDBDetails> optionalMovieDBDetails = Optional.of(movieDBDetails);
 
     return movieDBDetails;
-
   }
 
+  /**
+   * Find movie by movie id in moviedb
+   * @param movieId
+   * @return
+   */
   public MovieDB getMovieById(long movieId) {
 
     MovieDB movieDB = new MovieDB();
     try {
 
       URI uri = movieIdUrl(movieId);
-      System.out.println(" Querying themovie db for " + movieId + " " + uri.toString());
-      movieDB = restTemplate.getForObject(uri,
-          MovieDB.class);
+
+      movieDB = restTemplate.getForObject(uri, MovieDB.class);
 
       if (Objects.isNull(movieDB)) {
         logger.info(" No movie found in movieDB for id {}", movieId);
@@ -110,13 +125,19 @@ public class TheMovieDBService {
       ;
       return movieDB;
     } catch (Exception e) {
-      System.out.println("EXCEPTUON ");
-      System.out.println(e.getMessage());
+      logger.error("********* Exception *********");
+      logger.error(e.getMessage());
+
     }
     return movieDB;
   }
 
 
+  /**
+   * Helper function to generate themovie db image url
+   * @param fileName
+   * @return
+   */
   public String moviePosterPath(String fileName) {
     System.out.println(fileName);
     return this.imageUrl.concat("/").concat(fileName);

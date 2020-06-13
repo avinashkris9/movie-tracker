@@ -8,8 +8,7 @@ public class MovieDBDetails {
   @JsonProperty("results")
   List<MovieDB> movieDBDetails;
 
-  public MovieDBDetails() {
-  }
+  public MovieDBDetails() {}
 
   public MovieDBDetails(List<MovieDB> movieDBDetails) {
     this.movieDBDetails = movieDBDetails;
@@ -25,8 +24,6 @@ public class MovieDBDetails {
 
   @Override
   public String toString() {
-    return "MovieDBDetails{" +
-        "movieDBDetails=" + movieDBDetails +
-        '}';
+    return "MovieDBDetails{" + "movieDBDetails=" + movieDBDetails + '}';
   }
 }

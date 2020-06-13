@@ -8,23 +8,25 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ *
+ * Spring boot app for tracking movies
+ * @Author Avinash Krishnan
+ * 
+ */
 @SpringBootApplication
 public class MovieTrackerApplication {
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 
-		SpringApplication springApplication = new SpringApplication(MovieTrackerApplication.class);
-		springApplication.setBannerMode(Banner.Mode.OFF);
-		springApplication.run(args);
+    SpringApplication springApplication = new SpringApplication(MovieTrackerApplication.class);
+    springApplication.setBannerMode(Banner.Mode.OFF);
+    springApplication.run(args);
+  }
 
-	}
+  @Bean
+  public RestTemplate restTemplate(RestTemplateBuilder builder) {
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-
-		return builder.errorHandler(new RestTemplateResponseErrorHandler()).build();
-
-	}
-
-
+    return builder.errorHandler(new RestTemplateResponseErrorHandler()).build();
+  }
 }

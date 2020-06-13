@@ -34,6 +34,7 @@ export class MovieDetailsComponent implements OnInit {
          data => 
          {
            this.movie =data;
+           console.log(this.movie)
         
          }
            )

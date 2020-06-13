@@ -9,92 +9,119 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+/**
+ * Entity Bean Class for Movie Details
+ */
 @Entity
-@Table(name = "movieDetails", uniqueConstraints = {@UniqueConstraint(columnNames = "movieName")})
+@Table(
+    name = "movieDetails",
+    uniqueConstraints = {@UniqueConstraint(columnNames = "movieName")})
 public class MovieDetails {
 
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+  private String movieName;
+  private int rating;
+  @Lob private String review;
+  private long externalId;
 
-    private String movieName;
-    private int rating;
-    @Lob
-    private String review;
-    private long externalId;
+  private LocalDate lastWatched;
+  private int numberOfWatch;
 
+  public MovieDetails() {}
 
-    private LocalDate lastWatched;
-    private int numberOfWatch;
+  public MovieDetails(
+      long id,
+      String movieName,
+      int rating,
+      String review,
+      LocalDate lastWatched,
+      int numberOfWatch) {
+    this.id = id;
+    this.movieName = movieName;
+    this.rating = rating;
+    this.review = review;
+    this.lastWatched = lastWatched;
+    this.numberOfWatch = numberOfWatch;
+  }
 
-    public MovieDetails() {
+  public long getExternalId() {
+    return externalId;
+  }
 
-    }
+  public void setExternalId(long externalId) {
+    this.externalId = externalId;
+  }
 
-    public MovieDetails(long id, String movieName, int rating, String review, LocalDate lastWatched,
-        int numberOfWatch) {
-        this.id = id;
-        this.movieName = movieName;
-        this.rating = rating;
-        this.review = review;
-        this.lastWatched = lastWatched;
-        this.numberOfWatch = numberOfWatch;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public long getExternalId() {
-        return externalId;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public void setExternalId(long externalId) {
-        this.externalId = externalId;
-    }
+  public String getMovieName() {
+    return movieName;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public void setMovieName(String movieName) {
+    this.movieName = movieName;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public int getRating() {
+    return rating;
+  }
 
-    public String getMovieName() {
-        return movieName;
-    }
+  public void setRating(int rating) {
+    this.rating = rating;
+  }
 
-    public void setMovieName(String movieName) {
-        this.movieName = movieName;
-    }
+  public String getReview() {
+    return review;
+  }
 
-    public int getRating() {
-        return rating;
-    }
+  public void setReview(String review) {
+    this.review = review;
+  }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+  public LocalDate getLastWatched() {
+    return lastWatched;
+  }
 
-    public String getReview() {
-        return review;
-    }
+  public void setLastWatched(LocalDate lastWatched) {
+    this.lastWatched = lastWatched;
+  }
 
-    public void setReview(String review) {
-        this.review = review;
-    }
+  public int getNumberOfWatch() {
+    return numberOfWatch;
+  }
 
-    public LocalDate getLastWatched() {
-        return lastWatched;
-    }
+  public void setNumberOfWatch(int numberOfWatch) {
+    this.numberOfWatch = numberOfWatch;
+  }
 
-    public void setLastWatched(LocalDate lastWatched) {
-        this.lastWatched = lastWatched;
-    }
-
-    public int getNumberOfWatch() {
-        return numberOfWatch;
-    }
-
-    public void setNumberOfWatch(int numberOfWatch) {
-        this.numberOfWatch = numberOfWatch;
-    }
+  @Override
+  public String toString() {
+    return "MovieDetails{"
+        + "id="
+        + id
+        + ", movieName='"
+        + movieName
+        + '\''
+        + ", rating="
+        + rating
+        + ", review='"
+        + review
+        + '\''
+        + ", externalId="
+        + externalId
+        + ", lastWatched="
+        + lastWatched
+        + ", numberOfWatch="
+        + numberOfWatch
+        + '}';
+  }
 }

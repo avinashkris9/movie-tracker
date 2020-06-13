@@ -1,88 +1,100 @@
 <h1> Watched new movie ? How was the experience ?</h1>
 
+<mat-grid-list cols="2" rowHeight="2:1">
 
-<form class="example-form" [formGroup]="movieForm" (ngSubmit)="onSubmit()" #formdir="ngForm">
+  <mat-grid-tile>
+    <form class="example-form" [formGroup]="movieForm" (ngSubmit)="onSubmit()" #formdir="ngForm">
 
-  <div>
-    <div class="form-group">
-      <mat-label for="movieName">Name</mat-label>
-      <mat-form-field class="example-full-width">
-        <input type="text" [style.width.px]=327 placeholder=" Type movie name" aria-label="name" required matInput
-          id="movieName" formControlName="movieName" [matAutocomplete]="auto">
-        <mat-autocomplete [panelWidth]=327 #auto="matAutocomplete">
-          <mat-option *ngFor="let option of movies$ | async" [value]="option.title">
-            {{option.title}}
-          </mat-option>
-        </mat-autocomplete>
-
-        <mat-error> <div *ngIf="movieName.invalid && (movieName.dirty || movieName.touched)" class="alert alert-danger">
-
-          <div *ngIf="movieName.errors.required">
-            Name is required.
-          </div>
-  
-        </div>
-      </mat-error>
-      </mat-form-field>
-     
-       
-    </div>
-   
-    <mat-form-field class="example-full-width">
-      <mat-label>Review</mat-label>
-      <textarea class="example-text-box" matInput placeholder="Ex. It makes me feel..."
-        formControlName="review"></textarea>
-    </mat-form-field>
-
-    <div class="form-group">
-
-
-
-      <mat-form-field >
-        <mat-label>Rating</mat-label>
-        <select matNativeControl required formControlName="rating">
-          <option value="1">1/5</option>
-          <option value="2">2/5</option>
-          <option value="3">3/5</option>
-          <option value="4">4/5</option>
-          <option value="5">5/5</option>
-        </select>
-        <mat-error>
-
-          <div *ngIf="rating.invalid && (rating.dirty || rating.touched)" class="alert alert-danger">
-
-            <div *ngIf="rating.errors.required">
-              Do you mind adding rating ?
-            </div>
+      <div>
+        <div class="form-group">
+          <mat-label for="movieName">Name</mat-label>
+          <mat-form-field class="example-full-width">
+            <input type="text" [style.width.px]=327 placeholder=" Type movie name" aria-label="name" required matInput
+              id="movieName" formControlName="movieName" [matAutocomplete]="auto">
+            <mat-autocomplete [panelWidth]=327 #auto="matAutocomplete">
+              <mat-option *ngFor="let option of movies$ | async" [value]="option.title">
+                {{option.title}}
+              </mat-option>
+            </mat-autocomplete>
     
-          </div>
-        </mat-error>
-      </mat-form-field>
+            <mat-error> <div *ngIf="movieName.invalid && (movieName.dirty || movieName.touched)" class="alert alert-danger">
+    
+              <div *ngIf="movieName.errors.required">
+                Name is required.
+              </div>
+      
+            </div>
+          </mat-error>
+          </mat-form-field>
+         
+           
+        </div>
+       <div>
+    
+    
+       </div>
+        <mat-form-field class="example-full-width">
+          <mat-label>Review</mat-label>
+          <textarea class="example-text-box" matInput placeholder="Ex. It makes me feel..."
+            formControlName="review"></textarea>
+        </mat-form-field>
+    
+        <div class="form-group">
+    
+    
+    
+          <mat-form-field >
+            <mat-label>Rating</mat-label>
+            <select matNativeControl required formControlName="rating">
+              <option value="1">1/5</option>
+              <option value="2">2/5</option>
+              <option value="3">3/5</option>
+              <option value="4">4/5</option>
+              <option value="5">5/5</option>
+            </select>
+            <mat-error>
+    
+              <div *ngIf="rating.invalid && (rating.dirty || rating.touched)" class="alert alert-danger">
+    
+                <div *ngIf="rating.errors.required">
+                  Do you mind adding rating ?
+                </div>
+        
+              </div>
+            </mat-error>
+          </mat-form-field>
+    
+         
+        </div>
+    
+    
+    
+        <mat-form-field color="accent">
+          <mat-label>Watched on </mat-label>
+          <input [value]="date" matInput [matDatepicker]="picker1"  [max]="maxDate" formControlName="lastWatched">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    
+    
+        <button mat-button type="submit" mat-button color="primary" [disabled]="movieForm.invalid"
+          aria-label="Snack bar notification">
+    
+          Add
+    
+    
+    
+        </button>
+      </div>
+    </form>
 
-     
-    </div>
+  </mat-grid-tile>
 
-
-
-    <mat-form-field color="accent">
-      <mat-label>Watched on </mat-label>
-      <input [value]="date" matInput [matDatepicker]="picker1"  [max]="maxDate" formControlName="lastWatched">
-      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-      <mat-datepicker #picker1></mat-datepicker>
-    </mat-form-field>
-
-
-    <button mat-button type="submit" mat-button color="primary" [disabled]="movieForm.invalid"
-      aria-label="Snack bar notification">
-
-      Add
-
-
-
-    </button>
+  <div  *ngIf ="movieDetails!=undefined" >
+    <mat-grid-tile>{{movieDetails.movieName}}</mat-grid-tile>
   </div>
-</form>
-
+ 
+</mat-grid-list>
 <!-- 
   <div *ngIf="message !==undefined">
     <h2> {{message}}</h2>
