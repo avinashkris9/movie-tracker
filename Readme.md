@@ -1,10 +1,18 @@
-Personal Movie Tracker
+# Personal Movie/TV Tracker
 
-----------
+Nothing fancy. Just the same old boring goodreads for movies.
 
-This is created mainly to learn spring boot , angular and angular material ui.
+- Angular -Spring Boot app to track movies watched.
+- Integration with TheMovieDB for additional movie information.
+- Personal version for single user.
 
-# Story
 
-I wanted to have a goodread for movies and tv shows. IMDB is too much of spams. Letterboxd started to push ads. And I only want a personal log book of movies/tv shows I watch and write my own small reviews.
+I wanted to learn Angular/Spring boot . So this is just a learning project. Besides, I love to keep track of movies I watch and write personal notes. IMDB/Letterboxd are good for sharing with people. This is intend to be a personal version.
+
+## Technology
+- Angular 8
+- Java 8 with spring boot
+- Angular Material
+- Font Awesome
+
 

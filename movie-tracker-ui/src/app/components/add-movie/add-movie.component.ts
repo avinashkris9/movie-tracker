@@ -82,7 +82,7 @@ export class AddMovieComponent implements OnInit {
 
           console.log(error);
 
-          if (error.error.code == 'MOVIE_EXISTS') {
+          if (error.error.code == 'DUPLICATE') {
             // this.openSnackBar("Movie Exists","Please update")
 
             this.message = "Movie Already Exists. Please update it here"

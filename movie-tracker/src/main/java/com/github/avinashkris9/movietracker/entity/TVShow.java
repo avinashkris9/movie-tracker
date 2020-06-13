@@ -5,91 +5,95 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * Bean class for TVShow entity
+ */
 @Entity
 @Table(name = "TVSHOWS")
 public class TVShow {
 
-    @Id
-    private String id;
+  @Id
+  private String id;
 
-    private String tvShowName;
+  private String tvShowName;
 
-    private String platform;
-    private LocalDate lastWatched;
-    private boolean isCompleted;
-    private String review;
-    private int rating;
-
-
-    public TVShow() {
-    }
+  private String platform;
+  private LocalDate lastWatched;
+  private boolean isCompleted;
+  private String review;
+  private int rating;
 
 
-    public TVShow(String id, String tvShowName, String platform, LocalDate lastWatched,
-        boolean isCompleted,
-        String review, int rating) {
-        this.id = id;
-        this.tvShowName = tvShowName;
-        this.platform = platform;
-        this.lastWatched = lastWatched;
-        this.isCompleted = isCompleted;
-        this.review = review;
-        this.rating = rating;
-    }
+  public TVShow() {
+  }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public TVShow(String id, String tvShowName, String platform, LocalDate lastWatched,
+      boolean isCompleted,
+      String review, int rating) {
+    this.id = id;
+    this.tvShowName = tvShowName;
+    this.platform = platform;
+    this.lastWatched = lastWatched;
+    this.isCompleted = isCompleted;
+    this.review = review;
+    this.rating = rating;
+  }
 
-    public String getTvShowName() {
-        return tvShowName;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setTvShowName(String tvShowName) {
-        this.tvShowName = tvShowName;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getPlatform() {
-        return platform;
-    }
+  public String getTvShowName() {
+    return tvShowName;
+  }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
+  public void setTvShowName(String tvShowName) {
+    this.tvShowName = tvShowName;
+  }
 
-    public LocalDate getLastWatched() {
-        return lastWatched;
-    }
+  public String getPlatform() {
+    return platform;
+  }
 
-    public void setLastWatched(LocalDate lastWatched) {
-        this.lastWatched = lastWatched;
-    }
+  public void setPlatform(String platform) {
+    this.platform = platform;
+  }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
+  public LocalDate getLastWatched() {
+    return lastWatched;
+  }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
-    }
+  public void setLastWatched(LocalDate lastWatched) {
+    this.lastWatched = lastWatched;
+  }
 
-    public String getReview() {
-        return review;
-    }
+  public boolean isCompleted() {
+    return isCompleted;
+  }
 
-    public void setReview(String review) {
-        this.review = review;
-    }
+  public void setCompleted(boolean completed) {
+    isCompleted = completed;
+  }
 
-    public int getRating() {
-        return rating;
-    }
+  public String getReview() {
+    return review;
+  }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
+  public void setReview(String review) {
+    this.review = review;
+  }
+
+  public int getRating() {
+    return rating;
+  }
+
+  public void setRating(int rating) {
+    this.rating = rating;
+  }
 }

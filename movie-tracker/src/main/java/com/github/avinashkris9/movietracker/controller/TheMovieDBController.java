@@ -19,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/themoviedb")
 public class TheMovieDBController {
 
-
   private final RestTemplate restTemplate;
   private final TheMovieDBService theMovieDBService;
 
@@ -31,40 +30,38 @@ public class TheMovieDBController {
   @RequestMapping("/{movieId}")
   public MovieDB getMovieDetails(@PathVariable long movieId) throws URISyntaxException {
 
-//    String url= APIUtils.baseUrl +"/movie/"+movieId+"?api_key="+APIUtils.baseUrl;
-//    System.out.println(url);
+    //    String url= APIUtils.baseUrl +"/movie/"+movieId+"?api_key="+APIUtils.baseUrl;
+    //    System.out.println(url);
 
-    MovieDB movieDB = restTemplate.getForObject(theMovieDBService.movieIdUrl(movieId),
-        MovieDB.class);
+    MovieDB movieDB =
+        restTemplate.getForObject(theMovieDBService.movieIdUrl(movieId), MovieDB.class);
 
     if (Objects.isNull(movieDB)) {
       throw new NotFoundException("MovieDB entry not found");
     }
     return movieDB;
-
   }
 
   @GetMapping("/search")
   public MovieDBDetails searchMovieDB(@RequestParam("name") String movieName) {
 
-    MovieDBDetails movieDBDetails
-        = restTemplate
-        .getForObject(theMovieDBService.generateMovieDBSearchUrl(movieName), MovieDBDetails.class);
+    MovieDBDetails movieDBDetails =
+        restTemplate.getForObject(
+            theMovieDBService.generateMovieDBSearchUrl(movieName), MovieDBDetails.class);
 
     movieDBDetails
         .getMovieDBDetails()
         .forEach(
             f -> {
-              if (f.getPosterPath() !=null) {
+              if (f.getPosterPath() != null) {
                 f.setPosterPath(theMovieDBService.moviePosterPath(f.getPosterPath()));
               }
             });
 
-//    ResponseEntity<String> responseEntity
-//        =restTemplate.getForEntity(uri,String.class);
-//
-//    System.out.println(responseEntity);
+    //    ResponseEntity<String> responseEntity
+    //        =restTemplate.getForEntity(uri,String.class);
+    //
+    //    System.out.println(responseEntity);
     return movieDBDetails;
-
   }
 }
