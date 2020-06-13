@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{data.movieName}} </h1>
+
+<form  [formGroup]="updateMovieForm" (ngSubmit)="onSubmit()" #formdir="ngForm">
+
+<div mat-dialog-content class="mat-typography">
+  <p>When did you watch again ?</p>
+
+    <mat-form-field color="accent">
+        <mat-label>Watched again on  </mat-label>
+        <input [value]="date" matInput [matDatepicker]="picker1" formControlName="lastWatched">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+  
+      <mat-form-field >
+        <mat-label>Do you feel changing current rating?</mat-label>
+        <select matNativeControl required formControlName="rating">
+          <option value="1">1/5</option>
+          <option value="2">2/5</option>
+          <option value="3">3/5</option>
+          <option value="4">4/5</option>
+          <option value="5">5/5</option>
+        </select>
+       
+      </mat-form-field>
+
+    
+
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button  color="primary" type="submit" [mat-dialog-close]="data" cdkFocusInitial>Change </button>
+</div>
+</form>
+
+
+
+

@@ -11,6 +11,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {MatDividerModule} from '@angular/material/divider';
 import { MovieDetailsComponent } from './components/movie-details/movie-details.component';
+import {MatBadgeModule} from '@angular/material/badge';
 import {MatDatepickerModule } from '@angular/material/datepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
@@ -22,17 +23,26 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete'
 import { FormsModule } from '@angular/forms';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatNativeDateModule } from '@angular/material/core';
+import { MessagesComponent } from './messages/messages.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MovieEditComponent } from './components/movie-edit/movie-edit.component';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
     MovieListComponent,
     MovieDetailsComponent,
     AddMovieComponent,
-    MovieSearchComponent
+    MovieSearchComponent,
+    MessagesComponent,
+
+    MovieEditComponent
     
  
   ],
   imports: [
+    
     BrowserModule,
     MatInputModule,
     MatMenuModule,
@@ -46,15 +56,21 @@ import {MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatListModule,
     MatSnackBarModule,
+    MatBadgeModule,
     HttpClientModule,
     MatGridListModule,
     FontAwesomeModule,
     MatDividerModule,
     AppRoutingModule,
     MatDatepickerModule,
-    FormsModule,MatNativeDateModule
+    MatPaginatorModule,
+    FormsModule,MatNativeDateModule,MatDialogModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers:[DatePipe]      ,
+  bootstrap: [AppComponent],
+  // since we are dynamically adding this component
+  entryComponents: [ MessagesComponent,MovieEditComponent ]
 })
+
+
 export class AppModule { }

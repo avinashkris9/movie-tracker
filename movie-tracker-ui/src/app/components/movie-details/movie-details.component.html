@@ -1,25 +1,26 @@
-<div>
+<div id="edit-content">
 
-  <mat-card class="example-card">
-      <mat-card-content>
-
+  <mat-card color="primary">
+    <mat-card-content>
       <div class="panel">
-         
+
         <div class="poster">
 
-          <img src="{{movie.posterPath}}" alt="{{movie.movieName}}" width="185" height="278">
+          <img [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.movieName}}"
+            width="185" height="278">
         </div>
+
         
         <div class="movie-details">
 
           <h1> {{movie.movieName}}</h1>
-          <div class="align-horizontal" >
-            <span *ngFor ="let number of [1,2,3,4,5] | slice:0:movie.rating; let i = index;">
+          <div class="align-horizontal">
+            <span *ngFor="let number of [1,2,3,4,5] | slice:0:movie?.rating; let i = index;">
               <fa-icon [icon]="faStar" style="color:gold"></fa-icon>
-          </span>
-           
-           
-          
+            </span>
+
+
+
           </div>
           <p>
             <strong><bdi>Status</bdi></strong> Released
@@ -35,48 +36,65 @@
           <p>
             <strong><bdi>Rating </bdi></strong> {{movie.rating}}/5
           </p>
-         
-        </div>
-        
-       
-          
-      </div >
-        
 
-     
+        </div>
+
+
+
+      </div>
+
+
+      
     </mat-card-content>
+
+    <mat-card-actions>
+      <div class="align-horizontal">
+
+        <!-- <h2 class="mat-body"> Watched Again ?</h2> -->
+
+
+        <div style="font-size:10px">
+          <!-- <button  mat-button (click)="openUpdateDialog()"   color="primary" aria-label="Add Movie Data">
+            <mat-icon    color="primary" >edit_circle</mat-icon>
+          </button> -->
+          <button mat-button (click)="openUpdateDialog()" color="primary">
+
+            Watched Again
+            <mat-icon>add_circle</mat-icon>
+          </button>
+        </div>
+      </div>
+
+    </mat-card-actions>
     <mat-card-footer class="align-horizontal">
 
+
       <div class="cards">
-      
-      <p> Last Watched on {{ movie.lastWatched}}</p>
-      
 
-    </div>
-    <div >
-      <p class="cards"> Total Watch</p>
-      <fa-layers  [fixedWidth]="true"  style="background:MistyRose">
-        <fa-icon [icon]="faCalendar" >
+        <p> Last Watched on {{ movie.lastWatched}}</p>
+
+
+      </div>
+      <div>
+        <p class="cards"> Total Watch</p>
+        <fa-layers [fixedWidth]="true" style="background:MistyRose">
+          <fa-icon [icon]="faCalendar">
           </fa-icon>
-<fa-layers-text [inverse]="true"   transform="shrink-8 down-3" style="font-weight:900"
+          <fa-layers-text [inverse]="true" transform="shrink-8 down-3" style="font-weight:900"
+            content="{{movie.numberOfWatch}}">
 
-content="{{movie.numberOfWatch}}">
+
+          </fa-layers-text>
+
+        </fa-layers>
+
+      </div>
 
 
-</fa-layers-text>
 
-      </fa-layers>
-      
-    </div>
 
-     
-      
-      
     </mat-card-footer>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
+   
   </mat-card>
 
   <mat-card>
@@ -87,4 +105,12 @@ content="{{movie.numberOfWatch}}">
       <p> {{movie.review}}</p>
     </mat-card-content>
   </mat-card>
+
+
+
 </div>
+
+
+
+
+

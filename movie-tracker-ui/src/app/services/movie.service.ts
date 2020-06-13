@@ -4,6 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { Movie } from '../model/movie';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MovieSearch } from '../model/movie-search';
+import { DatePipe } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,15 +14,18 @@ export class MovieService {
 
   private baseUrl="http://localhost:8081/movies";
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,public datepipe: DatePipe) { }
 
-  getAllMovies():Observable<Movie[]>
+  getAllMovies(page:number,pageSize:number):Observable<GetAllMovies>
   {
    
-    return this.httpClient.get<Movie[]>(this.baseUrl)
+    const paginatedUrl = `${this.baseUrl}?size=${pageSize}&page=${page}`;
+    console.log(" Requesting through "+paginatedUrl)
+    return this.httpClient.get<GetAllMovies>(paginatedUrl)
     .pipe
     (
-      catchError(this.handleError<Movie[]>('getHeroes', []))
+      
+      catchError(this.handleError<GetAllMovies>('getHeroes',))
     )
   }
 
@@ -32,9 +36,26 @@ export class MovieService {
     const url=`${this.baseUrl}/${movieId}`;
     return this.httpClient.get<Movie>(url).pipe
     (
+     
       catchError(this.handleError<Movie>('getMovies'))
     )
     
+  }
+
+
+  updateMovie(movie:Movie ):Observable<any>
+  {
+    JSON.stringify(movie);
+    console.log(` Calling API for update using ${movie}`);
+    console.log(` Calling API for update using ${ JSON.stringify(movie)}`);
+    
+    
+    const url=`${this.baseUrl}/${movie.id}`;
+    return this.httpClient.put(url,movie).pipe
+    (
+      catchError(this.handleError<Movie>('getMovies'))
+    )
+
   }
 
   addMovie(movie:Movie):Observable<Movie>
@@ -91,3 +112,13 @@ private handleError<T>(operation = 'operation', result?: T) {
 }
 
 
+
+interface GetAllMovies 
+
+{
+
+  movieDetails:Movie[];
+  totalElements: number;
+  totalPages: number; 
+
+}
