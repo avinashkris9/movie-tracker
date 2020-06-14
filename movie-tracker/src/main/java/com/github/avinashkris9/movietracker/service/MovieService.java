@@ -93,11 +93,29 @@ public class MovieService {
    */
   public MovieDetailsDTO updateWatchedMovie(MovieDetailsDTO movieDetailsDTO, long movieId) {
 
-//    @TODO Exception need to be thrown if movie id is not found
-    if (Objects.isNull(movieDetailsDTO.getLastWatched())) {
-      logger.info("No date provided. setting today");
-      movieDetailsDTO.setLastWatched(LocalDate.now());
+    //    @TODO Exception need to be thrown if movie id is not found
+
+    Optional<MovieDetails> movieFromDb = movieRepository.findById(movieId);
+    LocalDate today=LocalDate.now();
+    if(movieFromDb.isEmpty())
+    {
+      throw new NotFoundException("MOVIE_NOT_FOUND");
     }
+
+    if (Objects.isNull(movieDetailsDTO.getLastWatched())) {
+      logger.info("No date provided. setting LastWatched data as today");
+      movieDetailsDTO.setLastWatched(today);
+    }
+    else
+    {
+      //if data is older than what's in db. Don't replace it.
+      if(movieDetailsDTO.getLastWatched().isBefore(movieFromDb.get().getLastWatched()))
+      {
+        movieDetailsDTO.setLastWatched(movieFromDb.get().getLastWatched());
+      }
+    }
+
+
     movieDetailsDTO.setNumberOfWatch(movieDetailsDTO.getNumberOfWatch() + 1);
     logger.info("update movie details {}", movieDetailsDTO);
     MovieDetails movieDetails1 = customModelMapper.MovieDTO2MovieEntity(movieDetailsDTO);
