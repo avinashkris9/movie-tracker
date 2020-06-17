@@ -6,7 +6,6 @@ import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { MovieSearch } from 'src/app/model/movie-search';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { MessagesComponent } from 'src/app/messages/messages.component';
 import { DatePipe } from '@angular/common';
@@ -15,58 +14,70 @@ import { DatePipe } from '@angular/common';
   selector: 'app-add-movie',
   templateUrl: './add-movie.component.html',
   styleUrls: ['./add-movie.component.css'],
-  providers:[DatePipe]
+  providers: [DatePipe]
 })
 export class AddMovieComponent implements OnInit {
 
 
-  maxDate: Date =new Date();
+  maxDate: Date = new Date();
   movieDetails: Movie;;
+  movieSearchDetails: MovieSearch;
   message: string;
   date = new Date();
-  // horizontalPosition: MatSnackBarHorizontalPosition = 'start';
-  // verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
   movieForm = new FormGroup({
     movieName: new FormControl('', Validators.required),
-    review: new FormControl(),
-    rating: new FormControl('',Validators.required),
+
+    // movieDetails: new FormGroup({
+
+    //   title: new FormControl(''),
+    //   overView: new FormControl(''),
+    //   id: new FormControl(''),
+
+
+    // }),
+    review: new FormControl(''),
+    rating: new FormControl('', Validators.required),
     lastWatched: new FormControl(new Date())
   });
+
   private searchTerms = new Subject<string>();
   movies$: Observable<MovieSearch[]>;
 
-  myControl = new FormControl();
-  constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog,private datepipe: DatePipe) {
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private datepipe: DatePipe) {
 
-
-
-   }
+  }
 
   ngOnInit() {
-    this.movies$ = this.movieForm.get('movieName').valueChanges.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
+    this.movies$ = //this.movieForm.get('movieName').valueChanges.pipe(
 
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
+      this.searchTerms.pipe(
+        // wait 300ms after each keystroke before considering the term
+        debounceTime(300),
 
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => this.movieService.searchMovie(term)),
-    );
+        // ignore new term if same as previous term
+        distinctUntilChanged(),
+
+        // switch to new search observable each time the term changes
+        switchMap((term: string) => this.movieService.searchMovie(term)),
+      );
+
+
   }
-  displayFn(movie: MovieSearch): string {
-    return movie && movie.title ? movie.title : '';
-  }
+
 
   // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }
 
+  //add movie
   addMovie(movie: Movie) {
 
+    console.log(movie);
 
-    movie.lastWatched= this.datepipe.transform(movie.lastWatched,'dd-MM-yyyy');
+    movie.lastWatched = this.datepipe.transform(movie.lastWatched, 'dd-MM-yyyy');
+
     this.movieService.addMovie(movie).subscribe
       (
         data => {
@@ -90,7 +101,7 @@ export class AddMovieComponent implements OnInit {
           else {
             // this.openSnackBar("Sorry, Error Occurred","Please Try Again")
             this.message = "Sorry Error Occured. Please try after sometime!";
-            
+
           }
           this.displayMessage(this.message);
         }
@@ -98,22 +109,28 @@ export class AddMovieComponent implements OnInit {
       )
 
   }
-  //  openSnackBar(inputString: string, outputString:string) {
-  //     this._snackBar.open(inputString, outputString, {
-  //       duration: 500,
-  //       horizontalPosition: this.horizontalPosition,
-  //       verticalPosition: this.verticalPosition,
-  //     });
-  //   }
+
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.movieForm.value);
+
+
+    console.log(this.movieDetails);
     this.addMovie(this.movieForm.value);
 
 
   }
 
+  movieSelected(movieSearch: any) {
+
+    this.movieSearchDetails = movieSearch.value;
+  
+    this.movieForm.get('movieName').setValue(this.movieSearchDetails.title);
+  
+  
+
+  }
   displayMessage(message: string) {
     this.dialog.open(MessagesComponent, {
 
@@ -123,7 +140,9 @@ export class AddMovieComponent implements OnInit {
       }
     });
   }
-
+  displayFn(movie: MovieSearch): string {
+    if (movie) { return movie.title; }
+  }
 
   get movieName() { return this.movieForm.get('movieName'); }
   get rating() { return this.movieForm.get('rating'); }
