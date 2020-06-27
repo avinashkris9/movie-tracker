@@ -28,6 +28,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MovieEditComponent } from './components/movie-edit/movie-edit.component';
 import { DatePipe } from '@angular/common';
+import { AddTvComponent } from './components/add-tv/add-tv.component';
+import { TvListComponent } from './components/tv-list/tv-list.component';
+import { TvDetailsComponent } from './components/tv-details/tv-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +40,13 @@ import { DatePipe } from '@angular/common';
     MovieSearchComponent,
     MessagesComponent,
 
-    MovieEditComponent
+    MovieEditComponent,
+
+    AddTvComponent,
+
+    TvListComponent,
+
+    TvDetailsComponent
     
  
   ],

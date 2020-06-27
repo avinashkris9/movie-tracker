@@ -53,7 +53,7 @@ export class MovieEditComponent implements OnInit {
     let formattedDt = this.updateMovieForm.get('lastWatched').value;
     
     this.data.lastWatched=this.datepipe.transform(formattedDt, 'dd-MM-yyyy');;
-    console.log(` movie ${this.data.movieName} last watched on ${this.data.lastWatched}`)
+    console.log(` movie ${this.data.name} last watched on ${this.data.lastWatched}`)
     this.data.rating =this.updateMovieForm.get('rating').value;
     this.movieService.updateMovie(this.data)
     .subscribe

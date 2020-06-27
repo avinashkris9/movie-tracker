@@ -40,7 +40,7 @@ public class MovieController {
   @GetMapping
   public PageMovieDetailsDTO getAllMovieDetails(@RequestParam(value = "page", defaultValue ="0") int page,@RequestParam(value = "size",defaultValue = "5") int size ) {
 
-    Pageable pageRequest = PageRequest.of(page, size, Sort.by("lastWatched").descending());
+    Pageable pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
 
     return movieService.getAllMoviesWatched(pageRequest);
   }

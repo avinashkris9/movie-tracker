@@ -1,0 +1,161 @@
+
+<div id="search-bar" >
+
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span>Watched new TV Show ? How was the experience ?</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <div id="search-box">
+      <mat-icon>search</mat-icon>
+      <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="Search" (input)="search(searchBox.value)" >
+    </div>
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+  
+  <mat-autocomplete [panelWidth]=327 #auto="matAutocomplete"  
+  (optionSelected)='tvSelected($event.option)' [displayWith]="displayFn"
+  >
+
+
+    <mat-option *ngFor="let option of tv$ | async"  [value]="option">
+      <img class="example-option-img" aria-hidden  [src]=" option.poster_path? option.poster_path : 'assets/logo.png'" height="25" alt="asa" >
+      
+     
+      <span>{{option.name}}</span>
+     
+    </mat-option>
+  </mat-autocomplete>
+
+  
+</div>
+
+
+<div id="preview-movie-db" *ngIf ="tvSearchDetails !=undefined">
+
+  
+  <div class="search-panel">
+
+    <div class="poster">
+
+      <img [attr.src]=" tvSearchDetails.poster_path? tvSearchDetails.poster_path : 'assets/logo.png'" alt="{{tvSearchDetails.title}}"
+        width="185" height="278">
+    </div>
+
+    
+    <div class="movie-details">
+
+      <h1> {{tvSearchDetails.name}}</h1>
+   
+      <p>
+        <strong><bdi>Status</bdi></strong> Released
+      </p>
+     
+      <p>
+        {{tvSearchDetails.overview}}
+      </p>
+
+      <p>
+        <strong><bdi>Original Language</bdi></strong> {{tvSearchDetails.original_language}}
+
+      </p>
+
+    </div>
+
+
+
+  </div>
+  
+</div>
+
+
+
+<div *ngIf ="tvSearchDetails !=undefined">
+
+  
+      <form class="input-form" [formGroup]="tvForm" (ngSubmit)="onSubmit()" #formdir="ngForm">
+  
+        <div>
+          
+          <div class="form-group" *ngIf="tvSearchDetails !=undefined">
+            <mat-label for="movieName">Name</mat-label>
+            <mat-form-field class="example-full-width">
+              <input type="text" [style.width.px]=327 placeholder=" Use Search box above" aria-label="name" required matInput
+                id="movieName" formControlName="name" >
+              
+      
+              <mat-error> <div *ngIf="movieName.invalid && (movieName.dirty || movieName.touched)" class="alert alert-danger">
+      
+                <div *ngIf="movieName.errors.required">
+                  Name is required.
+                </div>
+        
+              </div>
+            </mat-error>
+            </mat-form-field>
+           
+             
+          </div>
+         <div>
+      
+      
+         </div>
+          <mat-form-field class="example-full-width">
+            <mat-label>Review</mat-label>
+            <textarea class="example-text-box" matInput placeholder="Ex. It makes me feel..."
+              formControlName="review"></textarea>
+          </mat-form-field>
+      
+          <div class="form-group">
+      
+      
+      
+            <mat-form-field >
+              <mat-label>Rating</mat-label>
+              <select matNativeControl required formControlName="rating">
+                <option value="1">1/5</option>
+                <option value="2">2/5</option>
+                <option value="3">3/5</option>
+                <option value="4">4/5</option>
+                <option value="5">5/5</option>
+              </select>
+              <mat-error>
+      
+                <div *ngIf="rating.invalid && (rating.dirty || rating.touched)" class="alert alert-danger">
+      
+                  <div *ngIf="rating.errors.required">
+                    Do you mind adding rating ?
+                  </div>
+          
+                </div>
+              </mat-error>
+            </mat-form-field>
+      
+           
+          </div>
+      
+      
+      
+          <mat-form-field color="accent">
+            <mat-label>Watched on </mat-label>
+            <input [value]="date" matInput [matDatepicker]="picker1"  [max]="maxDate" formControlName="lastWatched">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+      
+      
+          <button mat-button type="submit" mat-button color="primary" [disabled]="tvForm.invalid"
+           >
+      
+            Add
+      
+      
+      
+          </button>
+        </div>
+      </form>
+  
+   
+</div>

@@ -6,14 +6,14 @@
 
         <div class="poster">
 
-          <img [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.movieName}}"
+          <img [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}"
             width="185" height="278">
         </div>
 
         
         <div class="movie-details">
 
-          <h1> {{movie.movieName}}</h1>
+          <h1> {{movie.name}}</h1>
           <div class="align-horizontal">
             <span *ngFor="let number of [1,2,3,4,5] | slice:0:movie?.rating; let i = index;">
               <fa-icon [icon]="faStar" style="color:gold"></fa-icon>

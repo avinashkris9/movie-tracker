@@ -1,0 +1,20 @@
+.example-card {
+   
+    display: inline-block;
+    width: 25%;
+    margin: 10px;
+    height: auto;
+    padding: 20px;
+    vertical-align: top;
+    cursor: pointer;
+  }
+  
+  .example-header-image {
+    
+    background-size: cover;
+  }
+
+  /* mat-card {
+    width: calc(100% - 70px);
+    height: calc(100% - 70px);
+  } */

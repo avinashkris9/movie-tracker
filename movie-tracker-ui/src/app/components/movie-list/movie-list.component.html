@@ -17,12 +17,12 @@
       </div> -->
       <div  class="example-header-image" mat-card-avatar >
 
-        <img   mat-card-avatar [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.movieName}}" width ="185" height="278">
+        <img   mat-card-avatar [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}" width ="185" height="278">
  
       </div>
       <mat-card-title>
         <a routerLink="/movies/details/{{movie.id}}">
-        {{movie.movieName}}
+        {{movie.name}}
          </a>
         </mat-card-title>
       <mat-card-subtitle>{{movie.rating}}/5 
@@ -37,7 +37,7 @@
       </mat-card-subtitle>
     </mat-card-header>
     
-    <img  [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.movieName}}" width ="185" height="278">
+    <img  [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}" width ="185" height="278">
  
     <mat-card-content>
       <p class="mat-small">

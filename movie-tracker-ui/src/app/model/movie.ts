@@ -1,9 +1,9 @@
 export class Movie {
 
     id: number;
-    movieName : string;
+    name : string;
     rating: string;
-    externalid: number;
+    externalId: number;
     numberOfWatch:number;
     review:string;
     overView:string;
