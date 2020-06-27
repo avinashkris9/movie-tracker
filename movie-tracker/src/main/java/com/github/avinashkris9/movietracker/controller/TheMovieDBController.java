@@ -4,8 +4,10 @@ import com.github.avinashkris9.movietracker.exception.NotFoundException;
 import com.github.avinashkris9.movietracker.model.MovieDB;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
 import com.github.avinashkris9.movietracker.service.TheMovieDBService;
+import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import java.net.URISyntaxException;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Rest End Points for direct moviedb actions.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/themoviedb")
+@Slf4j
 public class TheMovieDBController {
 
   private final RestTemplate restTemplate;
@@ -27,14 +33,12 @@ public class TheMovieDBController {
     this.theMovieDBService = theMovieDBService;
   }
 
-  @RequestMapping("/{movieId}")
+  @GetMapping("/movies/{movieId}")
   public MovieDB getMovieDetails(@PathVariable long movieId) throws URISyntaxException {
 
-    //    String url= APIUtils.baseUrl +"/movie/"+movieId+"?api_key="+APIUtils.baseUrl;
-    //    System.out.println(url);
-
     MovieDB movieDB =
-        restTemplate.getForObject(theMovieDBService.movieIdUrl(movieId), MovieDB.class);
+        restTemplate.getForObject(
+            theMovieDBService.movieIdUrl(movieId, SHOW_TYPES.MOVIE.name()), MovieDB.class);
 
     if (Objects.isNull(movieDB)) {
       throw new NotFoundException("MovieDB entry not found");
@@ -43,11 +47,13 @@ public class TheMovieDBController {
   }
 
   @GetMapping("/search")
-  public MovieDBDetails searchMovieDB(@RequestParam("name") String movieName) {
+  public MovieDBDetails searchMovieDB(@RequestParam("name") String movieName,
+      @RequestParam("showType") String showType) {
+
+    log.info("Search Request for {} show {}", showType, movieName);
 
     MovieDBDetails movieDBDetails =
-        restTemplate.getForObject(
-            theMovieDBService.generateMovieDBSearchUrl(movieName), MovieDBDetails.class);
+        theMovieDBService.getMovieDetailsBySearch(movieName, showType);
 
     movieDBDetails
         .getMovieDBDetails()
@@ -58,10 +64,6 @@ public class TheMovieDBController {
               }
             });
 
-    //    ResponseEntity<String> responseEntity
-    //        =restTemplate.getForEntity(uri,String.class);
-    //
-    //    System.out.println(responseEntity);
     return movieDBDetails;
   }
 }

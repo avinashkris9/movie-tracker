@@ -1,0 +1,32 @@
+.panel
+{
+
+     display: flex;
+   /* float:left;
+    padding: 20px;
+   ; */
+
+
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+.align-horizontal
+{
+    
+        display: flex;
+        
+   
+}
+
+.cards
+{
+    padding: 20px;
+    display: inline-block;
+}
+.movie-details
+{
+    padding: 20px;
+}

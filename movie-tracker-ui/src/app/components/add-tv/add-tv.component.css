@@ -1,18 +1,10 @@
-.example-form {
+.input-form {
     min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    padding-left: 100px;
+  }
   
-    width: 70%;
-    padding-left: 20px;
-  }
-  .flex-container {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .form-group
-  {
-    width: 50%;
-  }
   .example-option-img {
     vertical-align: middle;
     margin-right: 8px;
@@ -22,19 +14,14 @@
     margin-right: 0;
     margin-left: 8px;
   }
-  .full-width {
+  .example-full-width {
     width: 100%;
   }
  
-  .textarea
+  .example-text-box
   {
-    padding: 7px 10px;
-    line-height: 1.4;
-    
-    
-    display: block;
-    
-    margin: 0;
+
+    width: 400px;
   }
 
 .poster
@@ -75,11 +62,7 @@
           
      
   }
-  .preview-movie-db
-  {
 
-    
-  }
   .cards
   {
       padding: 20px;
@@ -90,6 +73,28 @@
       padding: 20px;
 
   }
-  
 
- 
+  #search-box{
+
+    display: flex;
+   
+    align-items: center;
+    width: 100%;
+    min-width: 150px;
+    height: 100%;
+    margin-right: 16px;
+  }
+
+ #search-box > input{
+
+
+
+    border: none;
+    border-radius: 100px;
+   
+    padding: 5px 16px;
+    margin-left: 8px;
+    width: 100%;
+    
+    height: 50%;
+    -webkit-appearance: none;}

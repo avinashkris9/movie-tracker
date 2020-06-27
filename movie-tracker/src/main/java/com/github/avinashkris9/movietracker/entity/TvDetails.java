@@ -11,26 +11,28 @@ import javax.persistence.UniqueConstraint;
 import lombok.Data;
 
 /**
- * Entity Bean Class for Movie Details
+ * Bean class for TVShow entity
  */
 @Entity
 @Table(
-    name = "movieDetails",
-    uniqueConstraints = {@UniqueConstraint(columnNames = "movieName")})
+    name = "tvshows",
+    uniqueConstraints = {@UniqueConstraint(columnNames = "tvShowName")})
 @Data
-public class MovieDetails {
+public class TvDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  private String movieName;
-  private int rating;
-  @Lob private String review;
-  private long externalId;
+  private String tvShowName;
 
+  private String platform;
   private LocalDate lastWatched;
-  private int numberOfWatch;
+  private boolean isCompleted;
+  @Lob
+  private String review;
+  private long externalId;
+  private int rating;
 
 
 }

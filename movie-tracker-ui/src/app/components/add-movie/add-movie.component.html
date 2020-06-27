@@ -72,20 +72,20 @@
 
 
 
-
-<mat-grid-list cols="2" rowHeight="2:1">
+<div  *ngIf ="movieSearchDetails !=undefined">
+<!-- <mat-grid-list cols="2" rowHeight="2:1">
 
   
-  <mat-grid-tile>
+  <mat-grid-tile> -->
     <form class="example-form" [formGroup]="movieForm" (ngSubmit)="onSubmit()" #formdir="ngForm">
 
       <div>
         
-        <div class="form-group">
+        <div class="form-group" *ngIf="movieSearchDetails !=undefined">
           <mat-label for="movieName">Name</mat-label>
-          <mat-form-field class="example-full-width">
-            <input type="text" [style.width.px]=327 placeholder=" Type movie name" aria-label="name" required matInput
-              id="movieName" formControlName="movieName">
+          <mat-form-field class="full-width">
+            <input type="text" [style.width.px]=327 placeholder=" Use Search box above" aria-label="name" required matInput
+              id="movieName" formControlName="name" >
             
     
             <mat-error> <div *ngIf="movieName.invalid && (movieName.dirty || movieName.touched)" class="alert alert-danger">
@@ -104,9 +104,9 @@
     
     
        </div>
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="form-group">
           <mat-label>Review</mat-label>
-          <textarea class="example-text-box" matInput placeholder="Ex. It makes me feel..."
+          <textarea class="textarea" matInput placeholder="Ex. It makes me feel..."
             formControlName="review"></textarea>
         </mat-form-field>
     
@@ -159,18 +159,15 @@
       </div>
     </form>
 
-  </mat-grid-tile>
+  <!-- </mat-grid-tile> -->
 
-  <div  *ngIf ="movieDetails!=undefined" >
-    <mat-grid-tile>{{movieDetails.movieName}}</mat-grid-tile>
-  </div>
- 
-</mat-grid-list>
-<!-- 
-  <div *ngIf="message !==undefined">
-    <h2> {{message}}</h2>
-
+  <!-- <div  *ngIf ="movieDetails!=undefined" >
+    <mat-grid-tile>{{movieDetails.name}}</mat-grid-tile>
   </div> -->
+ 
+<!-- </mat-grid-list> -->
+</div>
+
 
 
  

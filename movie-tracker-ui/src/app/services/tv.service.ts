@@ -1,43 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
 import { Movie } from '../model/movie';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, tap, map } from 'rxjs/operators';
 import { MovieSearch } from '../model/movie-search';
-import { DatePipe } from '@angular/common';
+
 @Injectable({
   providedIn: 'root'
 })
-export class MovieService {
-  
+export class TvService {
+
+  private baseUrl="http://localhost:8081/tv";
+
+  constructor(private httpClient:HttpClient) { }
 
 
-  private baseUrl="http://localhost:8081/movies";
+  /**
+   * Get All TV Shows
+   */
 
-  constructor(private httpClient:HttpClient,public datepipe: DatePipe) { }
-
-  getAllMovies(page:number,pageSize:number):Observable<GetAllMovies>
+  getAllTvShows(page:number,pageSize:number):Observable<TvShows>
   {
    
     const paginatedUrl = `${this.baseUrl}?size=${pageSize}&page=${page}`;
     console.log(" Requesting through "+paginatedUrl)
-    return this.httpClient.get<GetAllMovies>(paginatedUrl)
-    .pipe
-    (
-      
-      catchError(this.handleError<GetAllMovies>('getHeroes',))
+    return this.httpClient.get<TvShows>(paginatedUrl)
+    .pipe(   
+      catchError(this.handleError<TvShows>('getHeroes',))
     )
   }
 
+/**
+ * 
+ * @param tvId 
+ */
+  getByTvId(tvId: number):Observable<Movie> {
 
-
-  getByMovieId(movieId: number):Observable<Movie> {
-
-    const url=`${this.baseUrl}/${movieId}`;
+    const url=`${this.baseUrl}/${tvId}`;
     return this.httpClient.get<Movie>(url).pipe
     (
      
-      catchError(this.handleError<Movie>('getMovies'))
+      catchError(this.handleError<Movie>('getTvShows'))
     )
     
   }
@@ -53,10 +56,11 @@ export class MovieService {
     const url=`${this.baseUrl}/${movie.id}`;
     return this.httpClient.put(url,movie).pipe
     (
-      catchError(this.handleError<Movie>('getMovies'))
+      catchError(this.handleError<Movie>('getTV'))
     )
 
   }
+
 
   addMovie(movie:Movie):Observable<Movie>
   {
@@ -68,15 +72,14 @@ export class MovieService {
     )
   }
 
-
-  searchMovie(term:string ): Observable<MovieSearch[]>
+  searchTv(term:string ): Observable<MovieSearch[]>
   {
     if (!term.trim()) {
       // if not search term, return empty hero array.
       return of([]);
     }
 
-    const theMovieDbUrl = `http://localhost:8081/themoviedb/search?showType=movie&name=${term}`;
+    const theMovieDbUrl = `http://localhost:8081/themoviedb/search?showType=tv&name=${term}`;
     console.log(theMovieDbUrl);
     return this.httpClient.get<any>(theMovieDbUrl).pipe(
       map(response => response.results),
@@ -86,7 +89,8 @@ export class MovieService {
     );
 
   }
-  /**
+  
+ /**
  * Handle Http operation that failed.
  * Let the app continue.
  * @param operation - name of the operation that failed
@@ -107,13 +111,10 @@ private handleError<T>(operation = 'operation', result?: T) {
     return throwError(error);
   };
 }
-
-
 }
 
 
-
-interface GetAllMovies 
+interface TvShows
 
 {
 

@@ -1,11 +1,10 @@
 package com.github.avinashkris9.movietracker.controller;
 
-import com.github.avinashkris9.movietracker.entity.MovieDetails;
 import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
 import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
 import com.github.avinashkris9.movietracker.service.MovieService;
 import java.util.List;
-import org.springframework.data.domain.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping("/movies")
+@Slf4j
 public class MovieController {
 
   private final MovieService movieService;
@@ -40,7 +40,7 @@ public class MovieController {
   @GetMapping
   public PageMovieDetailsDTO getAllMovieDetails(@RequestParam(value = "page", defaultValue ="0") int page,@RequestParam(value = "size",defaultValue = "5") int size ) {
 
-    Pageable pageRequest = PageRequest.of(page, size, Sort.by("lastWatched").descending());
+    Pageable pageRequest = PageRequest.of(page, size, Sort.by("id").descending());
 
     return movieService.getAllMoviesWatched(pageRequest);
   }
@@ -79,6 +79,8 @@ public class MovieController {
   @PostMapping
   public MovieDetailsDTO insertNewMovieDetails(@RequestBody MovieDetailsDTO movieDetails) {
 
+    log.info("------ New Movie Received-----");
+    log.info(movieDetails.toString());
     return movieService.insertNewWatchedMovie(movieDetails);
   }
 

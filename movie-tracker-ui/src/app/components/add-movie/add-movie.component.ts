@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
   templateUrl: './add-movie.component.html',
   styleUrls: ['./add-movie.component.css'],
   providers: [DatePipe]
+  
 })
 export class AddMovieComponent implements OnInit {
 
@@ -26,16 +27,8 @@ export class AddMovieComponent implements OnInit {
   date = new Date();
 
   movieForm = new FormGroup({
-    movieName: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
 
-    // movieDetails: new FormGroup({
-
-    //   title: new FormControl(''),
-    //   overView: new FormControl(''),
-    //   id: new FormControl(''),
-
-
-    // }),
     review: new FormControl(''),
     rating: new FormControl('', Validators.required),
     lastWatched: new FormControl(new Date())
@@ -74,14 +67,15 @@ export class AddMovieComponent implements OnInit {
   //add movie
   addMovie(movie: Movie) {
 
-    console.log(movie);
-
+  
     movie.lastWatched = this.datepipe.transform(movie.lastWatched, 'dd-MM-yyyy');
-
+    movie.externalId=this.movieSearchDetails.id;
+    
+    console.log(' Sending to backend'+JSON.stringify(movie));
     this.movieService.addMovie(movie).subscribe
       (
         data => {
-          console.log(data);
+         
           this.message = " Movie Successfully Added"
           this.router.navigate(['/movies/details', data.id]);
 
@@ -116,7 +110,6 @@ export class AddMovieComponent implements OnInit {
     console.warn(this.movieForm.value);
 
 
-    console.log(this.movieDetails);
     this.addMovie(this.movieForm.value);
 
 
@@ -126,8 +119,8 @@ export class AddMovieComponent implements OnInit {
 
     this.movieSearchDetails = movieSearch.value;
   
-    this.movieForm.get('movieName').setValue(this.movieSearchDetails.title);
-  
+    this.movieForm.get('name').setValue(this.movieSearchDetails.title);
+
   
 
   }
@@ -144,7 +137,7 @@ export class AddMovieComponent implements OnInit {
     if (movie) { return movie.title; }
   }
 
-  get movieName() { return this.movieForm.get('movieName'); }
+  get movieName() { return this.movieForm.get('name'); }
   get rating() { return this.movieForm.get('rating'); }
 
 

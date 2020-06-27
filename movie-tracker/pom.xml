@@ -60,6 +60,12 @@
       <groupId>org.springframework.boot</groupId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <scope>provided</scope>
+      <version>1.18.12</version>
+    </dependency>
   </dependencies>
   <description>Application to track all movies/tv shows I watched</description>
   <groupId>com.github.avinashkris9</groupId>
