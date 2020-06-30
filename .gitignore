@@ -94,7 +94,7 @@ buildNumber.properties
 
 #frontendplugin
 **/src/main/web
-**/movie-tracker-backend/src/main/resources/static
+
 
 
 
