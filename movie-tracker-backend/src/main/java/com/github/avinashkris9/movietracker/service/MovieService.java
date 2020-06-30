@@ -95,7 +95,7 @@ public class MovieService {
 
     Optional<MovieDetails> movieFromDb = movieRepository.findById(movieId);
     LocalDate today=LocalDate.now();
-    if(movieFromDb.isEmpty())
+    if(!movieFromDb.isPresent())
     {
       throw new NotFoundException("MOVIE_NOT_FOUND");
     }

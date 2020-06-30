@@ -15,7 +15,7 @@ export class TvDetailsComponent implements OnInit {
 
  
   private movieId: number;
-  private movie:Movie=new Movie();
+   movie:Movie=new Movie();
   faCalendar = faCalendar;
   faStar=faStar;
   constructor( private route:ActivatedRoute , private movieService:TvService,

@@ -12,7 +12,7 @@ import { TvService } from 'src/app/services/tv.service';
 })
 export class TvListComponent implements OnInit {
 
-  private movies:Movie[]=null;;
+   movies:Movie[]=null;;
   length: number =1000;
    pageSize:number =5;
    page: number =0;
@@ -26,8 +26,8 @@ export class TvListComponent implements OnInit {
 
   }
 
-
-  updatePageSize(event: PageEvent) {
+//@TODO --> ng build prod was throwing error if event variable is type PageEvent
+  updatePageSize(event?: any) {
     
     
     

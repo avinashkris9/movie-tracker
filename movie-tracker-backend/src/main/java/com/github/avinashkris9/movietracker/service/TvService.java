@@ -164,7 +164,7 @@ public class TvService {
 
     Optional<TvDetails> tvShowFromDb = tvRepository.findById(tvId);
     LocalDate today = LocalDate.now();
-    if (tvShowFromDb.isEmpty()) {
+    if (!tvShowFromDb.isPresent()) {
       //@TODO --> Use ENUM
       throw new NotFoundException("TV_NOT_FOUND");
     }

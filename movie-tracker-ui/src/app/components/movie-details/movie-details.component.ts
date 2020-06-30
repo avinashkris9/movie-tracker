@@ -13,7 +13,7 @@ import { MovieEditComponent } from '../movie-edit/movie-edit.component';
 export class MovieDetailsComponent implements OnInit {
 
   private movieId: number;
-  private movie:Movie=new Movie();
+   movie:Movie=new Movie();
   faCalendar = faCalendar;
   faStar=faStar;
   constructor( private route:ActivatedRoute , private movieService:MovieService,

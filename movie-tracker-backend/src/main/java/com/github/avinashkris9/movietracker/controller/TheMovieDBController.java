@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/themoviedb")
+@RequestMapping("/api/themoviedb")
 @Slf4j
 public class TheMovieDBController {
 

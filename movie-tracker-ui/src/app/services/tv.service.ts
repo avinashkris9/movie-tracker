@@ -4,13 +4,17 @@ import { Movie } from '../model/movie';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { MovieSearch } from '../model/movie-search';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TvService {
 
-  private baseUrl="http://localhost:8081/tv";
+ 
+  private baseUrl=`${environment.apiUrl}/api/tv`;
+  private baseSearchUrl=`${environment.apiUrl}/api/themoviedb`;
+
 
   constructor(private httpClient:HttpClient) { }
 
@@ -79,7 +83,7 @@ export class TvService {
       return of([]);
     }
 
-    const theMovieDbUrl = `http://localhost:8081/themoviedb/search?showType=tv&name=${term}`;
+    const theMovieDbUrl = `${this.baseSearchUrl}/search?showType=tv&name=${term}`;
     console.log(theMovieDbUrl);
     return this.httpClient.get<any>(theMovieDbUrl).pipe(
       map(response => response.results),

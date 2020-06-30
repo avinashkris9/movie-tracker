@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Rest endpoint for TV Series
  */
 @RestController
-@RequestMapping("/tv")
+@RequestMapping("/api/tv")
 @CrossOrigin
 public class TvController {
 

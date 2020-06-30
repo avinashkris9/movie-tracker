@@ -5,6 +5,7 @@ import { Movie } from '../model/movie';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MovieSearch } from '../model/movie-search';
 import { DatePipe } from '@angular/common';
+import {environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,8 +13,8 @@ export class MovieService {
   
 
 
-  private baseUrl="http://localhost:8081/movies";
-
+  private baseUrl=`${environment.apiUrl}/api/movies`;
+  private baseSearchUrl=`${environment.apiUrl}/api/themoviedb`;
   constructor(private httpClient:HttpClient,public datepipe: DatePipe) { }
 
   getAllMovies(page:number,pageSize:number):Observable<GetAllMovies>
@@ -76,7 +77,7 @@ export class MovieService {
       return of([]);
     }
 
-    const theMovieDbUrl = `http://localhost:8081/themoviedb/search?showType=movie&name=${term}`;
+    const theMovieDbUrl = `${this.baseSearchUrl}/search?showType=movie&name=${term}`;
     console.log(theMovieDbUrl);
     return this.httpClient.get<any>(theMovieDbUrl).pipe(
       map(response => response.results),
