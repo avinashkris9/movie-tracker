@@ -7,6 +7,7 @@ import { MovieSearchComponent } from './components/movie-search/movie-search.com
 import { AddTvComponent } from './components/add-tv/add-tv.component';
 import { TvListComponent } from './components/tv-list/tv-list.component';
 import { TvDetailsComponent } from './components/tv-details/tv-details.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path:'tv/new', component: AddTvComponent},
   {path: 'tv/details/:id',component: TvDetailsComponent},
   {path:'tv', component: TvListComponent},
-  {path: '', redirectTo: '/movies', pathMatch: 'full' }
+  {path :'admin', component: AdminPanelComponent},
+  {path: '', redirectTo: '/admin', pathMatch: 'full' }
 ];
 
 @NgModule({

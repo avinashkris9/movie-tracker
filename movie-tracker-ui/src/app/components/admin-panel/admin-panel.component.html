@@ -1,0 +1,52 @@
+<h2> Coming Soon!</h2>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="gapx" *ngIf="statistics !=undefined">
+
+    <mat-card fxFlex=25>
+        <div class="text">
+            <h4>Movie Count</h4>
+            <span class="total">   {{statistics.movieCount}}</span>
+            <span> <mat-icon color="primary">
+trending_up
+
+            </mat-icon> </span>
+            <span class="description">  Total Movies</span>
+        </div>
+      
+    </mat-card>
+    <mat-card fxFlex=25>
+        <div class="text">
+            <h4>TV Count</h4>
+            <span class="total">   {{statistics.tvCount}}</span>
+            <span> <mat-icon color="primary">
+trending_up
+
+            </mat-icon> </span>
+            <span class="description">  Total Tv Shows</span>
+        </div>
+    </mat-card>
+    <mat-card fxFlex=25>
+        <div class="text">
+            <h4>High Rated Movies </h4>
+            <span class="total">   {{statistics.movieWithMaxRating}}</span>
+            <span> <mat-icon color="primary">
+trending_up
+
+            </mat-icon> </span>
+            <span class="description">  Rating 5</span>
+        </div>
+    </mat-card>
+    <mat-card fxFlex=25>
+
+        <div class="text">
+            <h4>High Rated Tv </h4>
+            <span class="total">   {{statistics.tvWithMaxRating}}</span>
+            <span> <mat-icon color="primary">
+trending_up
+
+            </mat-icon> </span>
+            <span class="description">  Rating 5</span>
+        </div>
+    </mat-card>
+</div>
+<br>
+<mat-divider></mat-divider>

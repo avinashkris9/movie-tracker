@@ -16,4 +16,6 @@ public interface MovieRepository extends JpaRepository<MovieDetails, Long> {
   Page<MovieDetails> findAll(Pageable pageable);
 
   List<MovieDetails> findByMovieNameContainsIgnoreCase(String movieName);
+
+  long countByRating(int rating);
 }

@@ -9,9 +9,15 @@
       <span>Watched new movie ? How was the experience ?</span>
     </mat-toolbar-row>
 
-    <mat-toolbar-row>
+    <!-- <mat-toolbar-row>
       <mat-icon>search</mat-icon>
       <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="Search" (input)="search(searchBox.value)" >
+    </mat-toolbar-row> -->
+    <mat-toolbar-row>
+      <div id="search-box">
+      <mat-icon>search</mat-icon>
+      <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="Search" (input)="search(searchBox.value)" >
+    </div>
     </mat-toolbar-row>
   </mat-toolbar>
   

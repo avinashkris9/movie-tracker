@@ -1,0 +1,11 @@
+footer
+{
+    padding: 20px;;
+}
+
+footer{
+    display: table;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}

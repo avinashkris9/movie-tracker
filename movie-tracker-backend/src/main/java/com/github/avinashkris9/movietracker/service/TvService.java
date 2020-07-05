@@ -1,5 +1,6 @@
 package com.github.avinashkris9.movietracker.service;
 
+import com.github.avinashkris9.movietracker.entity.MovieDetails;
 import com.github.avinashkris9.movietracker.entity.TvDetails;
 import com.github.avinashkris9.movietracker.exception.EntityExistsException;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
@@ -184,6 +185,28 @@ public class TvService {
     tvDetails.setId(tvId);
     tvRepository.save(tvDetailsDao);
     return tvDetails;
+  }
+  /**
+   * Delete TV information from database using primary key
+   *
+   * @param tvId primary key
+   * @throws  NotFoundException if no movie matching tvId present in db.
+   */
+  public void deleteWatchedTv(long tvId) {
+    Optional<TvDetails> tvDetails = tvRepository.findById(tvId);
+    tvDetails.orElseThrow(() -> new NotFoundException("Not found"));
+    tvRepository.deleteById(tvId);
+
+  }
+
+  public long getTvCount()
+  {
+    return tvRepository.count();
+  }
+
+  public long getTopRatedTvCount()
+  {
+    return tvRepository.countByRating(5);
   }
 
 }

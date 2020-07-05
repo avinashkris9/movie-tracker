@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MovieService } from 'src/app/services/movie.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Movie } from 'src/app/model/movie';
 import { faCalendar,faStar } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -17,7 +17,7 @@ export class MovieDetailsComponent implements OnInit {
   faCalendar = faCalendar;
   faStar=faStar;
   constructor( private route:ActivatedRoute , private movieService:MovieService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,private router: Router) { }
 
 
   ngOnInit() {
@@ -56,6 +56,19 @@ export class MovieDetailsComponent implements OnInit {
       console.log(this.movie);
     });
   }
+
+  deleteMovie(movie:Movie)
+  {
+    console.log('Request to delete movie' +movie.id);
+    this.movieService.deleteByMovieId(movie.id).subscribe();
+
+      this.router.navigate(['/movies']);
+
+
+    
+
+  } 
+  
 
 
   

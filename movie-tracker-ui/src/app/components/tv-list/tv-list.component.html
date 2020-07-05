@@ -1,7 +1,7 @@
 <div> <mat-paginator  [length]="length"
   [pageSize]="pageSize"
   [pageSizeOptions]="[5, 10, 25, 100]" 
-  (page)="pageEvent = $event"
+  (page)="updatePageSize($event)"
   
   >
   </mat-paginator>

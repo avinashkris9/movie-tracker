@@ -21,6 +21,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MovieSearchComponent } from './components/movie-search/movie-search.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete'
 import { FormsModule } from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatNativeDateModule } from '@angular/material/core';
 import { MessagesComponent } from './messages/messages.component';
@@ -31,6 +32,11 @@ import { DatePipe } from '@angular/common';
 import { AddTvComponent } from './components/add-tv/add-tv.component';
 import { TvListComponent } from './components/tv-list/tv-list.component';
 import { TvDetailsComponent } from './components/tv-details/tv-details.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { SharedModule } from './shared.module';
+import { DefaultLayoutComponent } from './components/layouts/default-layout/default-layout.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,19 +45,21 @@ import { TvDetailsComponent } from './components/tv-details/tv-details.component
     AddMovieComponent,
     MovieSearchComponent,
     MessagesComponent,
-
+    AdminPanelComponent,
     MovieEditComponent,
 
     AddTvComponent,
 
     TvListComponent,
 
-    TvDetailsComponent
+    TvDetailsComponent,
+    DefaultLayoutComponent
+
     
- 
+
   ],
   imports: [
-    
+    SharedModule,
     BrowserModule,
     MatInputModule,
     MatMenuModule,
@@ -73,7 +81,7 @@ import { TvDetailsComponent } from './components/tv-details/tv-details.component
     AppRoutingModule,
     MatDatepickerModule,
     MatPaginatorModule,
-    FormsModule,MatNativeDateModule,MatDialogModule
+    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule
   ],
   providers:[DatePipe]      ,
   bootstrap: [AppComponent],

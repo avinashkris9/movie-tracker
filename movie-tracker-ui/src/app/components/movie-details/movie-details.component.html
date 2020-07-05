@@ -38,7 +38,11 @@
           </p>
 
         </div>
-
+        <div class="delete-movie">
+        <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn">
+          <mat-icon aria-label="Delete" (click)="deleteMovie(movie)">delete</mat-icon>
+        </button>
+      </div>
 
 
       </div>
@@ -106,7 +110,7 @@
     </mat-card-content>
   </mat-card>
 
-
+ 
 
 </div>
 

@@ -16,4 +16,6 @@ public interface TvRepository extends JpaRepository<TvDetails, Long> {
   Page<TvDetails> findAll(Pageable pageable);
 
   List<TvDetails> findByTvShowNameContainsIgnoreCase(String tvShowName);
+
+  long countByRating(int rating);
 }

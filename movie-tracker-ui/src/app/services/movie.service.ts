@@ -69,6 +69,20 @@ export class MovieService {
     )
   }
 
+/**
+ * Delete Movie By Id
+ */
+
+deleteByMovieId(movieId: number):Observable<Movie> {
+
+  const url=`${this.baseUrl}/${movieId}`;
+  return this.httpClient.delete<Movie>(url).pipe
+  (
+   
+    catchError(this.handleError<Movie>('getMovies'))
+  )
+  
+}
 
   searchMovie(term:string ): Observable<MovieSearch[]>
   {
@@ -111,6 +125,7 @@ private handleError<T>(operation = 'operation', result?: T) {
 
 
 }
+
 
 
 

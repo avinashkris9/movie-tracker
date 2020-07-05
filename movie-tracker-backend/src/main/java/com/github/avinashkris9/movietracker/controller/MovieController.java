@@ -105,6 +105,7 @@ public class MovieController {
    */
   @DeleteMapping("/{movieId}")
   public void deleteMovieDetails(@PathVariable long movieId) {
+    log.debug(" Delete Request for movieId {} ",movieId);
     movieService.deleteWatchedMovie(movieId);
   }
 }

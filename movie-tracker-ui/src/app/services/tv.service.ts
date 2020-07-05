@@ -12,8 +12,8 @@ import { environment } from 'src/environments/environment';
 export class TvService {
 
  
-  private baseUrl=`${environment.apiUrl}/api/tv`;
-  private baseSearchUrl=`${environment.apiUrl}/api/themoviedb`;
+  readonly baseUrl=`${environment.apiUrl}/api/tv`;
+  readonly baseSearchUrl=`${environment.apiUrl}/api/themoviedb`;
 
 
   constructor(private httpClient:HttpClient) { }
@@ -66,7 +66,7 @@ export class TvService {
   }
 
 
-  addMovie(movie:Movie):Observable<Movie>
+  addTv(movie:Movie):Observable<Movie>
   {
 
     return this.httpClient.post<Movie>(this.baseUrl,movie).pipe
@@ -75,6 +75,23 @@ export class TvService {
       catchError(this.handleError<Movie>('addMovie'))
     )
   }
+
+
+  /**
+ * 
+ * @param tvId 
+ */
+deleteByTvId(tvId: number):Observable<Movie> {
+
+  const url=`${this.baseUrl}/${tvId}`;
+  console.log(url);
+  return this.httpClient.delete<Movie>(url).pipe
+  (
+   
+    catchError(this.handleError<Movie>('deleteTvShows'))
+  )
+  
+}
 
   searchTv(term:string ): Observable<MovieSearch[]>
   {

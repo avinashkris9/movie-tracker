@@ -25,10 +25,10 @@ export class MovieListComponent implements OnInit {
   }
 
 
-  updatePageSize(event?: PageEvent) {
+  updatePageSize(event: any) {
     
     
-    
+ 
     this.pageSize = event.pageSize;
     if(event.pageSize != this.previousPageSize)
     {

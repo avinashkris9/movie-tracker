@@ -61,7 +61,7 @@ export class AddTvComponent implements OnInit {
     tv.externalId=this.tvSearchDetails.id;
     
     console.log(' Sending to backend'+JSON.stringify(tv));
-    this.tvService.addMovie(tv).subscribe
+    this.tvService.addTv(tv).subscribe
       (
         data => {
          

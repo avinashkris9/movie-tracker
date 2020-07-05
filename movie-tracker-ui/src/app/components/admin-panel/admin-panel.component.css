@@ -1,0 +1,30 @@
+h4
+{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+.total
+{
+    font-size: 3em;
+}
+
+.mat-icon,.description
+{
+    color: green;
+    font-size: 1em;
+}
+
+.mat-icon
+{
+    position: relative;
+    padding: 20px;;
+    top: 5px;
+}
+
+.stats-cards .mat-card
+{
+    
+        overflow:hidden
+   
+}

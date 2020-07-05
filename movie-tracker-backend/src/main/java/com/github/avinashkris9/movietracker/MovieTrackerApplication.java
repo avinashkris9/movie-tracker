@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  *
- * Spring boot app for tracking movies
+ * Spring boot app for tracking movies/tvshows
  * @Author Avinash Krishnan
  * 
  */

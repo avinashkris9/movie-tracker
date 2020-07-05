@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TvService } from 'src/app/services/tv.service';
 import { Movie } from 'src/app/model/movie';
 import { faCalendar, faStar } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { MovieEditComponent } from '../movie-edit/movie-edit.component';
 
@@ -18,8 +18,10 @@ export class TvDetailsComponent implements OnInit {
    movie:Movie=new Movie();
   faCalendar = faCalendar;
   faStar=faStar;
+  message: string;
+
   constructor( private route:ActivatedRoute , private movieService:TvService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog, private router:Router) { }
 
 
   ngOnInit() {
@@ -59,5 +61,23 @@ export class TvDetailsComponent implements OnInit {
     });
   }
 
+  deleteMovie(movie:Movie)
+  {
+    console.log('Request to delete movie' +movie.id);
+    this.movieService.deleteByTvId(movie.id).subscribe(
+      (data) =>
+      {
+        this.message="Success";
+        this.router.navigate(['/tv']);
+      },
+      (error) => {                              //Error callback
+        console.error('error caught in component')
+        // this.errorMessage = error;
+        // this.loading = false;
 
+        console.log(error.statusText);
+      }
+    );
+    
+  }
 }

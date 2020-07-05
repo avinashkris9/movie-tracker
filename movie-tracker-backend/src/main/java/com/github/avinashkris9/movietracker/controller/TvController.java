@@ -4,12 +4,12 @@ import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
 import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
 import com.github.avinashkris9.movietracker.service.TvService;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/tv")
 @CrossOrigin
+@Slf4j
 public class TvController {
 
-  private final Logger logger = LoggerFactory.getLogger(TvController.class);
+
   private final TvService tvService;
 
   public TvController(TvService tvService) {
@@ -85,8 +86,8 @@ public class TvController {
   @PostMapping
   public MovieDetailsDTO insertNewMovieDetails(@RequestBody MovieDetailsDTO tvDetails) {
 
-    logger.info("------ New Tv Show Received-----");
-    logger.info(tvDetails.toString());
+    log.info("------ New Tv Show Received-----");
+    log.info(tvDetails.toString());
     return tvService.insertNewWatchedTvShow(tvDetails);
   }
 
@@ -105,14 +106,15 @@ public class TvController {
 
     return tvService.updateWatchedTvShow(tvDetails, tvId);
   }
-//
-//  /**
-//   * DELETE endpoint to delete movie info using movie id
-//   * @param movieId path param
-//   *
-//   */
-//  @DeleteMapping("/{movieId}")
-//  public void deleteMovieDetails(@PathVariable long movieId) {
-//    movieService.deleteWatchedMovie(movieId);
-//  }
+
+  /**
+   * DELETE endpoint to delete movie info using movie id
+   * @param tvId path param
+   *
+   */
+  @DeleteMapping("/{tvId}")
+  public void deleteMovieDetails(@PathVariable long tvId) {
+    log.debug(" Delete Tv Request for {}",tvId );
+    tvService.deleteWatchedTv(tvId);
+  }
 }

@@ -52,16 +52,16 @@ public class MovieService {
       movieDetails.setLastWatched(LocalDate.now());
     }
     movieDetails.setNumberOfWatch(1);
+    MovieDetails movieName = movieRepository.findByMovieName(movieDetails.getName());
 
+    if (!Objects.isNull(movieName)) {
+      log.error(" Movie {} exists in db {}", movieName.getMovieName(), movieName.getId());
+      throw new EntityExistsException("MOVIE_EXISTS");
+    }
     //if external id is already populated. Trust the client.
     if (movieDetails.getExternalId() == 0) {
 
-      MovieDetails movieName = movieRepository.findByMovieName(movieDetails.getName());
 
-      if (!Objects.isNull(movieName)) {
-        log.error(" Movie {} exists in db {}", movieName.getMovieName(), movieName.getId());
-        throw new EntityExistsException("MOVIE_EXISTS");
-      }
       // call themoviedb api and find out the movie ID.
       // TODO , find a better solution rather than using search api.
       MovieDBDetails optionalMovieDBDetails =
@@ -207,5 +207,15 @@ public class MovieService {
     movieRepository.delete(movieDetails.get());
   }
 
+
+  public long getMovieCount()
+  {
+    return movieRepository.count();
+  }
+
+  public long getTopRatedMovieCount()
+  {
+    return movieRepository.countByRating(5);
+  }
 
 }
