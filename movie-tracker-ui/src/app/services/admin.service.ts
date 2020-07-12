@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { TrackerStatistics } from '../model/TrackerStatistics';
 import { catchError } from 'rxjs/operators';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AdminService {
 
   
    readonly baseUrl=`${environment.apiUrl}/api/statistics`;
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private errorService:ErrorService) { }
 
   /**
    *  Get Statistics 
@@ -27,7 +28,7 @@ export class AdminService {
     return this.httpClient.get<TrackerStatistics>(this.baseUrl)
     .pipe(
    
-      catchError(this.handleError<TrackerStatistics>('getHeroes',))
+      catchError(this.errorService.handleError<TrackerStatistics>('getStatistics',))
     )
   }
 
@@ -58,3 +59,9 @@ private handleError<T>(operation = 'operation', result?: T) {
 }
 
 }
+
+
+
+
+
+

@@ -6,7 +6,7 @@ import { TvService } from 'src/app/services/tv.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { DatePipe } from '@angular/common';
-import { MessagesComponent } from 'src/app/messages/messages.component';
+import { MessagesComponent } from 'src/app/components/messages/messages.component';
 import { Movie } from 'src/app/model/movie';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 

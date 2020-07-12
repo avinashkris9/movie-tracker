@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,4 +19,7 @@ public interface MovieRepository extends JpaRepository<MovieDetails, Long> {
   List<MovieDetails> findByMovieNameContainsIgnoreCase(String movieName);
 
   long countByRating(int rating);
+
+  @Query("Select MONTHNAME(md.lastWatched),count(*) from MovieDetails md group by MONTHNAME( md.lastWatched) ")
+  List<Object[]> monthlyCount();
 }

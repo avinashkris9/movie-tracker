@@ -68,7 +68,9 @@ export class TvDetailsComponent implements OnInit {
       (data) =>
       {
         this.message="Success";
-        this.router.navigate(['/tv']);
+        this.router.navigate(['/tv']).then(() => {
+          window.location.reload();  //reload the /movies page
+        });;;
       },
       (error) => {                              //Error callback
         console.error('error caught in component')

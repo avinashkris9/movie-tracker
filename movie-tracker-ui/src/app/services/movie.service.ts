@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MovieSearch } from '../model/movie-search';
 import { DatePipe } from '@angular/common';
 import {environment } from '../../environments/environment';
+import { ErrorService } from './error.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,9 +14,9 @@ export class MovieService {
   
 
 
-  private baseUrl=`${environment.apiUrl}/api/movies`;
-  private baseSearchUrl=`${environment.apiUrl}/api/themoviedb`;
-  constructor(private httpClient:HttpClient,public datepipe: DatePipe) { }
+  readonly baseUrl=`${environment.apiUrl}/api/movies`;
+  readonly baseSearchUrl=`${environment.apiUrl}/api/themoviedb`;
+  constructor(private httpClient:HttpClient,public datepipe: DatePipe,private errorService:ErrorService) { }
 
   getAllMovies(page:number,pageSize:number):Observable<GetAllMovies>
   {
@@ -26,7 +27,7 @@ export class MovieService {
     .pipe
     (
       
-      catchError(this.handleError<GetAllMovies>('getHeroes',))
+      catchError(this.errorService.handleError<GetAllMovies>('getHeroes',))
     )
   }
 
@@ -38,7 +39,7 @@ export class MovieService {
     return this.httpClient.get<Movie>(url).pipe
     (
      
-      catchError(this.handleError<Movie>('getMovies'))
+      catchError(this.errorService.handleError<Movie>('getMovies'))
     )
     
   }
@@ -54,7 +55,7 @@ export class MovieService {
     const url=`${this.baseUrl}/${movie.id}`;
     return this.httpClient.put(url,movie).pipe
     (
-      catchError(this.handleError<Movie>('getMovies'))
+      catchError(this.errorService.handleError<Movie>('getMovies'))
     )
 
   }
@@ -65,7 +66,7 @@ export class MovieService {
     return this.httpClient.post<Movie>(this.baseUrl,movie).pipe
     (
       tap((newMovie: Movie) => console.log(`added movie w/ id=${newMovie.id}`)),
-      catchError(this.handleError<Movie>('addMovie'))
+      catchError(this.errorService.handleError<Movie>('addMovie'))
     )
   }
 
@@ -79,7 +80,7 @@ deleteByMovieId(movieId: number):Observable<Movie> {
   return this.httpClient.delete<Movie>(url).pipe
   (
    
-    catchError(this.handleError<Movie>('getMovies'))
+    catchError(this.errorService.handleError<Movie>('getMovies'))
   )
   
 }
@@ -97,7 +98,7 @@ deleteByMovieId(movieId: number):Observable<Movie> {
       map(response => response.results),
       
         
-      catchError(this.handleError<MovieSearch[]>('searchHeroes'))
+      catchError(this.errorService.handleError<MovieSearch[]>('searchHeroes'))
     );
 
   }

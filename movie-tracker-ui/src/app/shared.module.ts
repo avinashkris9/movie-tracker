@@ -7,12 +7,14 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import {  MatDividerModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, MatListModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout'
 import { RouterModule } from '@angular/router';
+import { HelpPageComponent } from './shared/help-page/help-page.component';
 
 @NgModule({
   declarations: [
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
+    HelpPageComponent,
     
   ],
   imports: [

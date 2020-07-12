@@ -1,6 +1,8 @@
 package com.github.avinashkris9.movietracker.service;
 
 import com.github.avinashkris9.movietracker.model.StatisticsDTO;
+import java.util.List;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,10 @@ public class StatisticsService {
     statisticsDTO.setMovieWithMaxRating(movieService.getTopRatedMovieCount());
     statisticsDTO.setTvCount(tvService.getTvCount());
     statisticsDTO.setTvWithMaxRating(tvService.getTopRatedTvCount());
+
+
+ Map<String,Long> monthlyMovieCount=movieService.getMonthlyCount();;
+    statisticsDTO.setMonthlyCount(monthlyMovieCount);
     log.debug(" Statistics Data {}",statisticsDTO);
     return statisticsDTO;
   }

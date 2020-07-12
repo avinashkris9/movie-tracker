@@ -4,9 +4,15 @@ h4
     margin-bottom: 5px;
 }
 
+/* #dashboard
+{
+    height: 100vh;
+overflow: auto;
+} */
+
 .total
 {
-    font-size: 3em;
+    font-size: 2em;
 }
 
 .mat-icon,.description

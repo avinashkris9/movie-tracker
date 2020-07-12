@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatNativeDateModule } from '@angular/material/core';
-import { MessagesComponent } from './messages/messages.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MovieEditComponent } from './components/movie-edit/movie-edit.component';
@@ -36,6 +36,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { SharedModule } from './shared.module';
 import { DefaultLayoutComponent } from './components/layouts/default-layout/default-layout.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -47,15 +48,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MessagesComponent,
     AdminPanelComponent,
     MovieEditComponent,
-
-    AddTvComponent,
-
+     AddTvComponent,
     TvListComponent,
-
     TvDetailsComponent,
     DefaultLayoutComponent
-
-    
+   
 
   ],
   imports: [
@@ -81,7 +78,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AppRoutingModule,
     MatDatepickerModule,
     MatPaginatorModule,
-    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule
+    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule
   ],
   providers:[DatePipe]      ,
   bootstrap: [AppComponent],

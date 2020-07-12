@@ -62,7 +62,9 @@ export class MovieDetailsComponent implements OnInit {
     console.log('Request to delete movie' +movie.id);
     this.movieService.deleteByMovieId(movie.id).subscribe();
 
-      this.router.navigate(['/movies']);
+      this.router.navigate(['/movies']).then(() => {
+        window.location.reload();  //reload the /movies page
+      });;
 
 
     
