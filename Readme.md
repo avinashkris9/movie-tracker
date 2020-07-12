@@ -22,7 +22,9 @@ I wanted to play with Spring boot and angular. Also I like to journal personal r
 | UI       	| Material UI     	|         	|
 | UI       	| Font Awesome    	|         	|
 | Back End 	| JAVA/SpringBoot 	| 8 /2.5  	|
-##How to Build
+
+
+## How to Build
 
 The frontend & backend code are bundled together using maven front end plugin (thanks to the creator).
 - Clone the source
