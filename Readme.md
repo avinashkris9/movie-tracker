@@ -11,7 +11,7 @@ Movie Tracker is a personal movie tracker website to track /review/rate movies/t
 
 ## Real Reason
 
-I wanted to play with Spring boot and angular. Also wanted to write personal reviews for movies/tv shows. Letterboxd is a wonderful app, but it started to push ads.IMDB/Letterboxd/TheMovieDb are good to share with people. I just wanted to have a personal diary to track my movies.
+I wanted to play with Spring boot and angular. Also I like to journal personal reviews for movies/tv shows. Letterboxd is a wonderful app, but it started to push ads.IMDB/Letterboxd/TheMovieDb are good to share with people. I just wanted to have a personal app to track my movies.
 
 
 ## Technology
@@ -28,3 +28,7 @@ The frontend & backend code are bundled together using maven front end plugin (t
 - Clone the source
 - Build using maven `mvn clean install`
 - Run the package using `java -jar `
+
+## Pre Requisites
+- Get an api key from themoviedb
+- Key can be given as argument `-Dapi.key=xxxxxx` 
