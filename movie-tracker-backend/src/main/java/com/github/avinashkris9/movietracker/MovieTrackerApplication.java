@@ -1,6 +1,7 @@
 package com.github.avinashkris9.movietracker;
 
 import com.github.avinashkris9.movietracker.exception.RestTemplateResponseErrorHandler;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,11 +18,14 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 public class MovieTrackerApplication {
 
+
+  private static  String testVar;
   public static void main(String[] args) {
 
     SpringApplication springApplication = new SpringApplication(MovieTrackerApplication.class);
     springApplication.setBannerMode(Banner.Mode.OFF);
     springApplication.run(args);
+
   }
 
   @Bean
