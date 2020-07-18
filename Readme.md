@@ -4,7 +4,7 @@ Nothing fancy.Just the same old boring goodreads for movies.
 
 ![ Movie Tracker Demo](demo/movie-tracker.gif)
 
-Movie Tracker is a personal movie tracker website to track /review/rate movies/tv shows. This is aimed to provide a strictly personal movie tracker for individual use.
+Movie Tracker is a personal movie tracker webpage to track /review/rate movies/tv shows. This is aimed to provide a strictly personal movie tracker for individual use.
 
 - User can track movie & tv shows watched.
 - User can rate the movie/tv shows.
