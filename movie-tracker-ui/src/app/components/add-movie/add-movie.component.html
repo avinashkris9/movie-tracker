@@ -10,8 +10,10 @@
     </mat-toolbar-row>
 
     <mat-toolbar-row>
+      <div id="search-box">
       <mat-icon>search</mat-icon>
       <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="Search" (input)="search(searchBox.value)" >
+    </div>
     </mat-toolbar-row>
   </mat-toolbar>
   
@@ -47,7 +49,7 @@
     
     <div class="movie-details">
 
-      <h1> {{movieSearchDetails.title}}</h1>
+      <h3> {{movieSearchDetails.title}}</h3>
    
       <p>
         <strong><bdi>Status</bdi></strong> Released
@@ -148,7 +150,7 @@
         </mat-form-field>
     
     
-        <button mat-button type="submit" mat-button color="primary" [disabled]="movieForm.invalid"
+        <button onclick="" mat-button type="submit" mat-button color="primary" [disabled]="movieForm.invalid"
           aria-label="Snack bar notification">
     
           Add

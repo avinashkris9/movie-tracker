@@ -4,15 +4,20 @@ import { Movie } from '../model/movie';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { MovieSearch } from '../model/movie-search';
+import { environment } from 'src/environments/environment';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TvService {
 
-  private baseUrl="http://localhost:8081/tv";
+ 
+  readonly baseUrl=`${environment.apiUrl}/api/tv`;
+  readonly baseSearchUrl=`${environment.apiUrl}/api/themoviedb`;
 
-  constructor(private httpClient:HttpClient) { }
+
+  constructor(private httpClient:HttpClient,private errorService:ErrorService) { }
 
 
   /**
@@ -26,7 +31,7 @@ export class TvService {
     console.log(" Requesting through "+paginatedUrl)
     return this.httpClient.get<TvShows>(paginatedUrl)
     .pipe(   
-      catchError(this.handleError<TvShows>('getHeroes',))
+      catchError(this.errorService.handleError<TvShows>('getHeroes',))
     )
   }
 
@@ -40,7 +45,7 @@ export class TvService {
     return this.httpClient.get<Movie>(url).pipe
     (
      
-      catchError(this.handleError<Movie>('getTvShows'))
+      catchError(this.errorService.handleError<Movie>('getTvShows'))
     )
     
   }
@@ -56,21 +61,38 @@ export class TvService {
     const url=`${this.baseUrl}/${movie.id}`;
     return this.httpClient.put(url,movie).pipe
     (
-      catchError(this.handleError<Movie>('getTV'))
+      catchError(this.errorService.handleError<Movie>('getTV'))
     )
 
   }
 
 
-  addMovie(movie:Movie):Observable<Movie>
+  addTv(movie:Movie):Observable<Movie>
   {
 
     return this.httpClient.post<Movie>(this.baseUrl,movie).pipe
     (
       tap((newMovie: Movie) => console.log(`added movie w/ id=${newMovie.id}`)),
-      catchError(this.handleError<Movie>('addMovie'))
+      catchError(this.errorService.handleError<Movie>('addMovie'))
     )
   }
+
+
+  /**
+ * 
+ * @param tvId 
+ */
+deleteByTvId(tvId: number):Observable<Movie> {
+
+  const url=`${this.baseUrl}/${tvId}`;
+  console.log(url);
+  return this.httpClient.delete<Movie>(url).pipe
+  (
+   
+    catchError(this.errorService.handleError<Movie>('deleteTvShows'))
+  )
+  
+}
 
   searchTv(term:string ): Observable<MovieSearch[]>
   {
@@ -79,13 +101,13 @@ export class TvService {
       return of([]);
     }
 
-    const theMovieDbUrl = `http://localhost:8081/themoviedb/search?showType=tv&name=${term}`;
+    const theMovieDbUrl = `${this.baseSearchUrl}/search?showType=tv&name=${term}`;
     console.log(theMovieDbUrl);
     return this.httpClient.get<any>(theMovieDbUrl).pipe(
       map(response => response.results),
       
         
-      catchError(this.handleError<MovieSearch[]>('searchHeroes'))
+      catchError(this.errorService.handleError<MovieSearch[]>('searchHeroes'))
     );
 
   }

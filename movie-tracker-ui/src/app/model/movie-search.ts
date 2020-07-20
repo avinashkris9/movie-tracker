@@ -8,6 +8,6 @@ export class MovieSearch {
     id: number;
     overview: string
     imdbId : number;
-    poster_path: String;
-    original_language: String;
+    poster_path: string;
+    original_language: string;
 }

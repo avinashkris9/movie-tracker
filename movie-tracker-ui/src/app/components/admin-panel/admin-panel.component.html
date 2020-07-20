@@ -1,0 +1,60 @@
+<div id="dashboard">
+
+    <h2 class="mat-headline"> Analytics</h2>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px"  class="stats-cards" *ngIf="statistics !=undefined">
+
+    <mat-card fxFlex=25>
+        <div class="text">
+            <h4>Movie Count</h4>
+            <span class="total">{{statistics.movieCount}}</span>
+            <span> <mat-icon color="primary">
+trending_up
+
+            </mat-icon> </span>
+            <span class="description">Movies</span>
+        </div>
+    </mat-card>
+
+    
+    <mat-card fxFlex=25>
+        <div class="text">
+            <h4>TV Count</h4>
+            <span class="total">   {{statistics.tvCount}}</span>
+            <span> <mat-icon color="primary">
+trending_up
+
+            </mat-icon> </span>
+            <span class="description">  Tv Shows</span>
+        </div>
+    </mat-card>
+    <mat-card fxFlex=25>
+        <div class="text">
+            <h4>Top Rated Movies </h4>
+            <span class="total">   {{statistics.movieWithMaxRating}}</span>
+            <span> <mat-icon color="primary">
+trending_up
+
+            </mat-icon> </span>
+            <span class="description">  Rating 5</span>
+        </div>
+    </mat-card>
+    <mat-card fxFlex=25>
+
+        <div class="text">
+            <h4>Top Rated Tv </h4>
+            <span class="total">   {{statistics.tvWithMaxRating}}</span>
+            <span> <mat-icon color="primary">
+trending_up
+
+            </mat-icon> </span>
+            <span class="description">  Rating 5</span>
+        </div>
+    </mat-card>
+</div>
+<br>
+<mat-divider></mat-divider>
+<div>
+    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+    style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+</div>
+</div>

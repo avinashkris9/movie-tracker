@@ -7,7 +7,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { MovieSearch } from 'src/app/model/movie-search';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { MessagesComponent } from 'src/app/messages/messages.component';
+import { MessagesComponent } from 'src/app/components/messages/messages.component';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -70,9 +70,14 @@ export class AddMovieComponent implements OnInit {
   
     movie.lastWatched = this.datepipe.transform(movie.lastWatched, 'dd-MM-yyyy');
     movie.externalId=this.movieSearchDetails.id;
-    
+    movie.posterPath=this.movieSearchDetails.poster_path;
+    movie.overView=this.movieSearchDetails.overview;
+    movie.imdbId=this.movieSearchDetails.imdbId;
+    movie.originalLanguage=this.movieSearchDetails.original_language
+
+   
     console.log(' Sending to backend'+JSON.stringify(movie));
-    this.movieService.addMovie(movie).subscribe
+   this.movieService.addMovie(movie).subscribe
       (
         data => {
          
@@ -94,6 +99,7 @@ export class AddMovieComponent implements OnInit {
           }
           else {
             // this.openSnackBar("Sorry, Error Occurred","Please Try Again")
+            
             this.message = "Sorry Error Occured. Please try after sometime!";
 
           }
@@ -120,7 +126,7 @@ export class AddMovieComponent implements OnInit {
     this.movieSearchDetails = movieSearch.value;
   
     this.movieForm.get('name').setValue(this.movieSearchDetails.title);
-
+    
   
 
   }

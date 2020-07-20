@@ -10,7 +10,7 @@ import { PageEvent } from '@angular/material';
 })
 export class MovieListComponent implements OnInit {
 
-  private movies:Movie[]=null;;
+   movies:Movie[]=null;;
   length: number =1000;
    pageSize:number =5;
    page: number =0;
@@ -25,10 +25,10 @@ export class MovieListComponent implements OnInit {
   }
 
 
-  updatePageSize(event: PageEvent) {
+  updatePageSize(event: any) {
     
     
-    
+ 
     this.pageSize = event.pageSize;
     if(event.pageSize != this.previousPageSize)
     {

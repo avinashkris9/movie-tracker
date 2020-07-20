@@ -21,9 +21,10 @@ import {MatInputModule} from '@angular/material/input';
 import { MovieSearchComponent } from './components/movie-search/movie-search.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete'
 import { FormsModule } from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatNativeDateModule } from '@angular/material/core';
-import { MessagesComponent } from './messages/messages.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MovieEditComponent } from './components/movie-edit/movie-edit.component';
@@ -31,6 +32,12 @@ import { DatePipe } from '@angular/common';
 import { AddTvComponent } from './components/add-tv/add-tv.component';
 import { TvListComponent } from './components/tv-list/tv-list.component';
 import { TvDetailsComponent } from './components/tv-details/tv-details.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { SharedModule } from './shared.module';
+import { DefaultLayoutComponent } from './components/layouts/default-layout/default-layout.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HighchartsChartModule } from 'highcharts-angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,19 +46,17 @@ import { TvDetailsComponent } from './components/tv-details/tv-details.component
     AddMovieComponent,
     MovieSearchComponent,
     MessagesComponent,
-
+    AdminPanelComponent,
     MovieEditComponent,
-
-    AddTvComponent,
-
+     AddTvComponent,
     TvListComponent,
+    TvDetailsComponent,
+    DefaultLayoutComponent
+   
 
-    TvDetailsComponent
-    
- 
   ],
   imports: [
-    
+    SharedModule,
     BrowserModule,
     MatInputModule,
     MatMenuModule,
@@ -73,7 +78,7 @@ import { TvDetailsComponent } from './components/tv-details/tv-details.component
     AppRoutingModule,
     MatDatepickerModule,
     MatPaginatorModule,
-    FormsModule,MatNativeDateModule,MatDialogModule
+    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule
   ],
   providers:[DatePipe]      ,
   bootstrap: [AppComponent],
