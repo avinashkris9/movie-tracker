@@ -23,6 +23,7 @@ I wanted to play with Spring boot and angular. Also I like to journal personal r
 | UI       	| Angular         	| 8       	|
 | UI       	| Material UI     	|         	|
 | UI       	| Font Awesome    	|         	|
+| UI       	| High Charts     	|         	|
 | Back End 	| JAVA/SpringBoot 	| 8 /2.5  	|
 
 
