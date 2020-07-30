@@ -63,7 +63,7 @@ public class TheMovieDBController {
                 f.setPosterPath(theMovieDBService.moviePosterPath(f.getPosterPath()));
               }
             });
-
+      log.debug(movieDBDetails.toString());
     return movieDBDetails;
   }
 }

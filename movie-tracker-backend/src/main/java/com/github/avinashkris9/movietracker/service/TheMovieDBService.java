@@ -6,6 +6,7 @@ import com.github.avinashkris9.movietracker.exception.NotFoundException;
 import com.github.avinashkris9.movietracker.model.MovieDB;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
 import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.WatchListDTO;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import java.net.URI;
@@ -137,11 +138,15 @@ public class TheMovieDBService {
   public MovieDB getMovieById(long movieId, String showType) {
 
     MovieDB movieDB = new MovieDB();
+
+    URI uri = null;
     try {
+      uri = movieIdUrl(movieId, showType);
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
 
-      URI uri = movieIdUrl(movieId, showType);
-
-      movieDB = restTemplate.getForObject(uri, MovieDB.class);
+    movieDB = restTemplate.getForObject(uri, MovieDB.class);
 
       if (Objects.isNull(movieDB)) {
         log.info(" No movie found in movieDB for id {}", movieId);
@@ -149,12 +154,8 @@ public class TheMovieDBService {
       }
 
       return movieDB;
-    } catch (Exception e) {
-      log.error("********* Exception *********");
-      log.error(e.getMessage());
 
-    }
-    return movieDB;
+    
   }
 
 
@@ -187,6 +188,15 @@ public class TheMovieDBService {
     return movieDetailsDTO;
   }
 
+  public WatchListDTO appendTheMovieDBDataToWatchList(WatchListDTO watchListDTO, String showType) {
+
+    MovieDB movieDB = getMovieById(watchListDTO.getExternalId(), showType);
+    watchListDTO.setOverView(movieDB.getMovieSummary());
+    watchListDTO.setImdbId(movieDB.getImdbId());
+    watchListDTO.setPosterPath(moviePosterPath(movieDB.getPosterPath()));
+    watchListDTO.setOriginalLanguage(movieDB.getOriginalLanguge());
+    return watchListDTO;
+  }
   /**
    * Helper function to map Movie Entity to MovieDetails DTO and call appendTheMovieDBData function
    * for enrichment

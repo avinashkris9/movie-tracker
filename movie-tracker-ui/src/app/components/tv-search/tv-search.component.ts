@@ -1,25 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { TvService } from 'src/app/services/tv.service';
+import { Subject, Observable } from 'rxjs';
 import { MovieSearch } from 'src/app/model/movie-search';
-import { debounceTime, distinctUntilChanged, switchMap, startWith, map } from 'rxjs/operators';
-import { MovieService } from 'src/app/services/movie.service';
-import { FormControl, FormGroup } from '@angular/forms';
-import { WatchList } from 'src/app/model/watch-list';
+import { FormControl } from '@angular/forms';
 import { WatchListService } from 'src/app/services/watch-list.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { WatchList } from 'src/app/model/watch-list';
 
 @Component({
-  selector: 'app-movie-search',
-  templateUrl: './movie-search.component.html',
-  styleUrls: ['./movie-search.component.css']
+  selector: 'app-tv-search',
+  templateUrl: './tv-search.component.html',
+  styleUrls: ['./tv-search.component.css']
 })
-export class MovieSearchComponent implements OnInit {
+export class TvSearchComponent implements OnInit {
 
+  
   private searchTerms = new Subject<string>();
   movies$: Observable<MovieSearch[]>;
   movieSearchDetails: MovieSearch;
   myControl = new FormControl();
   isNewAdd:boolean=false;
-  constructor(private movieService :MovieService,private watchListService:WatchListService) { }
+  constructor(private movieService :TvService,private watchListService:WatchListService) { }
  
 
 
@@ -36,7 +37,7 @@ export class MovieSearchComponent implements OnInit {
       distinctUntilChanged(),
 
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.movieService.searchMovie(term)),
+      switchMap((term: string) => this.movieService.searchTv(term)),
     );
 
 
@@ -54,7 +55,7 @@ onSubmit() {
 
 }
 displayFn(movie: MovieSearch): string {
-  if (movie) { return movie.title; }
+  if (movie) { return movie.name; }
 }
 
 
@@ -74,7 +75,7 @@ addToWatchList(movie:MovieSearch)
    let  movieWatchList=new WatchList;
     movieWatchList.name=movie.title;
     movieWatchList.externalId=movie.id;
-    movieWatchList.showType="MOVIE";
+    movieWatchList.showType="TV";
     
     this.watchListService.addToWatchList(movieWatchList).subscribe
     (
@@ -87,3 +88,5 @@ addToWatchList(movie:MovieSearch)
     this.isNewAdd=true;
   }
 }
+
+

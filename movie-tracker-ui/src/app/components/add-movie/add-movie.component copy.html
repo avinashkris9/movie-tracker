@@ -1,7 +1,84 @@
 
-<!-- 
-<div  *ngIf ="movieSearchDetails !=undefined"> -->
-  <div>
+<div id="search-bar" >
+
+
+  
+  
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span>Watched new movie ? How was the experience ?</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <div id="search-box">
+      <mat-icon>search</mat-icon>
+      <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="Search" (input)="search(searchBox.value)" >
+    </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <mat-autocomplete [panelWidth]=327 #auto="matAutocomplete"  
+  (optionSelected)='movieSelected($event.option)' [displayWith]="displayFn"
+  >
+
+
+    <mat-option *ngFor="let option of movies$ | async"  [value]="option">
+      <img class="example-option-img" aria-hidden  [src]=" option.poster_path? option.poster_path : 'assets/logo.png'" height="25" alt="asa" >
+      
+     
+      <span>{{option.title}}</span>
+     
+    </mat-option>
+  </mat-autocomplete>
+
+  
+</div>
+
+
+<div id="preview-movie-db" *ngIf ="movieSearchDetails !=undefined">
+
+  
+  <div class="search-panel">
+
+
+    <div class="poster">
+
+      <img [attr.src]=" movieSearchDetails.poster_path? movieSearchDetails.poster_path : 'assets/logo.png'" alt="{{movieSearchDetails.title}}"
+        width="185" height="278">
+    </div>
+
+    
+    <div class="movie-details">
+
+      <h3> {{movieSearchDetails.title}}</h3>
+   
+      <p>
+        <strong><bdi>Status</bdi></strong> Released
+      </p>
+     
+      <p>
+        {{movieSearchDetails.overview}}
+      </p>
+
+      <p>
+        <strong><bdi>Original Language</bdi></strong> {{movieSearchDetails.original_language}}
+
+      </p>
+      <br>
+      <button color="accent" (click)="addToWatchList(movieSearchDetails)" mat-button mat-icon-button ><mat-icon>
+        playlist_add
+    </mat-icon>Add to watch list</button>
+    </div>
+
+
+
+  </div>
+ 
+</div>
+
+
+
+<div  *ngIf ="movieSearchDetails !=undefined">
 <!-- <mat-grid-list cols="2" rowHeight="2:1">
 
   

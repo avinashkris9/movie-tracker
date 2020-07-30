@@ -2,7 +2,9 @@ package com.github.avinashkris9.movietracker.utils;
 
 import com.github.avinashkris9.movietracker.entity.MovieDetails;
 import com.github.avinashkris9.movietracker.entity.TvDetails;
+import com.github.avinashkris9.movietracker.entity.WatchList;
 import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.WatchListDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -54,5 +56,26 @@ public class CustomModelMapper {
     details.setReview(tvDetails.getReview());
     details.setId(tvDetails.getId());
     return details;
+  }
+
+  public WatchList watchListDTO2WatchListEntity(WatchListDTO watchListDTO)
+  {
+    WatchList watchList=new WatchList();
+    watchList.setName(watchListDTO.getName());
+    watchList.setDateAdded(watchListDTO.getDateAdded());
+    watchList.setShowType(watchListDTO.getShowType());
+    watchList.setExternalId(watchListDTO.getExternalId());
+    return watchList;
+  }
+
+  public WatchListDTO watchListEntity2WatchListDTO(WatchList watchListEntity)
+  {
+    WatchListDTO watchList=new WatchListDTO();
+    watchList.setName(watchListEntity.getName());
+    watchList.setDateAdded(watchListEntity.getDateAdded());
+    watchList.setShowType(watchListEntity.getShowType());
+    watchList.setExternalId(watchListEntity.getExternalId());
+    watchList.setId(watchListEntity.getId());
+    return watchList;
   }
 }

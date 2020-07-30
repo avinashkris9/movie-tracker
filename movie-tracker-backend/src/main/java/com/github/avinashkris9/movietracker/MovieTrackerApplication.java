@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 public class MovieTrackerApplication {
 
 
-  private static  String testVar;
+
   public static void main(String[] args) {
 
     SpringApplication springApplication = new SpringApplication(MovieTrackerApplication.class);

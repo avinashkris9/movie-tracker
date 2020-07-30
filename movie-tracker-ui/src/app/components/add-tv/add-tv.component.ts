@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
 import { MovieSearch } from 'src/app/model/movie-search';
@@ -18,11 +18,11 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
   
 })
 export class AddTvComponent implements OnInit {
-
+  @Input() tvSearchDetails: MovieSearch;
   maxDate: Date = new Date();
   date = new Date();
   message: string;
-  tvSearchDetails: MovieSearch;
+
   tvForm = new FormGroup({
     name: new FormControl('', Validators.required),
 
@@ -35,22 +35,18 @@ export class AddTvComponent implements OnInit {
   tv$: Observable<MovieSearch[]>;
 
   constructor(private tvService: TvService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private datepipe: DatePipe) { }
+  ngOnChanges(changes: { [property: string]: SimpleChange }){
+    // Extract changes to the input property by its name
+    let change: SimpleChange = changes['tvSearchDetails']; 
+ // Whenever the data in the parent changes, this method gets triggered. You 
+ // can act on the changes here. You will have both the previous value and the 
+ // current value here.
 
+ this.tvSearchDetails=change.currentValue;
+ this.tvForm.get('name').setValue(this.tvSearchDetails.name);
+ }
   ngOnInit() {
-
-    this.tv$ = //this.movieForm.get('movieName').valueChanges.pipe(
-
-      this.searchTerms.pipe(
-        // wait 300ms after each keystroke before considering the term
-        debounceTime(300),
-
-        // ignore new term if same as previous term
-        distinctUntilChanged(),
-
-        // switch to new search observable each time the term changes
-        switchMap((term: string) => this.tvService.searchTv(term)),
-      );
-
+    this.tvForm.get('name').setValue(this.tvSearchDetails.name);
   }
 
   //add movie
@@ -92,10 +88,7 @@ export class AddTvComponent implements OnInit {
       )
 
   }
-// Push a search term into the observable stream.
-search(term: string): void {
-  this.searchTerms.next(term);
-}
+
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.warn(this.tvForm.value);
@@ -105,14 +98,7 @@ search(term: string): void {
 
 
   }
-  tvSelected(movieSearch: any) {
-
-    this.tvSearchDetails = movieSearch.value;
-    this.tvForm.get('name').setValue(this.tvSearchDetails.name);
-
-  
-
-  }
+ 
   displayMessage(message: string) {
     this.dialog.open(MessagesComponent, {
 

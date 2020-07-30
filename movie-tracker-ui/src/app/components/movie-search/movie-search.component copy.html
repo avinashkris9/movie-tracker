@@ -1,0 +1,22 @@
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text" [style.width.px]=327
+             placeholder=" Type movie name"
+             aria-label="name"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete [panelWidth]=327  #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option  *ngFor="let option of movies$ | async" [value]="option"
+        >
+          {{option.title}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  
+
+
+ 
+  
+ 

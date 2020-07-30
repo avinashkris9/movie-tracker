@@ -102,8 +102,9 @@ deleteByTvId(tvId: number):Observable<Movie> {
     }
 
     const theMovieDbUrl = `${this.baseSearchUrl}/search?showType=tv&name=${term}`;
-    console.log(theMovieDbUrl);
+    console.log(theMovieDbUrl)
     return this.httpClient.get<any>(theMovieDbUrl).pipe(
+  
       map(response => response.results),
       
         

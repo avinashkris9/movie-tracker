@@ -1,11 +1,78 @@
 
+<div id="search-bar" >
+
+  <mat-toolbar>
+    <mat-toolbar-row>
+      <span>Watched new TV Show ? How was the experience ?</span>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row>
+      <div id="search-box">
+      <mat-icon>search</mat-icon>
+      <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="Search" (input)="search(searchBox.value)" >
+    </div>
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+  
+  <mat-autocomplete [panelWidth]=327 #auto="matAutocomplete"  
+  (optionSelected)='tvSelected($event.option)' [displayWith]="displayFn"
+  >
+
+
+    <mat-option *ngFor="let option of tv$ | async"  [value]="option">
+      <img class="example-option-img" aria-hidden  [src]=" option.poster_path? option.poster_path : 'assets/logo.png'" height="25" alt="asa" >
+      
+     
+      <span>{{option.name}}</span>
+     
+    </mat-option>
+  </mat-autocomplete>
+
+  
+</div>
+
+
+<div id="preview-movie-db" *ngIf ="tvSearchDetails !=undefined">
+
+  
+  <div class="search-panel">
+
+    <div class="poster">
+
+      <img [attr.src]=" tvSearchDetails.poster_path? tvSearchDetails.poster_path : 'assets/logo.png'" alt="{{tvSearchDetails.title}}"
+        width="185" height="278">
+    </div>
+
+    
+    <div class="movie-details">
+
+      <h3> {{tvSearchDetails.name}}</h3>
+   
+      <p>
+        <strong><bdi>Status</bdi></strong> Released
+      </p>
+     
+      <p>
+        {{tvSearchDetails.overview}}
+      </p>
+
+      <p>
+        <strong><bdi>Original Language</bdi></strong> {{tvSearchDetails.original_language}}
+
+      </p>
+
+    </div>
 
 
 
+  </div>
+  
+</div>
 
 
 
-<div >
+<div *ngIf ="tvSearchDetails !=undefined">
 
   
       <form class="input-form" [formGroup]="tvForm" (ngSubmit)="onSubmit()" #formdir="ngForm">

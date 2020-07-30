@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/model/movie';
@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { MessagesComponent } from 'src/app/components/messages/messages.component';
 import { DatePipe } from '@angular/common';
+import { WatchListService } from 'src/app/services/watch-list.service';
+import { WatchList } from 'src/app/model/watch-list';
 
 @Component({
   selector: 'app-add-movie',
@@ -22,10 +24,10 @@ export class AddMovieComponent implements OnInit {
 
   maxDate: Date = new Date();
   movieDetails: Movie;;
-  movieSearchDetails: MovieSearch;
+ // movieSearchDetails: MovieSearch;
   message: string;
   date = new Date();
-
+  @Input() movieSearchDetails: MovieSearch;
   movieForm = new FormGroup({
     name: new FormControl('', Validators.required),
 
@@ -37,32 +39,26 @@ export class AddMovieComponent implements OnInit {
   private searchTerms = new Subject<string>();
   movies$: Observable<MovieSearch[]>;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private datepipe: DatePipe) {
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private datepipe: DatePipe,private watchListService :WatchListService) {
 
   }
 
   ngOnInit() {
-    this.movies$ = //this.movieForm.get('movieName').valueChanges.pipe(
-
-      this.searchTerms.pipe(
-        // wait 300ms after each keystroke before considering the term
-        debounceTime(300),
-
-        // ignore new term if same as previous term
-        distinctUntilChanged(),
-
-        // switch to new search observable each time the term changes
-        switchMap((term: string) => this.movieService.searchMovie(term)),
-      );
-
-
+   
+    this.movieForm.get('name').setValue(this.movieSearchDetails.title);
   }
+  ngOnChanges(changes: { [property: string]: SimpleChange }){
+    // Extract changes to the input property by its name
+   
+    let change: SimpleChange = changes['movieSearchDetails']; 
+ // Whenever the data in the parent changes, this method gets triggered. You 
+ // can act on the changes here. You will have both the previous value and the 
+ // current value here.
 
+ this.movieSearchDetails=change.currentValue;
+ this.movieForm.get('name').setValue(this.movieSearchDetails.title);
+ }
 
-  // Push a search term into the observable stream.
-  search(term: string): void {
-    this.searchTerms.next(term);
-  }
 
   //add movie
   addMovie(movie: Movie) {
@@ -121,15 +117,7 @@ export class AddMovieComponent implements OnInit {
 
   }
 
-  movieSelected(movieSearch: any) {
-
-    this.movieSearchDetails = movieSearch.value;
   
-    this.movieForm.get('name').setValue(this.movieSearchDetails.title);
-    
-  
-
-  }
   displayMessage(message: string) {
     this.dialog.open(MessagesComponent, {
 
@@ -146,5 +134,19 @@ export class AddMovieComponent implements OnInit {
   get movieName() { return this.movieForm.get('name'); }
   get rating() { return this.movieForm.get('rating'); }
 
+  addToWatchList(movie:MovieSearch)
+  {
+
+    console.log(movie);
+   let  movieWatchList=new WatchList;
+    movieWatchList.name=movie.title;
+    movieWatchList.externalId=movie.id;
+    movieWatchList.showType="MOVIE";
+    
+    this.watchListService.addToWatchList(movieWatchList).subscribe
+    (
+      data => console.log(data)
+    );
+  }
 
 }

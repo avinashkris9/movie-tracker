@@ -1,0 +1,110 @@
+<div id="search-bar" >
+
+
+  
+  
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span>Watched new TV Show ? How was the experience ?</span>
+      </mat-toolbar-row>
+  
+      <mat-toolbar-row>
+        <div id="search-box">
+        <mat-icon>search</mat-icon>
+        <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="Search" (input)="search(searchBox.value)" >
+      </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    
+    <mat-autocomplete [panelWidth]=327 #auto="matAutocomplete"  
+    (optionSelected)='movieSelected($event.option)' [displayWith]="displayFn"
+    >
+  
+  
+      <mat-option *ngFor="let option of movies$ | async"  [value]="option">
+        <img class="example-option-img" aria-hidden  [src]=" option.poster_path? option.poster_path : 'assets/logo.png'" height="25" alt="asa" >
+        
+       
+        <span>{{option.name}}</span>
+       
+      </mat-option>
+    </mat-autocomplete>
+  
+    
+  </div>
+  <div id ="preview" *ngIf ="movieSearchDetails !=undefined && searchBox.value !=''">
+  <mat-card>
+  
+  
+    <mat-card-content color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  
+      <div class="poster" fxFlex="25">
+  
+        <img [attr.src]=" movieSearchDetails.poster_path? movieSearchDetails.poster_path : 'assets/logo.png'" alt="{{movieSearchDetails.name}}" width="185"
+          height="278">
+      </div>
+      <div class="movie-details">
+  
+        <h1> {{movieSearchDetails.name}}</h1>
+        
+        <p>
+          <strong><bdi>Status</bdi></strong> Released
+        </p>
+        <p>
+          <strong><bdi>Original Language</bdi></strong> {{movieSearchDetails.original_language}}
+  
+        </p>
+        <p>
+          {{movieSearchDetails.overview}}
+        </p>
+  
+      
+  
+      </div>
+  
+     
+    </mat-card-content>
+  
+    <div>
+  
+      <mat-card-footer fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="50px">
+  
+  
+  
+  
+            <button  fxFlex=300px color="accent" (click)="addToWatchList(movieSearchDetails)" mat-button mat-icon-button ><mat-icon>
+              playlist_add
+          </mat-icon>Add to watch list</button>
+  
+          <button fxFlex=300px  color="accent" (click)="rateAndReview(movieSearchDetails)" mat-button mat-icon-button ><mat-icon>
+            rate_review
+        </mat-icon>Rate&Review</button>
+         
+  
+  
+        
+    
+       
+  
+       
+     
+       
+      </div>
+  
+  
+  
+  
+      </mat-card-footer>
+    </div>
+  </mat-card>
+  </div>
+
+  
+  <div  *ngIf ="isNewAdd  && searchBox.value !=''" >
+  
+    <mat-divider></mat-divider>
+    <app-add-tv [tvSearchDetails]=movieSearchDetails></app-add-tv>
+  
+  
+  </div>
