@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { WatchListService } from 'src/app/services/watch-list.service';
 import { WatchList } from 'src/app/model/watch-list';
 import { MatAccordion } from '@angular/material';
-
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog'
+import { AddMovieComponent } from '../add-movie/add-movie.component';
 @Component({
   selector: 'app-watch-list',
   templateUrl: './watch-list.component.html',
@@ -39,8 +40,9 @@ export class WatchListComponent implements OnInit {
 
 addToReview(watchedMovie:WatchList)
 {
-  
+
 }
+
 
   deleteFromWatchList(watchedMovie:WatchList)
   {

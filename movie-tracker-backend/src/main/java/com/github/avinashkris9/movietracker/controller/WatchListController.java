@@ -1,9 +1,8 @@
 package com.github.avinashkris9.movietracker.controller;
 
-import com.github.avinashkris9.movietracker.entity.WatchList;
+
 import com.github.avinashkris9.movietracker.model.WatchListDTO;
 import com.github.avinashkris9.movietracker.service.WatchListService;
-import com.github.avinashkris9.movietracker.utils.APIUtils;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import java.util.List;
 import javax.validation.Valid;
@@ -30,7 +29,7 @@ public class WatchListController {
   private final WatchListService watchListService;
 
   @GetMapping()
-  List<WatchListDTO> getAllWatchListEntries(@RequestParam (defaultValue = "MOVIE") String showType)
+  List<WatchListDTO> getAllWatchListEntries(@RequestParam  (defaultValue = "MOVIE" ) String showType)
   {
     //TODO - use a pattern in @RequestParam to validate the param to only have either Movie/TV as value.
     if(!showType.equalsIgnoreCase(SHOW_TYPES.MOVIE.name()))
