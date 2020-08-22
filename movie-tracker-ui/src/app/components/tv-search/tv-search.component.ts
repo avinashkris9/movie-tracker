@@ -73,7 +73,7 @@ addToWatchList(movie:MovieSearch)
 
     console.log(movie);
    let  movieWatchList=new WatchList;
-    movieWatchList.name=movie.title;
+    movieWatchList.name=movie.name;
     movieWatchList.externalId=movie.id;
     movieWatchList.showType="TV";
     

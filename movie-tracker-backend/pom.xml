@@ -41,11 +41,11 @@
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
-<!--    <dependency>-->
-<!--      <artifactId>mysql-connector-java</artifactId>-->
-<!--      <groupId>mysql</groupId>-->
-<!--      <scope>runtime</scope>-->
-<!--    </dependency>-->
+    <dependency>
+      <artifactId>mysql-connector-java</artifactId>
+      <groupId>mysql</groupId>
+      <scope>runtime</scope>
+    </dependency>
   <dependency>
 
       <groupId>com.github.avinashkris9</groupId>

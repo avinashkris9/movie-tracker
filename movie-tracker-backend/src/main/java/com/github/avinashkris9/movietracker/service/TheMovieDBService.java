@@ -28,21 +28,21 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Slf4j
 public class TheMovieDBService {
 
-
-  private final RestTemplate restTemplate;
-
   @Value(("${api.key}"))
-  private String apiKey;
+  private  String apiKey;
 
   @Value(("${api.url}"))
   private String baseUrl;
 
   @Value("${api.url.imagedb}")
   private String imageUrl;
-  private final CustomModelMapper customModelMapper;
   // values are injected after constructor call. So we cannot do a concatenation here.
-  private String searchMovieUri = "/search/movie";
-  private String searchTvUri = "/search/tv";
+  private final String searchMovieUri = "/search/movie";
+  private  final String searchTvUri = "/search/tv";
+
+  private final RestTemplate restTemplate;
+  private final CustomModelMapper customModelMapper;
+
 
   @Autowired
   public TheMovieDBService(RestTemplate restTemplate, CustomModelMapper customModelMapper) {
@@ -96,6 +96,7 @@ public class TheMovieDBService {
    */
   public URI movieIdUrl(long id, String showType) throws URISyntaxException {
 
+    //TODO - this can be removed entirely by using enum values.
     if (showType.equalsIgnoreCase(SHOW_TYPES.MOVIE.name())) {
       showType = "movie";
     } else if (showType.equalsIgnoreCase(SHOW_TYPES.TV.name())) {
@@ -121,9 +122,9 @@ public class TheMovieDBService {
     log.info("Checking movie db for data {} on {}", movieName, uri);
     MovieDBDetails movieDBDetails =
         restTemplate.getForObject(uri, MovieDBDetails.class);
-
     if (movieDBDetails.getMovieDBDetails().isEmpty()) {
       log.error(" No movie info present for {} " + movieName);
+      return null;//bad
     }
 
     return movieDBDetails;
@@ -137,22 +138,21 @@ public class TheMovieDBService {
    */
   public MovieDB getMovieById(long movieId, String showType) {
 
-    MovieDB movieDB = new MovieDB();
+    MovieDB movieDB=null;
 
     URI uri = null;
     try {
       uri = movieIdUrl(movieId, showType);
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
-
-    movieDB = restTemplate.getForObject(uri, MovieDB.class);
-
+      movieDB = restTemplate.getForObject(uri, MovieDB.class);
       if (Objects.isNull(movieDB)) {
         log.info(" No movie found in movieDB for id {}", movieId);
         throw new NotFoundException("ERR_NOT IN MOVIE_DB");
       }
-
+    }
+    catch (URISyntaxException e) {
+      e.printStackTrace();
+      log.error(e.getMessage());
+    }
       return movieDB;
 
     
@@ -166,7 +166,6 @@ public class TheMovieDBService {
    * @return imageurl string for poster
    */
   public String moviePosterPath(String fileName) {
-
     return this.imageUrl.concat("/").concat(fileName);
   }
 

@@ -21,6 +21,7 @@ export class MovieEditComponent implements OnInit {
     lastWatched: new FormControl(this.date),
   
     rating: new FormControl(this.data.rating),
+    review:new FormControl()
   
    
   });
@@ -55,6 +56,7 @@ export class MovieEditComponent implements OnInit {
     this.data.lastWatched=this.datepipe.transform(formattedDt, 'dd-MM-yyyy');;
     console.log(` movie ${this.data.name} last watched on ${this.data.lastWatched}`)
     this.data.rating =this.updateMovieForm.get('rating').value;
+    this.data.review =this.updateMovieForm.get('review').value;
     this.movieService.updateMovie(this.data)
     .subscribe
     (

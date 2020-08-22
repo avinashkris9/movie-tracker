@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/model/movie';
@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { MovieSearch } from 'src/app/model/movie-search';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MessagesComponent } from 'src/app/components/messages/messages.component';
 import { DatePipe } from '@angular/common';
 import { WatchListService } from 'src/app/services/watch-list.service';

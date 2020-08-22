@@ -9,6 +9,8 @@ import com.github.avinashkris9.movietracker.model.WatchListDTO;
 import com.github.avinashkris9.movietracker.repository.WatchListRepository;
 import com.github.avinashkris9.movietracker.utils.APIUtils;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
+import com.github.avinashkris9.movietracker.utils.ApiCodes;
+import com.github.avinashkris9.movietracker.utils.ApiCodes.API_CODES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,7 +33,6 @@ public class WatchListService {
 
   public WatchListDTO addToWatchList(WatchListDTO watchListDTO)
   {
-
       if(!Objects.isNull(watchListRepository.findByNameAndShowType(watchListDTO.getName(),watchListDTO.getShowType())))
       {
         log.error(" Entry for show type {} with name {} exists ",watchListDTO.getShowType(),watchListDTO.getName());
@@ -40,19 +41,17 @@ public class WatchListService {
 
       if(watchListDTO.getExternalId() ==null)
       {
-
         MovieDBDetails optionalMovieDBDetails =
             theMovieDBService.getMovieDetailsBySearch(
                 watchListDTO.getName(), watchListDTO.getShowType());
 
         if (!optionalMovieDBDetails.getMovieDBDetails().isEmpty()) {
-          long themovieDBMovieId = optionalMovieDBDetails.getMovieDBDetails().get(0).getMovieId();
-          log.debug("The movie db entry found with external id {} ", themovieDBMovieId);
-          watchListDTO.setExternalId(themovieDBMovieId);
+          long theMovieDbId = optionalMovieDBDetails.getMovieDBDetails().get(0).getMovieId();
+          log.debug("The movie db entry found with external id {} ", theMovieDbId);
+          watchListDTO.setExternalId(theMovieDbId);
           theMovieDBService.appendTheMovieDBDataToWatchList(watchListDTO, watchListDTO.getShowType());
         }
       }
-
       watchListDTO.setDateAdded(LocalDate.now());
       WatchList watchList =watchListRepository.save( customModelMapper.watchListDTO2WatchListEntity(watchListDTO));
       watchListDTO.setId(watchList.getId());
@@ -60,26 +59,26 @@ public class WatchListService {
   }
   public void  deleteFromWatchList(Long watchListId)
   {
-
     Optional<WatchList> watchListEntry = watchListRepository.findById(watchListId);
-    watchListEntry.orElseThrow(() -> new NotFoundException("Not found"));
+    watchListEntry.orElseThrow(() -> new NotFoundException(ApiCodes.NO_WATCH_LIST_ENTRY));
     watchListRepository.deleteById(watchListId);
   }
 
   public List<WatchListDTO> getAllWatchListEntriesByShowType(String showType)
   {
     List<WatchList> watchListEntityList=watchListRepository.findByShowType(showType);
-    if(watchListEntityList.size()==0)
+    if(watchListEntityList.isEmpty())
     {
-      throw new NotFoundException("No Entry in Watch List");
+      throw new NotFoundException(API_CODES.WATCHLIST_EMPTY.name());
     }
     else
     {
       log.info(" Obtained {} for {} ",watchListEntityList.size(),showType);
-       return watchListEntityList.stream().map( watchListEntity ->
+       return
+           watchListEntityList.stream().map( watchListEntity ->
           {
               WatchListDTO watchListDTO=customModelMapper.watchListEntity2WatchListDTO(watchListEntity);
-              theMovieDBService.appendTheMovieDBDataToWatchList(watchListDTO, SHOW_TYPES.MOVIE.name());
+              theMovieDBService.appendTheMovieDBDataToWatchList(watchListDTO, showType);
               return watchListDTO;
           }
           )
@@ -94,7 +93,6 @@ public class WatchListService {
 
    WatchList watchListEntity= watchListRepository.findByNameAndShowType(name, SHOW_TYPES.MOVIE.name());
     if (!Objects.isNull(watchListEntity)) {
-
       WatchListDTO watchListDTO=customModelMapper.watchListEntity2WatchListDTO(watchListEntity);
       if(watchListDTO.getExternalId()!=0)
       {
@@ -102,7 +100,7 @@ public class WatchListService {
       }
       return watchListDTO;
     }
-    throw new NotFoundException("Not found");
+    throw new NotFoundException(API_CODES.NOT_FOUND.name());
   }
 
 
@@ -119,6 +117,6 @@ public class WatchListService {
       }
       return watchListDTO;
     }
-    throw new NotFoundException("Not found");
+    throw new NotFoundException(API_CODES.NOT_FOUND.name());
   }
 }

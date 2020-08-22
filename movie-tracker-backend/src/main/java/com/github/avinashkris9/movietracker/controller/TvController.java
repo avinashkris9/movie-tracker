@@ -1,9 +1,13 @@
 package com.github.avinashkris9.movietracker.controller;
 
+import com.github.avinashkris9.movietracker.entity.MovieReview;
 import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.MovieReviewDTO;
 import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
+import com.github.avinashkris9.movietracker.service.TvReviewService;
 import com.github.avinashkris9.movietracker.service.TvService;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,14 +30,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/tv")
 @CrossOrigin
 @Slf4j
+@AllArgsConstructor
 public class TvController {
 
 
   private final TvService tvService;
+  private final TvReviewService tvReviewService;
 
-  public TvController(TvService tvService) {
-    this.tvService = tvService;
-  }
 
   /**
    * Returns TV Show details with paging information.
@@ -116,5 +119,45 @@ public class TvController {
   public void deleteMovieDetails(@PathVariable long tvId) {
     log.debug(" Delete Tv Request for {}",tvId );
     tvService.deleteWatchedTv(tvId);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @GetMapping("/{tvId}/reviews")
+  public List<MovieReviewDTO> getAllTvReviews(@PathVariable long tvId)
+  {
+    return tvReviewService.getAllTvReviewsByTvId(tvId);
+  }
+
+  @PostMapping("/{tvId}/reviews")
+  MovieReviewDTO addNewTvReview(@RequestBody MovieReviewDTO tvReview, @PathVariable long tvId)
+  {
+    return tvReviewService.addNewTvReview(tvId,tvReview);
+  }
+
+  @PutMapping("/{tvId}/reviews/{reviewId}")
+  MovieReviewDTO updateTvReview(@RequestBody MovieReviewDTO tvReview, @PathVariable long tvId,@PathVariable long reviewId)
+  {
+    return tvReviewService.updateTvReview(tvId,reviewId,tvReview);
+  }
+
+  @DeleteMapping("/{tvId}/reviews/{reviewId}")
+  void deleteReviewById(@PathVariable long tvId,@PathVariable long reviewId)
+  {
+    tvReviewService.deleteReviewById(tvId,reviewId);
   }
 }

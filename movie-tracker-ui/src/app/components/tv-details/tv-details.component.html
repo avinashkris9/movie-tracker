@@ -104,6 +104,11 @@
   <mat-card-content>
 
     <h4> Review</h4>
-    <p> {{movie.review}}</p>
+   
+
+    <div *ngFor ="let reviewData of movie.reviews">
+      <span>{{reviewData.lastReviewed}}</span>
+      <p> {{reviewData.review}}</p>
+    </div>
   </mat-card-content>
 </mat-card>

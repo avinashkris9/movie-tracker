@@ -24,6 +24,17 @@ export class WatchListService {
   getAllTvShows():Observable<WatchList>
   {
    
+  const url=`${this.baseUrl}?showType=TV`;
+
+    return this.httpClient.get<WatchList>(url)
+    .pipe(   
+      catchError(this.errorService.handleError<WatchList>('getWatchList',))
+    )
+  }
+
+  getAllMovieShows():Observable<WatchList>
+  {
+   
   
 
     return this.httpClient.get<WatchList>(this.baseUrl)
@@ -31,7 +42,6 @@ export class WatchListService {
       catchError(this.errorService.handleError<WatchList>('getWatchList',))
     )
   }
-
 
 
 
