@@ -9,6 +9,8 @@ Movie Tracker is a personal movie tracker webpage to track /review/rate movies/t
 - User can track movie & tv shows watched.
 - User can rate the movie/tv shows.
 - User can write personal reviews for each show.
+- Option to add multiple reviews (like a journal) for your favorite show.
+- WatchList to keep note of all movies/tvs that you are planning to watch.
 - Integration with TheMovieDB for additional movie information.
 
 ## Real Reason
