@@ -1,7 +1,9 @@
 package com.github.avinashkris9.movietracker.service;
 
 import com.github.avinashkris9.movietracker.entity.MovieDetails;
+import com.github.avinashkris9.movietracker.entity.MovieReview;
 import com.github.avinashkris9.movietracker.entity.TvDetails;
+import com.github.avinashkris9.movietracker.entity.TvReview;
 import com.github.avinashkris9.movietracker.exception.EntityExistsException;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
@@ -9,6 +11,8 @@ import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
 import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
 import com.github.avinashkris9.movietracker.repository.TvRepository;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
+import com.github.avinashkris9.movietracker.utils.ApiCodes;
+import com.github.avinashkris9.movietracker.utils.ApiCodes.API_CODES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,7 +55,7 @@ public class TvService {
     //throw exception if there are no movies
     // @TODO -> use enum for error code
     if (tvShowDetails.getSize() == 0 || !tvShowDetails.hasContent()) {
-      throw new NotFoundException("ERR_404");
+      throw new NotFoundException(API_CODES.NOT_FOUND.name());
     }
 
     List<MovieDetailsDTO> movieDetailsDTOList =
@@ -75,9 +79,9 @@ public class TvService {
   public List<MovieDetailsDTO> getTvShowsByName(String movieName) {
     List<TvDetails> tvShows = tvRepository.findByTvShowNameContainsIgnoreCase(movieName);
 
-    //@TODO --> Enum Exception
+
     if (tvShows.isEmpty()) {
-      throw new NotFoundException("No Tv Shows");
+      throw new NotFoundException(API_CODES.NOT_FOUND.name());
     }
     List<MovieDetailsDTO> movieDetailsDTOS = new ArrayList<>();
     for (TvDetails md : tvShows) {
@@ -108,7 +112,7 @@ public class TvService {
 
       return movieDetailsDTO;
     }
-    throw new NotFoundException("ERR_404");
+    throw new NotFoundException(API_CODES.NOT_FOUND.name());
   }
 
 
@@ -133,7 +137,7 @@ public class TvService {
       if (!Objects.isNull(tvShowDetailsFromDb)) {
         log.error("Movie {} exists in db {}", tvShowDetailsFromDb.getTvShowName(),
             tvShowDetailsFromDb.getId());
-        throw new EntityExistsException("MOVIE_EXISTS");
+        throw new EntityExistsException(API_CODES.DUPLICATE.name());
       }
       // call themoviedb api and find out the movie ID.
       // TODO , find a better solution rather than using search api.
@@ -146,8 +150,21 @@ public class TvService {
         tvDetails.setExternalId(themovieDBMovieId);
       }
     }
+
+    TvDetails tvDetailsEntity =customModelMapper.movieDetailsDTO2TvEntity(tvDetails);
+    if(!(tvDetails.getReview() ==null || tvDetails.getReview().isEmpty()))
+    {
+      TvReview movieReview=new TvReview();
+      movieReview.setTvDetails(tvDetailsEntity);
+      movieReview.setLastReviewed(tvDetailsEntity.getLastWatched());
+      movieReview.setReview(tvDetails.getReview());
+//      movieDetails1.getMovieReviews().add(movieReview);
+      tvDetailsEntity.addReview(movieReview);
+
+    }
+
     TvDetails tvDetailsDAO = tvRepository
-        .save(customModelMapper.movieDetailsDTO2TvEntity(tvDetails));
+        .save(tvDetailsEntity);
     log.info("Sasa {}", tvDetailsDAO);
     tvDetails.setId(tvDetailsDAO.getId());
     return tvDetails;
@@ -166,10 +183,11 @@ public class TvService {
     Optional<TvDetails> tvShowFromDb = tvRepository.findById(tvId);
     LocalDate today = LocalDate.now();
     if (!tvShowFromDb.isPresent()) {
-      //@TODO --> Use ENUM
-      throw new NotFoundException("TV_NOT_FOUND");
+
+      throw new NotFoundException(ApiCodes.TV_NOT_FOUND);
     }
 
+    TvDetails tvDetailsEntity=tvShowFromDb.get();
     if (Objects.isNull(tvDetails.getLastWatched())) {
       log.info("No date provided. setting LastWatched data as today");
       tvDetails.setLastWatched(today);
@@ -181,10 +199,21 @@ public class TvService {
     }
 
     log.info("update movie details {}", tvDetails);
-    TvDetails tvDetailsDao = customModelMapper.movieDetailsDTO2TvEntity(tvDetails);
-    tvDetails.setId(tvId);
-    tvRepository.save(tvDetailsDao);
-    return tvDetails;
+    tvDetailsEntity.setLastWatched(tvDetails.getLastWatched());
+
+       if(!(tvDetails.getReview() ==null || tvDetails.getReview().isEmpty()))
+    {
+      TvReview tvReview=new TvReview();
+      tvReview.setTvDetails(tvDetailsEntity);
+      tvReview.setLastReviewed(tvDetailsEntity.getLastWatched());
+      tvReview.setReview(tvDetails.getReview());
+//      movieDetails1.getMovieReviews().add(tvReview);
+      tvDetailsEntity.addReview(tvReview);
+
+    }
+
+
+    return customModelMapper.tvEntity2MovieDTO(   tvRepository.save(tvDetailsEntity));
   }
   /**
    * Delete TV information from database using primary key
@@ -194,7 +223,7 @@ public class TvService {
    */
   public void deleteWatchedTv(long tvId) {
     Optional<TvDetails> tvDetails = tvRepository.findById(tvId);
-    tvDetails.orElseThrow(() -> new NotFoundException("Not found"));
+    tvDetails.orElseThrow(() -> new NotFoundException(ApiCodes.TV_NOT_FOUND));
     tvRepository.deleteById(tvId);
 
   }

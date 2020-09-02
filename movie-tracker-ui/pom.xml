@@ -17,6 +17,12 @@
   </properties>
 
   <build>
+    <resources>
+      <resource>
+        <directory>./dist/movie-tracker-ui</directory>
+        <targetPath>static</targetPath>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <!-- Frontend Maven Plugin configuration -->
@@ -55,7 +61,7 @@
             <configuration>
               <arguments>run-script build-prod</arguments>
             </configuration>
-            <phase>generate-resources</phase>
+            <!-- <phase>generate-resources</phase> -->
           </execution>
 
         </executions>

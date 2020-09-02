@@ -1,6 +1,7 @@
 package com.github.avinashkris9.movietracker.service;
 
 import com.github.avinashkris9.movietracker.entity.MovieDetails;
+import com.github.avinashkris9.movietracker.entity.MovieReview;
 import com.github.avinashkris9.movietracker.exception.EntityExistsException;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
@@ -11,7 +12,6 @@ import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -55,14 +55,12 @@ public class MovieService {
     }
     movieDetails.setNumberOfWatch(1);
     MovieDetails movieName = movieRepository.findByMovieName(movieDetails.getName());
-
     if (!Objects.isNull(movieName)) {
       log.error(" Movie {} exists in db {}", movieName.getMovieName(), movieName.getId());
       throw new EntityExistsException("MOVIE_EXISTS");
     }
     // if external id is already populated. Trust the client.
     if (movieDetails.getExternalId() == 0) {
-
       // call themoviedb api and find out the movie ID.
       // TODO , find a better solution rather than using search api.
       MovieDBDetails optionalMovieDBDetails =
@@ -73,13 +71,26 @@ public class MovieService {
         long themovieDBMovieId = optionalMovieDBDetails.getMovieDBDetails().get(0).getMovieId();
         log.debug("The movie db entry found with external id {} ", themovieDBMovieId);
         movieDetails.setExternalId(themovieDBMovieId);
+
       }
     }
-    MovieDetails movieDetails1 =
-        movieRepository.save(customModelMapper.movieDTO2MovieEntity(movieDetails));
+
+    MovieDetails movieDetailsEntity=customModelMapper.movieDTO2MovieEntity(movieDetails);
+    if(!(movieDetails.getReview() ==null || movieDetails.getReview().isEmpty()))
+    {
+      MovieReview movieReview=new MovieReview();
+      movieReview.setMovieDetails(movieDetailsEntity);
+      movieReview.setLastReviewed(movieDetails.getLastWatched());
+      movieReview.setReview(movieDetails.getReview());
+      movieDetailsEntity.getMovieReviews().add(movieReview);
+    }
+
+
+    movieDetailsEntity =
+        movieRepository.save(movieDetailsEntity);
     log.info("Sasa {}", movieDetails);
-    movieDetails.setId(movieDetails1.getId());
-    return movieDetails;
+    movieDetails.setId(movieDetailsEntity.getId());
+    return customModelMapper.movieEntity2MovieDTO(movieDetailsEntity);
   }
 
   /**
@@ -91,30 +102,45 @@ public class MovieService {
    */
   public MovieDetailsDTO updateWatchedMovie(MovieDetailsDTO movieDetailsDTO, long movieId) {
 
-    //    @TODO Exception need to be thrown if movie id is not found
-
     Optional<MovieDetails> movieFromDb = movieRepository.findById(movieId);
     LocalDate today = LocalDate.now();
     if (!movieFromDb.isPresent()) {
       throw new NotFoundException("MOVIE_NOT_FOUND");
     }
-
+    MovieDetails movieEntityFromDb =movieFromDb.get();
+    log.debug("DB Entry iss {}", movieEntityFromDb);
     if (Objects.isNull(movieDetailsDTO.getLastWatched())) {
       log.info("No date provided. setting LastWatched data as today");
-      movieDetailsDTO.setLastWatched(today);
+      movieEntityFromDb.setLastWatched(today);
     } else {
       // if data is older than what's in db. Don't replace it.
-      if (movieDetailsDTO.getLastWatched().isBefore(movieFromDb.get().getLastWatched())) {
-        movieDetailsDTO.setLastWatched(movieFromDb.get().getLastWatched());
+      if (!movieDetailsDTO.getLastWatched().isBefore(movieEntityFromDb.getLastWatched())) {
+        movieEntityFromDb.setLastWatched(movieDetailsDTO.getLastWatched());
       }
     }
 
-    movieDetailsDTO.setNumberOfWatch(movieDetailsDTO.getNumberOfWatch() + 1);
-    log.info("update movie details {}", movieDetailsDTO);
-    MovieDetails movieDetails1 = customModelMapper.movieDTO2MovieEntity(movieDetailsDTO);
-    movieDetails1.setId(movieId);
-    movieRepository.save(movieDetails1);
-    return movieDetailsDTO;
+    movieEntityFromDb.setNumberOfWatch(movieDetailsDTO.getNumberOfWatch() + 1);
+    log.info("update movie details {}", movieEntityFromDb);
+
+
+
+    if(!(movieDetailsDTO.getReview() ==null || movieDetailsDTO.getReview().isEmpty()))
+    {
+      MovieReview movieReview=new MovieReview();
+      movieReview.setMovieDetails(movieEntityFromDb);
+      movieReview.setLastReviewed(movieEntityFromDb.getLastWatched());
+      movieReview.setReview(movieDetailsDTO.getReview());
+//      movieDetails1.getMovieReviews().add(movieReview);
+      movieEntityFromDb.addReview(movieReview);
+
+    }
+
+//    for (MovieReview movieReview : movieDetails1.getMovieReviews()) {
+//      //
+//      System.out.println(movieReview.getReview());
+//    }
+
+    return customModelMapper.movieEntity2MovieDTO(movieRepository.save(movieEntityFromDb));
   }
 
   /**
@@ -129,13 +155,11 @@ public class MovieService {
     Optional<MovieDetails> movieDetails = movieRepository.findById(movieId);
     if (movieDetails.isPresent()) {
       log.debug(movieDetails.toString());
-
       MovieDetailsDTO movieDetailsDTO = customModelMapper.movieEntity2MovieDTO(movieDetails.get());
       long externalMovieId = movieDetails.get().getExternalId();
       if (externalMovieId != 0) {
         theMovieDBService.appendTheMovieDBData(movieDetailsDTO, SHOW_TYPES.MOVIE.name());
       }
-
       return movieDetailsDTO;
     }
     throw new NotFoundException("ERR_404");
@@ -149,7 +173,6 @@ public class MovieService {
    */
   public List<MovieDetailsDTO> getMoviesByMovieName(String movieName) {
     List<MovieDetails> moviesByName = movieRepository.findByMovieNameContainsIgnoreCase(movieName);
-
     if (moviesByName.isEmpty()) {
       throw new NotFoundException("No movies");
     }
@@ -178,14 +201,11 @@ public class MovieService {
     if (movieDetails.getSize() == 0 || !movieDetails.hasContent()) {
       throw new NotFoundException("ERR_404");
     }
-
     log.info(movieDetails.getContent().toString());
-
     List<MovieDetailsDTO> movieDetailsDTOList =
         movieDetails.getContent().stream()
             .map(theMovieDBService::transformMovieEntity)
             .collect(Collectors.toList());
-
     return new PageMovieDetailsDTO(
         movieDetailsDTOList, movieDetails.getTotalElements(), movieDetails.getTotalPages());
   }
@@ -199,7 +219,6 @@ public class MovieService {
   public void deleteWatchedMovie(long movieId) {
     Optional<MovieDetails> movieDetails = movieRepository.findById(movieId);
     movieDetails.orElseThrow(() -> new NotFoundException("Not found"));
-
     movieRepository.delete(movieDetails.get());
   }
 
@@ -215,21 +234,7 @@ public class MovieService {
   public Map<String,Long> getMonthlyCount()
   {
     List<Object[]> output=movieRepository.monthlyCount();
-
-//    for(Object[] obj : output)
-//    {
-//      Integer x= (Integer)obj[0];
-//      Long val=(Long)obj[1];
-//      System.out.println(x +" ---"+ val);
-//    }
-  //  output.forEach(r -> System.out.println(Arrays.toString(r)));
-
     //@TODO Optimise
-    Map<String,Long> monthlyData=
-
-        output.stream().collect(Collectors.toMap( x -> (String)x[0] , x -> (Long)x[1]));
-
-
-    return monthlyData;
+    return  output.stream().collect(Collectors.toMap( x -> (String)x[0] , x -> (Long)x[1]));
   }
 }

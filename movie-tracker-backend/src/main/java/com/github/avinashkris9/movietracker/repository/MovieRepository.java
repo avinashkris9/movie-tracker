@@ -2,6 +2,7 @@ package com.github.avinashkris9.movietracker.repository;
 
 import com.github.avinashkris9.movietracker.entity.MovieDetails;
 
+import com.github.avinashkris9.movietracker.entity.TvDetails;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

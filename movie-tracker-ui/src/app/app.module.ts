@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSidenavModule, MatButtonModule, MatIconModule, MatCardModule, MatListModule} from '@angular/material';
+import {MatSidenavModule, MatButtonModule, MatIconModule, MatCardModule, MatListModule, MatTabsModule, MatExpansionModule, MatProgressBarModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HttpClientModule }    from '@angular/common/http';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
@@ -37,6 +37,9 @@ import { SharedModule } from './shared.module';
 import { DefaultLayoutComponent } from './components/layouts/default-layout/default-layout.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { WatchListComponent } from './components/watch-list/watch-list.component';
+import { TvSearchComponent } from './components/tv-search/tv-search.component';
+import { TvEditComponent } from './components/tv-edit/tv-edit.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { HighchartsChartModule } from 'highcharts-angular';
      AddTvComponent,
     TvListComponent,
     TvDetailsComponent,
-    DefaultLayoutComponent
+    DefaultLayoutComponent,
+    WatchListComponent,
+    TvSearchComponent,
+    TvEditComponent
    
 
   ],
@@ -78,12 +84,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
     AppRoutingModule,
     MatDatepickerModule,
     MatPaginatorModule,
-    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule
+    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule,MatTabsModule,MatExpansionModule,MatProgressBarModule
   ],
   providers:[DatePipe]      ,
   bootstrap: [AppComponent],
   // since we are dynamically adding this component
-  entryComponents: [ MessagesComponent,MovieEditComponent ]
+  entryComponents: [ MessagesComponent,MovieEditComponent,TvEditComponent ]
 })
 
 

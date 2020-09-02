@@ -53,6 +53,7 @@ export class MovieDetailsComponent implements OnInit {
       console.log('The dialog was closed');
       this.movie.lastWatched=result.lastWatched;
       this.movie.numberOfWatch=result.numberOfWatch;
+      this.movie.reviews=result.reviews;
       console.log(this.movie);
     });
   }

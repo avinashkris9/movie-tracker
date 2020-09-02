@@ -11,5 +11,16 @@ export class Movie {
     lastWatched:string;
     posterPath: string;
     originalLanguage:string;
+    reviews:MovieReviews
+    
 
+}
+
+export class MovieReviews{
+
+    reviewId: number;
+    review: string;
+    lastReviewed: string;
+
+    
 }

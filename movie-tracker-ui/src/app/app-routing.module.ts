@@ -9,10 +9,13 @@ import { TvListComponent } from './components/tv-list/tv-list.component';
 import { TvDetailsComponent } from './components/tv-details/tv-details.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { HelpPageComponent } from './shared/help-page/help-page.component';
+import { WatchListComponent } from './components/watch-list/watch-list.component';
+import { TvSearchComponent } from './components/tv-search/tv-search.component';
 
 
 const routes: Routes = [
   {path:'movies/search', component: MovieSearchComponent},
+  {path:'tv/search', component: TvSearchComponent},
   {path:'movies/new', component: AddMovieComponent},
   {path: 'movies/details/:id',component: MovieDetailsComponent},
   {path: 'movies', component: MovieListComponent },
@@ -21,6 +24,7 @@ const routes: Routes = [
   {path: 'tv/details/:id',component: TvDetailsComponent},
   {path:'tv', component: TvListComponent},
   {path :'admin', component: AdminPanelComponent},
+  {path:'watchlist',component: WatchListComponent},
   {path: '', redirectTo: '/admin', pathMatch: 'full' },
 
 ];

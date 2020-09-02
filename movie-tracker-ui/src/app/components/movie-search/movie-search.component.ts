@@ -4,6 +4,8 @@ import { MovieSearch } from 'src/app/model/movie-search';
 import { debounceTime, distinctUntilChanged, switchMap, startWith, map } from 'rxjs/operators';
 import { MovieService } from 'src/app/services/movie.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { WatchList } from 'src/app/model/watch-list';
+import { WatchListService } from 'src/app/services/watch-list.service';
 
 @Component({
   selector: 'app-movie-search',
@@ -14,10 +16,10 @@ export class MovieSearchComponent implements OnInit {
 
   private searchTerms = new Subject<string>();
   movies$: Observable<MovieSearch[]>;
-
+  movieSearchDetails: MovieSearch;
   myControl = new FormControl();
-  
-  constructor(private movieService :MovieService) { }
+  isNewAdd:boolean=false;
+  constructor(private movieService :MovieService,private watchListService:WatchListService) { }
  
 
 
@@ -26,7 +28,7 @@ export class MovieSearchComponent implements OnInit {
    
     
 
-    this.movies$ = this.myControl.valueChanges.pipe(
+    this.movies$ =  this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
 
@@ -41,6 +43,7 @@ export class MovieSearchComponent implements OnInit {
   }
  // Push a search term into the observable stream.
  search(term: string): void {
+  
   this.searchTerms.next(term);
 }
 
@@ -50,8 +53,37 @@ onSubmit() {
   
 
 }
-
 displayFn(movie: MovieSearch): string {
-  return movie && movie.title ? movie.title : '';
+  if (movie) { return movie.title; }
 }
+
+
+
+movieSelected(movieSearch: any) {
+
+  this.movieSearchDetails = movieSearch.value;
+
+ 
+  
+}
+
+addToWatchList(movie:MovieSearch)
+  {
+
+    console.log(movie);
+   let  movieWatchList=new WatchList;
+    movieWatchList.name=movie.title;
+    movieWatchList.externalId=movie.id;
+    movieWatchList.showType="MOVIE";
+    
+    this.watchListService.addToWatchList(movieWatchList).subscribe
+    (
+      data => console.log(data)
+    );
+  }
+
+  rateAndReview(movie:MovieSearch)
+  {
+    this.isNewAdd=true;
+  }
 }

@@ -1,0 +1,202 @@
+<h2 class="title"> My Watch List</h2>
+
+
+
+<mat-tab-group>
+    <mat-tab label="Movies">
+
+        <div fxLayout="column" fxLayoutGap="32px">
+            <div *ngIf="isMovieLoading">
+                <mat-progress-bar mode="query"></mat-progress-bar>
+            </div>
+            <div *ngIf="movieList !=undefined else emptyWatchList">
+                <ng-container *ngFor="let movie of movieList">
+                    <mat-card>
+
+                        <mat-card-content color="primary" fxLayout="row" fxLayoutAlign="space-between center"
+                            fxLayoutGap="20px">
+
+                            <div class="poster">
+
+                                <img [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
+                                    alt="{{movie.name}}" width="70" height="100">
+                            </div>
+                            <div class="movie-details">
+
+                                <h2> {{movie.name}}</h2>
+                                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+
+                                    <p>
+                                        <strong><bdi>Status</bdi></strong> Released
+                                    </p>
+                                    <p>
+                                        <strong><bdi>Original Language</bdi></strong> {{movie.originalLanguage}}
+
+                                    </p>
+                                    <p>
+                                        <strong><bdi>Date Added</bdi></strong> {{movie.dateAdded}}
+
+                                    </p>
+
+
+                                </div>
+
+                                <p>
+                                    {{movie.overView}}
+                                </p>
+
+
+
+                            </div>
+
+
+                        </mat-card-content>
+
+
+                        <mat-card-actions fxLayout="row" fxLayoutGap="20px">
+                            <button (click)="deleteFromWatchList(movie)" fxFlex=10 mat-button mat-icon-button>
+                                <mat-icon>
+                                    highlight_remove
+                                </mat-icon>Remove
+                            </button>
+                            <button (click)="openAddToWatched(movie)" fxFlex=10 mat-button mat-icon-button>
+                                <mat-icon>
+                                    done
+                                </mat-icon>Watched!
+                            </button>
+
+                        </mat-card-actions>
+
+                    </mat-card>
+                    <br>
+                    <mat-divider></mat-divider>
+
+
+                </ng-container>
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+    </mat-tab>
+    <mat-tab label="TV">
+        <div fxLayout="column" fxLayoutGap="32px">
+            <div *ngIf="isTvLoading">
+                <mat-progress-bar mode="query"></mat-progress-bar>
+            </div>
+            <div *ngIf="tvList !=undefined else emptyWatchList">
+                <ng-container *ngFor="let movie of tvList">
+                    <mat-card>
+
+                        <mat-card-content color="primary" fxLayout="row" fxLayoutAlign="space-between center"
+                            fxLayoutGap="20px">
+
+                            <div class="poster">
+
+                                <img [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
+                                    alt="{{movie.name}}" width="70" height="100">
+                            </div>
+                            <div class="movie-details">
+
+                                <h2> {{movie.name}}</h2>
+                                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px">
+
+                                    <p>
+                                        <strong><bdi>Status</bdi></strong> Released
+                                    </p>
+                                    <p>
+                                        <strong><bdi>Original Language</bdi></strong> {{movie.originalLanguage}}
+
+                                    </p>
+                                    <p>
+                                        <strong><bdi>Date Added</bdi></strong> {{movie.dateAdded}}
+
+                                    </p>
+
+
+                                </div>
+
+                                <p>
+                                    {{movie.overView}}
+                                </p>
+
+
+
+                            </div>
+
+
+                        </mat-card-content>
+
+
+                        <mat-card-actions fxLayout="row" fxLayoutGap="20px">
+                            <button (click)="deleteFromWatchList(movie)" fxFlex=10 mat-button mat-icon-button>
+                                <mat-icon>
+                                    highlight_remove
+                                </mat-icon>Remove
+                            </button>
+                            <button (click)="openAddToWatched(movie)" fxFlex=10 mat-button mat-icon-button>
+                                <mat-icon>
+                                    done
+                                </mat-icon>Watched!
+                            </button>
+
+                        </mat-card-actions>
+
+                    </mat-card>
+                    <br>
+                    <mat-divider></mat-divider>
+
+
+                </ng-container>
+            </div>
+
+
+
+
+        </div>
+    </mat-tab>
+
+</mat-tab-group>
+
+
+
+<!-- <ng-container *ngFor="let movie of movieList">
+    <mat-accordion multi class="example-headers-align">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    {{movie.name}} </mat-panel-title>
+                <mat-panel-description>
+                    <span> Date Added: {{movie.dateAdded}}
+                    </span>
+                    <mat-icon fxFlex="25">done</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <p class="mat-body-1">{{movie.overView}}</p>
+
+
+        </mat-expansion-panel>
+    </mat-accordion>
+</ng-container> -->
+
+<ng-template #emptyWatchList>
+    <h4> It's empty !</h4>
+</ng-template>
+
+
+
+
+
+<ng-template #rr>
+
+    <app-add-movie></app-add-movie>
+</ng-template>

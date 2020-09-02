@@ -5,6 +5,7 @@ import { faCalendar, faStar } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { MovieEditComponent } from '../movie-edit/movie-edit.component';
+import { TvEditComponent } from '../tv-edit/tv-edit.component';
 
 @Component({
   selector: 'app-tv-details',
@@ -48,7 +49,7 @@ export class TvDetailsComponent implements OnInit {
  
   openUpdateDialog()
   {
-    let dialogRef = this.dialog.open(MovieEditComponent, {
+    let dialogRef = this.dialog.open(TvEditComponent, {
       width: '250px',
       data: this.movie,
     });
@@ -57,7 +58,10 @@ export class TvDetailsComponent implements OnInit {
       console.log('The dialog was closed');
       this.movie.lastWatched=result.lastWatched;
       this.movie.numberOfWatch=result.numberOfWatch;
+      this.movie.reviews=result.reviews;
       console.log(this.movie);
+
+
     });
   }
 
