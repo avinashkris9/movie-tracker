@@ -39,6 +39,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { TvSearchComponent } from './components/tv-search/tv-search.component';
+import { TvEditComponent } from './components/tv-edit/tv-edit.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { TvSearchComponent } from './components/tv-search/tv-search.component';
     TvDetailsComponent,
     DefaultLayoutComponent,
     WatchListComponent,
-    TvSearchComponent
+    TvSearchComponent,
+    TvEditComponent
    
 
   ],
@@ -87,7 +89,7 @@ import { TvSearchComponent } from './components/tv-search/tv-search.component';
   providers:[DatePipe]      ,
   bootstrap: [AppComponent],
   // since we are dynamically adding this component
-  entryComponents: [ MessagesComponent,MovieEditComponent ]
+  entryComponents: [ MessagesComponent,MovieEditComponent,TvEditComponent ]
 })
 
 

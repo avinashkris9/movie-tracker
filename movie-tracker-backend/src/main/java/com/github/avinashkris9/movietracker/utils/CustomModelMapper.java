@@ -72,7 +72,7 @@ public class CustomModelMapper {
     details.setRating(tvDetails.getRating());
 //    details.setReview(tvDetails.getReview());
     details.setId(tvDetails.getId());
-    if (!tvDetails.getReview().isEmpty()) {
+    if (!tvDetails.getTvReviews().isEmpty()) {
       details.setReviews(
           tvDetails.getTvReviews().stream()
 

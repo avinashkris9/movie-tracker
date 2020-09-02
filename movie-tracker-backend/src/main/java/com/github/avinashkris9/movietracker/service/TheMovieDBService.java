@@ -138,7 +138,7 @@ public class TheMovieDBService {
    */
   public MovieDB getMovieById(long movieId, String showType) {
 
-    MovieDB movieDB=null;
+    MovieDB movieDB=new MovieDB();
 
     URI uri = null;
     try {
@@ -153,7 +153,12 @@ public class TheMovieDBService {
       e.printStackTrace();
       log.error(e.getMessage());
     }
+    catch (Exception e) {
+      e.printStackTrace();
+      log.error(e.getMessage());
+    }
       return movieDB;
+
 
     
   }
