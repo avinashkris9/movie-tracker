@@ -14,6 +14,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -184,11 +185,21 @@ public class TheMovieDBService {
    */
   public MovieDetailsDTO appendTheMovieDBData(MovieDetailsDTO movieDetailsDTO, String showType) {
 
+
     MovieDB movieDB = getMovieById(movieDetailsDTO.getExternalId(), showType);
-    movieDetailsDTO.setOverView(movieDB.getMovieSummary());
-    movieDetailsDTO.setImdbId(movieDB.getImdbId());
-    movieDetailsDTO.setPosterPath(moviePosterPath(movieDB.getPosterPath()));
-    movieDetailsDTO.setOriginalLanguage(movieDB.getOriginalLanguge());
+    Optional<MovieDB> opt = Optional.of(movieDB);
+    if(opt.isPresent())
+    {
+      movieDetailsDTO.setOverView(movieDB.getMovieSummary());
+      movieDetailsDTO.setImdbId(movieDB.getImdbId());
+      movieDetailsDTO.setPosterPath(moviePosterPath(movieDB.getPosterPath()));
+      movieDetailsDTO.setOriginalLanguage(movieDB.getOriginalLanguge());
+    }
+    else
+    {
+      log.error(" No info from the movie db !!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+
     return movieDetailsDTO;
   }
 
