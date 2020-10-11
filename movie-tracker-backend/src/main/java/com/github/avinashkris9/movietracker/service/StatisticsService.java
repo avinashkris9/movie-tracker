@@ -34,7 +34,10 @@ public class StatisticsService {
     statisticsDTO.setTvCount(tvService.getTvCount());
     statisticsDTO.setTvWithMaxRating(tvService.getTopRatedTvCount());
 
-
+    /**
+     * @TODO Broken !!!!!!!!!!!!
+     * the query is not correct and data is not correct.
+     */
  Map<Integer,Long> monthlyMovieCount=movieService.getMonthlyCount();;
     statisticsDTO.setMonthlyCount(monthlyMovieCount);
     log.debug(" Statistics Data {}",statisticsDTO);
