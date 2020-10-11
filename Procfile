@@ -1,0 +1,1 @@
+web: java -jar movie-tracker-backend/target/movie-tracker-backend-1.0-SNAPSHOT.jar  -Dapi.key=b7e7963dffce367a677cb69080b139ad -Dspring.profiles.active=prod -Dlogging.level.com.github*=DEBUG
