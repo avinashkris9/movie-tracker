@@ -231,10 +231,12 @@ public class MovieService {
   }
 
 
-  public Map<String,Long> getMonthlyCount()
+  public Map<Integer,Long> getMonthlyCount()
   {
     List<Object[]> output=movieRepository.monthlyCount();
+
+
     //@TODO Optimise
-    return  output.stream().collect(Collectors.toMap( x -> (String)x[0] , x -> (Long)x[1]));
+    return  output.stream().collect(Collectors.toMap( x -> (Integer)x[0] , x -> (Long)x[1]));
   }
 }

@@ -35,7 +35,7 @@ public class StatisticsService {
     statisticsDTO.setTvWithMaxRating(tvService.getTopRatedTvCount());
 
 
- Map<String,Long> monthlyMovieCount=movieService.getMonthlyCount();;
+ Map<Integer,Long> monthlyMovieCount=movieService.getMonthlyCount();;
     statisticsDTO.setMonthlyCount(monthlyMovieCount);
     log.debug(" Statistics Data {}",statisticsDTO);
     return statisticsDTO;

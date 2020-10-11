@@ -10,7 +10,7 @@ public class StatisticsDTO {
   private Long tvCount;
   private Long movieWithMaxRating;
   private Long tvWithMaxRating;
-  private Map<String, Long> monthlyCount;
+  private Map<Integer, Long> monthlyCount;
 
 
 }
