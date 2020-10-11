@@ -21,6 +21,6 @@ public interface MovieRepository extends JpaRepository<MovieDetails, Long> {
 
   long countByRating(int rating);
 
-  @Query("Select MONTHNAME(md.lastWatched),count(*) from MovieDetails md group by MONTHNAME( md.lastWatched) ")
+  @Query("Select month(md.lastWatched),count(*) from MovieDetails md group by month( md.lastWatched) ")
   List<Object[]> monthlyCount();
 }
