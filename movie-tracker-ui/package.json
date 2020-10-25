@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-prod": "ng build --prod --base-href /movie-tracker/"
+	"build-heroku": "ng build --prod -c heroku --base-href /movie-tracker/"
   },
   "private": true,
   "dependencies": {

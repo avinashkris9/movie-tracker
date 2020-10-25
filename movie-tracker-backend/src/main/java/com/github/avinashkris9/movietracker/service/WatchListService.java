@@ -1,6 +1,5 @@
 package com.github.avinashkris9.movietracker.service;
 
-import com.github.avinashkris9.movietracker.entity.TvDetails;
 import com.github.avinashkris9.movietracker.entity.WatchList;
 import com.github.avinashkris9.movietracker.exception.EntityExistsException;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
@@ -9,8 +8,6 @@ import com.github.avinashkris9.movietracker.model.WatchListDTO;
 import com.github.avinashkris9.movietracker.repository.WatchListRepository;
 import com.github.avinashkris9.movietracker.utils.APIUtils;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
-import com.github.avinashkris9.movietracker.utils.ApiCodes;
-import com.github.avinashkris9.movietracker.utils.ApiCodes.API_CODES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import java.time.LocalDate;
 import java.util.List;
@@ -60,7 +57,7 @@ public class WatchListService {
   public void  deleteFromWatchList(Long watchListId)
   {
     Optional<WatchList> watchListEntry = watchListRepository.findById(watchListId);
-    watchListEntry.orElseThrow(() -> new NotFoundException(ApiCodes.NO_WATCH_LIST_ENTRY));
+    watchListEntry.orElseThrow(() -> new NotFoundException(APIUtils.NO_WATCH_LIST_ENTRY));
     watchListRepository.deleteById(watchListId);
   }
 
@@ -69,7 +66,7 @@ public class WatchListService {
     List<WatchList> watchListEntityList=watchListRepository.findByShowType(showType);
     if(watchListEntityList.isEmpty())
     {
-      throw new NotFoundException(API_CODES.WATCHLIST_EMPTY.name());
+      throw new NotFoundException(APIUtils.API_CODES.WATCHLIST_EMPTY.name());
     }
     else
     {
@@ -100,7 +97,7 @@ public class WatchListService {
       }
       return watchListDTO;
     }
-    throw new NotFoundException(API_CODES.NOT_FOUND.name());
+    throw new NotFoundException(APIUtils.API_CODES.NOT_FOUND.name());
   }
 
 
@@ -117,6 +114,6 @@ public class WatchListService {
       }
       return watchListDTO;
     }
-    throw new NotFoundException(API_CODES.NOT_FOUND.name());
+    throw new NotFoundException(APIUtils.API_CODES.NOT_FOUND.name());
   }
 }

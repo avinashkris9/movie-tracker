@@ -124,19 +124,6 @@ public class TvController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   @GetMapping("/{tvId}/reviews")
   public List<MovieReviewDTO> getAllTvReviews(@PathVariable long tvId)
   {

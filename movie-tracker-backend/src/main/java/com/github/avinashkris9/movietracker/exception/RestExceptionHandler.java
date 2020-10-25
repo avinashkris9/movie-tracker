@@ -1,8 +1,7 @@
 package com.github.avinashkris9.movietracker.exception;
 
 import com.github.avinashkris9.movietracker.model.APIError;
-import com.github.avinashkris9.movietracker.utils.ApiCodes;
-import com.github.avinashkris9.movietracker.utils.ApiCodes.API_CODES;
+import com.github.avinashkris9.movietracker.utils.APIUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpHeaders;
@@ -73,7 +72,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     APIError apiError = new APIError();
-    apiError.setCode(API_CODES.NOT_FOUND.name());
+    apiError.setCode(APIUtils.API_CODES.NOT_FOUND.name());
     apiError.setMessage(exception.getMessage());
     return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
   }
@@ -88,7 +87,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   public ResponseEntity<APIError> EntityExistsExceptionHandler(Exception exception) {
 
     APIError apiError = new APIError();
-    apiError.setCode(API_CODES.DUPLICATE.name());
+    apiError.setCode(APIUtils.API_CODES.DUPLICATE.name());
     apiError.setMessage(exception.getMessage());
     return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
   }
@@ -102,7 +101,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   public ResponseEntity<APIError> TheMovieDBExceptionHandler(TheMovieDBException exception) {
 
     APIError apiError = new APIError();
-    apiError.setCode(API_CODES.NOT_FOUND.name());
+    apiError.setCode(APIUtils.API_CODES.NOT_FOUND.name());
     apiError.setMessage(exception.getMessage());
     return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
   }
