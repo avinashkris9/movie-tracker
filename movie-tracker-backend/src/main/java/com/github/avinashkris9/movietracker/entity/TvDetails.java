@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,8 @@ public class TvDetails {
   private String platform;
   private LocalDate lastWatched;
   private boolean isCompleted;
-  @Lob
+  // @Lob
+  @Column(nullable = false,columnDefinition = "clob")
   private String review;
   private long externalId;
   private int rating;

@@ -31,8 +31,8 @@ public class TvReview {
   private Long reviewId;
 
 
-  @Lob
-  @Column(nullable = false) //hibernate ddl will create not null constraint
+  // @Lob
+  @Column(nullable = false,columnDefinition = "clob") //hibernate ddl will create not null constraint
   private String review;
 
 
