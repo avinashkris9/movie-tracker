@@ -58,8 +58,12 @@ public class CustomModelMapper {
     tvDetails.setExternalId(movieDetailsDTO.getExternalId());
     tvDetails.setTvShowName(movieDetailsDTO.getName());
     tvDetails.setRating(movieDetailsDTO.getRating());
-    tvDetails.setReview(movieDetailsDTO.getReview());
 
+    if(!tvDetails.getTvReviews().isEmpty())
+    {tvDetails.setTvReviews(movieDetailsDTO.getReviews().stream().map(
+        this::movieReviewDTO2TvReviewEntity).collect(Collectors.toSet())
+    );
+    }
     return tvDetails;
   }
 

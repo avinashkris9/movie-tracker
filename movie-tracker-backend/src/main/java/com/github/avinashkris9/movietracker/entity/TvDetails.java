@@ -34,9 +34,7 @@ public class TvDetails {
   private String platform;
   private LocalDate lastWatched;
   private boolean isCompleted;
-  // @Lob
-  @Column(nullable = false,columnDefinition = "clob")
-  private String review;
+
   private long externalId;
   private int rating;
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "tvDetails")
