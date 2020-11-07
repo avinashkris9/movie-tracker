@@ -1,3 +1,7 @@
+
+
+
+
 <div> <mat-paginator  [length]="length"
   [pageSize]="pageSize"
   [pageSizeOptions]="[5, 10, 25, 100]" 
@@ -5,8 +9,15 @@
   
   >
 </mat-paginator>
- 
-<mat-card *ngFor ="let movie of movies " class="example-card">
+<div fxLayout="row wrap" 
+
+fxLayout.lt-sm="column" 
+ fxLayoutGap="20px">
+
+
+<mat-card *ngFor ="let movie of movies " class="example-card"   fxFlex="0 1 calc(33.3% - 32px)"
+fxFlex.lt-md="0 1 calc(50% - 32px)"
+fxFlex.lt-sm="100%">
   
     <mat-card-header>
       <!-- <div mat-card-avatar  class="example-header-image"
@@ -37,7 +48,7 @@
       </mat-card-subtitle>
     </mat-card-header>
     
-    <img  [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}" width ="185" height="278">
+    <img class="md-card-image" [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}" >
  
     <mat-card-content>
       <p class="mat-small">
@@ -47,4 +58,5 @@
     
   </mat-card>
 
+</div>
 </div>

@@ -12,10 +12,10 @@ export class MovieListComponent implements OnInit {
 
    movies:Movie[]=null;;
   length: number =1000;
-   pageSize:number =5;
+   pageSize:number =6;
    page: number =0;
    pageEvent: PageEvent;
-   previousPageSize: number=5;;
+   previousPageSize: number=6;;
   constructor( private movieService:MovieService) { }
   faCoffee = faStar;
   ngOnInit() {

@@ -1,9 +1,11 @@
-<div id="dashboard">
+<div id="dashboard" >
 
     <h2 class="mat-headline"> Analytics</h2>
-<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px"  class="stats-cards" *ngIf="statistics !=undefined">
+<div fxLayout="row"  fxLayout.lt-sm="column" fxLayoutAlign="space-between center" fxLayoutGap="20px"  class="stats-cards" *ngIf="statistics !=undefined">
 
-    <mat-card fxFlex=25>
+    <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)"
+    fxFlex.lt-md="0 1 calc(50% - 32px)"
+    fxFlex.lt-sm="100%">
         <div class="text">
             <h4>Movie Count</h4>
             <span class="total">{{statistics.movieCount}}</span>
@@ -16,7 +18,9 @@ trending_up
     </mat-card>
 
     
-    <mat-card fxFlex=25>
+    <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)"
+    fxFlex.lt-md="0 1 calc(50% - 32px)"
+    fxFlex.lt-sm="100%">
         <div class="text">
             <h4>TV Count</h4>
             <span class="total">   {{statistics.tvCount}}</span>
@@ -27,7 +31,9 @@ trending_up
             <span class="description">  Tv Shows</span>
         </div>
     </mat-card>
-    <mat-card fxFlex=25>
+    <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)"
+    fxFlex.lt-md="0 1 calc(50% - 32px)"
+    fxFlex.lt-sm="100%">
         <div class="text">
             <h4>Top Rated Movies </h4>
             <span class="total">   {{statistics.movieWithMaxRating}}</span>
@@ -38,7 +44,9 @@ trending_up
             <span class="description">  Rating 5</span>
         </div>
     </mat-card>
-    <mat-card fxFlex=25>
+    <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)"
+    fxFlex.lt-md="0 1 calc(50% - 32px)"
+    fxFlex.lt-sm="100%">
 
         <div class="text">
             <h4>Top Rated Tv </h4>

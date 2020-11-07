@@ -11,6 +11,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { HelpPageComponent } from './shared/help-page/help-page.component';
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { TvSearchComponent } from './components/tv-search/tv-search.component';
+import { DashComponent } from './dash/dash.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path:'tv', component: TvListComponent},
   {path :'admin', component: AdminPanelComponent},
   {path:'watchlist',component: WatchListComponent},
+  {path:'dashboard',component: DashComponent},
   {path: '', redirectTo: '/admin', pathMatch: 'full' },
 
 ];

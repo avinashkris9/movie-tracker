@@ -40,6 +40,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { TvSearchComponent } from './components/tv-search/tv-search.component';
 import { TvEditComponent } from './components/tv-edit/tv-edit.component';
+import { DashComponent } from './dash/dash.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ import { TvEditComponent } from './components/tv-edit/tv-edit.component';
     DefaultLayoutComponent,
     WatchListComponent,
     TvSearchComponent,
-    TvEditComponent
+    TvEditComponent,
+    DashComponent
    
 
   ],
@@ -84,7 +87,7 @@ import { TvEditComponent } from './components/tv-edit/tv-edit.component';
     AppRoutingModule,
     MatDatepickerModule,
     MatPaginatorModule,
-    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule,MatTabsModule,MatExpansionModule,MatProgressBarModule
+    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule,MatTabsModule,MatExpansionModule,MatProgressBarModule, LayoutModule
   ],
   providers:[DatePipe]      ,
   bootstrap: [AppComponent],

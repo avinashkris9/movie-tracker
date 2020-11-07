@@ -1,7 +1,11 @@
-<app-header  (toggleSideBarForMe)="sideBarToggler()"> </app-header>
+<div class="layout-container">
 
-<mat-drawer-container>
+    <app-header  (toggleSideBarForMe)="sideBarToggler()"> </app-header>
+
+<!-- <mat-drawer-container>
     <mat-drawer mode="side" [opened]="sideBarOpen" >  
+
+        <mat-sidenav-container></mat-sidenav-container>
         <app-sidebar></app-sidebar>   </mat-drawer>
 
     <mat-drawer-content>
@@ -9,4 +13,16 @@
 <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>
+
+<app-footer></app-footer> -->
+
+<mat-sidenav-container  class="example-sidenav-container">
+<mat-sidenav  mode="side"  [opened]="sideBarOpen" >
+    <app-sidebar></app-sidebar>
+</mat-sidenav>
+<mat-sidenav-content>
+ <router-outlet></router-outlet>
+</mat-sidenav-content>
+</mat-sidenav-container>
 <app-footer></app-footer>
+</div>

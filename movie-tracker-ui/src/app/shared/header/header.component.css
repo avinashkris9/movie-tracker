@@ -9,3 +9,7 @@ ul li
     font-size: 14px;
     font-weight: 500;
 }
+
+.layout-spacer {
+    flex: 1 1 auto;
+  }

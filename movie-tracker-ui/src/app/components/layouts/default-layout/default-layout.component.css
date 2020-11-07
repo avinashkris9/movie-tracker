@@ -4,23 +4,39 @@
     flex-direction: column;
     height: 100%;
 }
+.layout-container
+{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 
-mat-drawer
+mat-drawer 
 {
     width: 200px;
     height: 100%;
-
+    flex: 1;
 }
+mat-sidenav {
+    width: 200px;
+  }
 
-
-mat-drawer-container{
+  mat-sidenav-container 
+  {
+    flex: 1;
+  }
+mat-drawer-container {
 
     height: 100%;
     overflow: auto;
     ;
 
 }
-mat-drawer-content
+mat-drawer-content mat-sidenav-content
 {
     padding:20px;
    

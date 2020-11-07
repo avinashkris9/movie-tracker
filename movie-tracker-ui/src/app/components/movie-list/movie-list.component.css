@@ -1,20 +1,28 @@
-.example-card {
+.example-cards {
    
-    display: inline-block;
-    width: 25%;
-    margin: 10px;
-    height: auto;
-    padding: 20px;
-    vertical-align: top;
-    cursor: pointer;
-  }
-  
-  .example-header-image {
-    
-    background-size: cover;
-  }
+  display: inline-block;
+  width: 25%;
+  margin: 10px;
+  height: auto;
+  padding: 20px;
+  vertical-align: top;
+  cursor: pointer;
+}.example-card {
+   
 
-  /* mat-card {
-    width: calc(100% - 70px);
-    height: calc(100% - 70px);
-  } */
+  margin: 10px;
+  padding: 20px;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+
+.example-header-image {
+  
+  background-size: cover;
+}
+
+/* mat-card {
+  width: calc(100% - 70px);
+  height: calc(100% - 70px);
+} */
