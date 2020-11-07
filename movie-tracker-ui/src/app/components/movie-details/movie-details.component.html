@@ -1,23 +1,27 @@
 
 <div fxLayout="row wrap" 
 fxLayout.lt-sm="column" 
-fxLayoutAlign="space-between center" fxLayoutGap="20px">
+fxLayoutAlign="space-between center" fxLayoutGap="30px">
 
 
 
 
-<mat-card>
+<mat-card  width="185"
+        height="278"  >
 
 
+        
+  <mat-card-content color="primary"   >
 
-  <mat-card-content color="primary" >
+    <div class="poster" fxFlex="25" fxFlex="0 1 calc(33.3% - 32px)"
+    fxFlex.lt-md="0 1 calc(50% - 32px)"
+    fxFlex.lt-sm="100%">
 
-    <div class="poster" fxFlex="25">
-
-      <img [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}" width="185"
-        height="278">
+      <img class="mat-image" [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}">
     </div>
-    <div class="movie-details">
+    <div class="movie-details"  
+    fxFlex.lt-md="0 1 calc(50% - 32px)"
+    fxFlex.lt-sm="100%">
 
       <h1> {{movie.name}}</h1>
       <div class="align-horizontal">
@@ -55,7 +59,12 @@ fxLayoutAlign="space-between center" fxLayoutGap="20px">
   <div>
 
     <mat-card-footer fxFlex>
-      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="50px">
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="50px"
+      
+    fxFlex.lt-md="0 1 calc(50% - 32px)"
+    fxFlex.lt-sm="100%"
+    
+    >
 
 
 

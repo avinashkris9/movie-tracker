@@ -1,71 +1,76 @@
-<mat-card>
+<div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-between center" fxLayoutGap="30px">
+
+  <mat-card width="185" height="278">
 
 
-  <mat-card-content color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+    <mat-card-content color="primary">
 
-    <div class="poster" fxFlex="25">
+      <div class="poster" fxFlex="25" fxFlex="0 1 calc(33.3% - 32px)"
+      fxFlex.lt-md="0 1 calc(50% - 32px)"
+      fxFlex.lt-sm="100%">
 
-      <img [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}" width="185"
-        height="278">
-    </div>
-    <div class="movie-details">
+        <img class="mat-image" [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
+          alt="{{movie.name}}">
+      </div>
+      <div class="movie-details" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
 
-      <h1> {{movie.name}}</h1>
-      <div class="align-horizontal">
-        <span *ngFor="let number of [1,2,3,4,5] | slice:0:movie?.rating; let i = index;">
-          <fa-icon [icon]="faStar" style="color:gold"></fa-icon>
-        </span>
+        <h1> {{movie.name}}</h1>
+        <div class="align-horizontal">
+          <span *ngFor="let number of [1,2,3,4,5] | slice:0:movie?.rating; let i = index;">
+            <fa-icon [icon]="faStar" style="color:gold"></fa-icon>
+          </span>
 
 
+
+        </div>
+        <p>
+          <strong><bdi>Status</bdi></strong> Released
+        </p>
+        <p>
+          <strong><bdi>Original Language</bdi></strong> {{movie.originalLanguage}}
+
+        </p>
+        <p>
+          {{movie.overView}}
+        </p>
+
+        <p>
+          <strong><bdi>Rating </bdi></strong> {{movie.rating}}/5
+        </p>
 
       </div>
-      <p>
-        <strong><bdi>Status</bdi></strong> Released
-      </p>
-      <p>
-        <strong><bdi>Original Language</bdi></strong> {{movie.originalLanguage}}
 
-      </p>
-      <p>
-        {{movie.overView}}
-      </p>
+      <div class="delete-movie">
+        <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn">
+          <mat-icon aria-label="Delete" (click)="deleteMovie(movie)">delete</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
 
-      <p>
-        <strong><bdi>Rating </bdi></strong> {{movie.rating}}/5
-      </p>
+    <div>
 
-    </div>
-
-    <div class="delete-movie">
-      <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn">
-        <mat-icon aria-label="Delete" (click)="deleteMovie(movie)">delete</mat-icon>
-      </button>
-    </div>
-  </mat-card-content>
-
-  <div>
-
-    <mat-card-footer fxFlex>
-      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="50px">
+      <mat-card-footer fxFlex>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="50px" fxFlex.lt-md="0 1 calc(50% - 32px)"
+          fxFlex.lt-sm="100%">
 
 
 
-        <div style="font-size:10px" fxFlex=300px>
+          <div style="font-size:10px" fxFlex=300px>
 
-          <button mat-button (click)="openUpdateDialog()" color="primary">
+            <button mat-button (click)="openUpdateDialog()" color="primary">
 
-            Review Again
-            <mat-icon>add_circle</mat-icon>
-          </button>
-        </div>
+              Review Again
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
 
 
-      
-  
-        <p fxFlex> Last Watched on {{ movie.lastWatched}}</p>
 
-     
-     <!-- <div fxFlex=20>
+
+          <p fxFlex> Last Watched on {{ movie.lastWatched}}</p>
+
+
+          <!-- <div fxFlex=20>
         <p  class="cards"> Total Watch
 
           <fa-layers [fixedWidth]="true" style="background:MistyRose">
@@ -82,33 +87,35 @@
         </p>
         
       </div> -->
-     
+
+        </div>
+
+
+
+
+      </mat-card-footer>
     </div>
+  </mat-card>
+
+
+
+  <mat-divider></mat-divider>
 
 
 
 
-    </mat-card-footer>
-  </div>
-</mat-card>
+  <mat-card style="padding:60px">
+
+    <mat-card-content>
+
+      <h4> Review</h4>
 
 
+      <div *ngFor="let reviewData of movie.reviews">
+        <span>{{reviewData.lastReviewed}}</span>
+        <p> {{reviewData.review}}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-<mat-divider></mat-divider>
-
-
-
-
-<mat-card style="padding:60px">
-
-  <mat-card-content>
-
-    <h4> Review</h4>
-   
-
-    <div *ngFor ="let reviewData of movie.reviews">
-      <span>{{reviewData.lastReviewed}}</span>
-      <p> {{reviewData.review}}</p>
-    </div>
-  </mat-card-content>
-</mat-card>
+</div>

@@ -1,6 +1,8 @@
 <div id="search-bar" >
 
-
+  <div fxLayout="row wrap" 
+  fxLayout.lt-sm="column" 
+  fxLayoutAlign="space-between center" fxLayoutGap="30px">
   
   
     <mat-toolbar>
@@ -38,12 +40,14 @@
   
     <mat-card-content color="primary" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
   
-      <div class="poster" fxFlex="25">
+      <div class="poster" fxFlex="25" Flex.lt-md="0 1 calc(50% - 32px)"
+      fxFlex.lt-sm="100%">
   
         <img [attr.src]=" movieSearchDetails.poster_path? movieSearchDetails.poster_path : 'assets/logo.png'" alt="{{movieSearchDetails.name}}" width="185"
           height="278">
       </div>
-      <div class="movie-details">
+      <div class="movie-details" Flex.lt-md="0 1 calc(50% - 32px)"
+      fxFlex.lt-sm="100%">
   
         <h1> {{movieSearchDetails.name}}</h1>
         
@@ -68,7 +72,8 @@
     <div>
   
       <mat-card-footer fxFlex>
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="50px">
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="50px" Flex.lt-md="0 1 calc(50% - 32px)"
+        fxFlex.lt-sm="100%">
   
   
   
@@ -107,4 +112,5 @@
     <app-add-tv [tvSearchDetails]=movieSearchDetails></app-add-tv>
   
   
+  </div>
   </div>

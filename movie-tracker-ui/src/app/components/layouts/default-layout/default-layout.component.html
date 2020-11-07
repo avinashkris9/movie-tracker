@@ -1,6 +1,6 @@
 <div class="layout-container">
 
-    <app-header  (toggleSideBarForMe)="sideBarToggler()"> </app-header>
+    <app-header  (toggleSideBarForMe)="sideBarToggler()" > </app-header>
 
 <!-- <mat-drawer-container>
     <mat-drawer mode="side" [opened]="sideBarOpen" >  
@@ -16,11 +16,11 @@
 
 <app-footer></app-footer> -->
 
-<mat-sidenav-container  class="example-sidenav-container">
-<mat-sidenav  mode="side"  [opened]="sideBarOpen" >
+<mat-sidenav-container  fxFlexFill class="example-sidenav-container">
+<mat-sidenav  #sidenav mode="side"  [opened]="sideBarOpen" fxLayout="column"  fxShow  fxHide.lt-sm="true"  >
     <app-sidebar></app-sidebar>
 </mat-sidenav>
-<mat-sidenav-content>
+<mat-sidenav-content fxFlexFill>
  <router-outlet></router-outlet>
 </mat-sidenav-content>
 </mat-sidenav-container>
