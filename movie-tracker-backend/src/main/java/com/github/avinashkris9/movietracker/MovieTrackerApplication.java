@@ -23,6 +23,7 @@ public class MovieTrackerApplication {
   public static void main(String[] args) {
 
     SpringApplication springApplication = new SpringApplication(MovieTrackerApplication.class);
+
     springApplication.setBannerMode(Banner.Mode.OFF);
     springApplication.run(args);
 
