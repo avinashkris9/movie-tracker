@@ -1,7 +1,4 @@
 <h2 class="title"> My Watch List</h2>
-
-
-
 <mat-tab-group>
     <mat-tab label="Movies">
 
@@ -13,13 +10,13 @@
                 <ng-container *ngFor="let movie of movieList">
                     <mat-card>
 
-                        <mat-card-content color="primary" fxLayout="row" fxLayoutAlign="space-between center"
+                        <mat-card-content color="primary" fxLayout="row" fxLayoutAlign="start"
                             fxLayoutGap="20px">
 
                             <div class="poster">
 
                                 <img [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
-                                    alt="{{movie.name}}" width="70" height="100">
+                                    alt="{{movie.name}}" >
                             </div>
                             <div class="movie-details">
 

@@ -1,28 +1,29 @@
 <mat-toolbar color="primary">
-
+    <div fxFlex fxLayout="row" fxLayoutAlign="flex-start" fxShow="true">
     <div>
-        <button mat-icon-button (click)="toggleSideBar()"  >
-           
+        <button mat-icon-button (click)="toggleSideBar()">
+
             <mat-icon>menu</mat-icon>
         </button>
     </div>
 
 
+  
 
+        <a  fxFlex="0 1 auto" mat-button="" routerlink="" aria-label="Logo"
+            class="mat-focus-indicator docs-button mat-button mat-button-base" tabindex="0" aria-disabled="false"
+            href="/"><span class="mat-button-wrapper"><img src="./assets/logo.png" height="20" width="30"
+                    alt="MovieDiary">
 
-    <a mat-button="" routerlink="/" aria-label="Logo" class="mat-focus-indicator docs-button mat-button mat-button-base"
-        tabindex="0" aria-disabled="false" href="/"><span class="mat-button-wrapper"><img src="./assets/logo.png"
-                height="20" width="30" alt="MovieDiary">
-
-            <span class="logo-text">Movie Tracker</span></span>
+                <span class="logo-text">Movie Tracker</span></span>
             <span class="layout-spacer"></span>
-        <div matripple="" class="mat-ripple mat-button-ripple"></div>
-        <div class="mat-button-focus-overlay"></div>
-    </a>
+            <div matripple="" class="mat-ripple mat-button-ripple"></div>
+            <div class="mat-button-focus-overlay"></div>
+        </a>
 
-    <div>
-
-        <a mat-button=""
+        <div>
+        </div>
+        <a fxFlex="0 1 auto" mat-button=""
             class="mat-focus-indicator docs-navbar-hide-small docs-button mat-button mat-button-base ng-star-inserted"
             tabindex="0" aria-disabled="false" routerLink="/movies/search"><span class="mat-button-wrapper">Search
                 Movie</span>
@@ -30,19 +31,18 @@
             <div class="mat-button-focus-overlay"></div>
         </a>
 
-        <a mat-button=""
+        <a fxFlex="0 1 auto" mat-button=""
             class="mat-focus-indicator docs-navbar-hide-small docs-button mat-button mat-button-base ng-star-inserted"
             tabindex="0" aria-disabled="false" routerLink="/tv/search"><span class="mat-button-wrapper">Search
                 TV</span>
             <div matripple="" class="mat-ripple mat-button-ripple"></div>
         </a>
-    </div>
+    
 
 
-    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxShow="true" fxHide.lt-md="true">
-        <ul fxLayout="row" fxLayoutGap="20px">
-
-            <li>
+    <!-- <div fxFlex fxLayout="row" fxLayoutAlign="flex-end" fxShow="true" fxHide.lt-md="true"> -->
+        <!-- <ul fxLayout="row" fxLayoutGap="20px"> -->
+<!-- <ul>            <li>
                 <button mat-icon-button routerLink="/help">
 
                     <mat-icon>settings</mat-icon>
@@ -69,8 +69,8 @@
 
                 </mat-menu>
             </li>
-        </ul>
+        </ul> -->
     </div>
-
+<!-- </div> -->
 
 </mat-toolbar>

@@ -1,68 +1,69 @@
-<div id="dashboard" >
+<div id="dashboard">
 
     <h2 class="mat-headline"> Analytics</h2>
-<div fxLayout="row"  fxLayout.lt-sm="column" fxLayoutAlign="space-between center" fxLayoutGap="20px"  class="stats-cards" *ngIf="statistics !=undefined">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-between center" fxLayoutGap="10px"
+        class="stats-cards" *ngIf="statistics !=undefined">
 
-    <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)"
-    fxFlex.lt-md="0 1 calc(50% - 32px)"
-    fxFlex.lt-sm="100%">
-        <div class="text">
-            <h4>Movie Count</h4>
-            <span class="total">{{statistics.movieCount}}</span>
-            <span> <mat-icon color="primary">
-trending_up
+        <mat-card fxFlex=20 fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+            <div class="text">
+                <h4>Movie Count</h4>
+                <span class="total">{{statistics.movieCount}}</span>
+                <span>
+                    <mat-icon color="primary">
+                        trending_up
 
-            </mat-icon> </span>
-            <span class="description">Movies</span>
-        </div>
-    </mat-card>
+                    </mat-icon>
+                </span>
+                <span class="description">Movies</span>
+            </div>
+        </mat-card>
 
-    
-    <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)"
-    fxFlex.lt-md="0 1 calc(50% - 32px)"
-    fxFlex.lt-sm="100%">
-        <div class="text">
-            <h4>TV Count</h4>
-            <span class="total">   {{statistics.tvCount}}</span>
-            <span> <mat-icon color="primary">
-trending_up
 
-            </mat-icon> </span>
-            <span class="description">  Tv Shows</span>
-        </div>
-    </mat-card>
-    <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)"
-    fxFlex.lt-md="0 1 calc(50% - 32px)"
-    fxFlex.lt-sm="100%">
-        <div class="text">
-            <h4>Top Rated Movies </h4>
-            <span class="total">   {{statistics.movieWithMaxRating}}</span>
-            <span> <mat-icon color="primary">
-trending_up
+        <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+            <div class="text">
+                <h4>TV Count</h4>
+                <span class="total"> {{statistics.tvCount}}</span>
+                <span>
+                    <mat-icon color="primary">
+                        trending_up
 
-            </mat-icon> </span>
-            <span class="description">  Rating 5</span>
-        </div>
-    </mat-card>
-    <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)"
-    fxFlex.lt-md="0 1 calc(50% - 32px)"
-    fxFlex.lt-sm="100%">
+                    </mat-icon>
+                </span>
+                <span class="description"> Tv Shows</span>
+            </div>
+        </mat-card>
+        <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
+            <div class="text">
+                <h4>Top Rated Movies </h4>
+                <span class="total"> {{statistics.movieWithMaxRating}}</span>
+                <span>
+                    <mat-icon color="primary">
+                        trending_up
 
-        <div class="text">
-            <h4>Top Rated Tv </h4>
-            <span class="total">   {{statistics.tvWithMaxRating}}</span>
-            <span> <mat-icon color="primary">
-trending_up
+                    </mat-icon>
+                </span>
+                <span class="description"> Rating 5</span>
+            </div>
+        </mat-card>
+        <mat-card fxFlex=25 fxFlex="0 1 calc(33.3% - 32px)" fxFlex.lt-md="0 1 calc(50% - 32px)" fxFlex.lt-sm="100%">
 
-            </mat-icon> </span>
-            <span class="description">  Rating 5</span>
-        </div>
-    </mat-card>
-</div>
-<br>
-<mat-divider></mat-divider>
-<div>
-    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
-    style="width: 100%; height: 400px; display: block;"></highcharts-chart>
-</div>
+            <div class="text">
+                <h4>Top Rated Tv </h4>
+                <span class="total"> {{statistics.tvWithMaxRating}}</span>
+                <span>
+                    <mat-icon color="primary">
+                        trending_up
+
+                    </mat-icon>
+                </span>
+                <span class="description"> Rating 5</span>
+            </div>
+        </mat-card>
+    </div>
+    <br>
+    <mat-divider></mat-divider>
+    <div>
+        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+            style="width: 100%; height: 400px; display: block;"></highcharts-chart>
+    </div>
 </div>

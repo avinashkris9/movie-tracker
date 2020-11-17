@@ -12,6 +12,7 @@ import { HelpPageComponent } from './shared/help-page/help-page.component';
 import { WatchListComponent } from './components/watch-list/watch-list.component';
 import { TvSearchComponent } from './components/tv-search/tv-search.component';
 import { DashComponent } from './dash/dash.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,9 @@ const routes: Routes = [
   {path :'admin', component: AdminPanelComponent},
   {path:'watchlist',component: WatchListComponent},
   {path:'dashboard',component: DashComponent},
+  {path:'login',component: LoginComponent},
   {path: '', redirectTo: '/admin', pathMatch: 'full' },
+
 
 ];
 

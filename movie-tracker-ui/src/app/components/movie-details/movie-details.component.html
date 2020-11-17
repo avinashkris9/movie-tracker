@@ -1,13 +1,14 @@
 
 <div fxLayout="row wrap" 
 fxLayout.lt-sm="column" 
-fxLayoutAlign="space-between center" fxLayoutGap="30px">
+fxLayoutAlign="space-between center" fxLayoutGap="30px"
+ >
 
 
 
 
 <mat-card  width="185"
-        height="278"  >
+        height="278" >
 
 
         
@@ -21,7 +22,7 @@ fxLayoutAlign="space-between center" fxLayoutGap="30px">
     </div>
     <div class="movie-details"  
     fxFlex.lt-md="0 1 calc(50% - 32px)"
-    fxFlex.lt-sm="100%">
+    fxFlex.lt-sm="100%"  fxLayoutGap="12px" [style.margin-top]="'12px'" [style.margin-left]="'10px'">
 
       <h1> {{movie.name}}</h1>
       <div class="align-horizontal">
@@ -117,7 +118,9 @@ fxLayoutAlign="space-between center" fxLayoutGap="30px">
 
 
 
-<mat-card style="padding:60px">
+
+
+<mat-card >
 
   <mat-card-content>
 

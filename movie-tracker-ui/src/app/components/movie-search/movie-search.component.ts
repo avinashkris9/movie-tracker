@@ -43,8 +43,9 @@ export class MovieSearchComponent implements OnInit {
   }
  // Push a search term into the observable stream.
  search(term: string): void {
-  
+
   this.searchTerms.next(term);
+
 }
 
 onSubmit() {
@@ -62,7 +63,7 @@ displayFn(movie: MovieSearch): string {
 movieSelected(movieSearch: any) {
 
   this.movieSearchDetails = movieSearch.value;
-
+  // this. isNewAdd=false;
  
   
 }
@@ -70,7 +71,7 @@ movieSelected(movieSearch: any) {
 addToWatchList(movie:MovieSearch)
   {
 
-    console.log(movie);
+   
    let  movieWatchList=new WatchList;
     movieWatchList.name=movie.title;
     movieWatchList.externalId=movie.id;

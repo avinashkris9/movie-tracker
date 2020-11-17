@@ -42,6 +42,7 @@ import { TvSearchComponent } from './components/tv-search/tv-search.component';
 import { TvEditComponent } from './components/tv-edit/tv-edit.component';
 import { DashComponent } from './dash/dash.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     WatchListComponent,
     TvSearchComponent,
     TvEditComponent,
-    DashComponent
+    DashComponent,
+    LoginComponent
    
 
   ],
