@@ -1,29 +1,37 @@
 <div id="search-bar">
+
   <h3 class="mat-h3"> Watched new movie ? How was the experience ?</h3>
 
   
-  <div id="search-boxl">
-    <mat-icon>search
+  <div id="search-box">
+   
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+     
 
-      <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="Search"
-      type="text"
-      aria-label="name"
-      (input)="search(searchBox.value)" >
-    </mat-icon>
- 
-    <mat-autocomplete [panelWidth]=327 #auto="matAutocomplete" (optionSelected)='movieSelected($event.option)'
-      [displayWith]="displayFn">
+          <input  #searchBox [matAutocomplete]="auto" matInput type="search" aria-label="search" placeholder="search"
+          type="text"
+          aria-label="name"
+          (input)="search(searchBox.value)" >
+          <mat-icon matPrefix>search</mat-icon>
+     
+        <mat-autocomplete [panelWidth]=327 #auto="matAutocomplete" (optionSelected)='movieSelected($event.option)'
+          [displayWith]="displayFn">
+    
+    
+          <mat-option *ngFor="let option of movies$ | async" [value]="option">
+            <img class="example-option-img" aria-hidden [src]=" option.poster_path? option.poster_path : 'assets/logo.png'"
+              height="25" alt="asa">
+    
+    
+            <span>{{option.title}}</span>
+    
+          </mat-option>
+        </mat-autocomplete>
+    
 
-
-      <mat-option *ngFor="let option of movies$ | async" [value]="option">
-        <img class="example-option-img" aria-hidden [src]=" option.poster_path? option.poster_path : 'assets/logo.png'"
-          height="25" alt="asa">
-
-
-        <span>{{option.title}}</span>
-
-      </mat-option>
-    </mat-autocomplete>
+      </mat-form-field>
+    </form>
    
     </div>
   

@@ -36,8 +36,8 @@ mat-card
          margin-top: 20px;
             margin-left: 20px;
          max-width: 1500px;
-         width: 75%;
-       
+/*    width: 75%;*/
+      width: 85% ;
   
     
 }

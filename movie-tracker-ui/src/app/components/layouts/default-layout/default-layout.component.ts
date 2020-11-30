@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MediaMatcher} from '@angular/cdk/layout';
+
 @Component({
   selector: 'app-default-layout',
   templateUrl: './default-layout.component.html',
@@ -10,12 +10,19 @@ export class DefaultLayoutComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // if (window.innerWidth<1440) {
+
+    //   this.sideBarOpen=false;
+      
+    //   }
   }
+
 
 
   sideBarToggler()
   {
 this.sideBarOpen=!this.sideBarOpen;
-console.log(this.sideBarOpen)
+
+
   }
 }

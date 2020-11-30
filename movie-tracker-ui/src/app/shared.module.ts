@@ -4,7 +4,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
-import {  MatDividerModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, MatListModule } from '@angular/material';
+import {  MatDividerModule, MatSidenavModule, MatToolbarModule, MatIconModule, MatButtonModule, MatMenuModule, MatInputModule,MatListModule,MatAutocompleteModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout'
 import { RouterModule } from '@angular/router';
 import { HelpPageComponent } from './shared/help-page/help-page.component';
@@ -22,12 +22,14 @@ import { HelpPageComponent } from './shared/help-page/help-page.component';
     MatDividerModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatInputModule,
     MatIconModule,
     MatButtonModule,
     FlexLayoutModule,
     MatMenuModule,
     MatListModule,
-    RouterModule
+    RouterModule,
+    MatAutocompleteModule
 
   ],
   exports:
