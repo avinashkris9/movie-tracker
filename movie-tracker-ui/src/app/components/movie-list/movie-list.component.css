@@ -1,22 +1,33 @@
-.example-cards {
+.mat-cards {
    
-  display: inline-block;
-  width: 25%;
-  margin: 10px;
+  
+ 
+
   height: auto;
-  padding: 20px;
+ 
   vertical-align: top;
   cursor: pointer;
-}.example-card {
-   
+  margin-bottom: 5px;
+  margin-top:5px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 
-  margin: 10px;
-  padding: 20px;
+mat-card {
+  width: 85%;
+  /* max-width: 800px; */
+  word-wrap: break-word;
+  margin-top:10px;
+
+  padding: 10px;
   vertical-align: top;
   cursor: pointer;
 }
 
-
+mat-card-content
+{
+  word-wrap: break-word;
+}
 .example-header-image {
   
   background-size: cover;
