@@ -12,8 +12,14 @@
   margin-left: 5px;
   margin-right: 5px;
 }
-
-mat-card {
+mat-paginator {
+  display: flex;
+  justify-content: left;
+  margin-top:5px;
+  margin-left: 5px;
+  margin-right: 5px;
+} 
+mat-cardx {
   width: 85%;
   /* max-width: 800px; */
   word-wrap: break-word;
@@ -37,3 +43,21 @@ mat-card-content
   width: calc(100% - 70px);
   height: calc(100% - 70px);
 } */
+
+
+.card-deck-containerx {
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  border-radius: 2px;
+  padding: 10px 10px 30px;
+  margin: 10px 10px 10px 10px;
+  
+}
+
+.card-item {
+ 
+
+ padding: 3px 3px 3px 3px;
+ margin-bottom: 7px;
+}

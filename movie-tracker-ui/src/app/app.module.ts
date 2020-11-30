@@ -43,6 +43,7 @@ import { TvEditComponent } from './components/tv-edit/tv-edit.component';
 import { DashComponent } from './dash/dash.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { LoginComponent } from './components/login/login.component';
+import { MediaQueryStatusComponent } from './components/media-query-status/media-query-status.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { LoginComponent } from './components/login/login.component';
     TvSearchComponent,
     TvEditComponent,
     DashComponent,
-    LoginComponent
+    LoginComponent,
+    MediaQueryStatusComponent
    
 
   ],

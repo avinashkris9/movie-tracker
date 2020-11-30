@@ -1,61 +1,55 @@
-<div> <mat-paginator  [length]="length"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[5, 10, 25, 100]" 
-  (page)="updatePageSize($event)"
-  
-  >
-  </mat-paginator>
-   
-  <div fxLayout="row wrap" 
+<div class="mat-cards">
+  <div>
 
-fxLayout.lt-sm="column" 
- fxLayoutGap="20px" class="mat-cards">
- <mat-card *ngFor ="let movie of movies " class="example-card"
- fxFlex="0 1 calc(33.3% - 32px)"
-fxFlex.lt-md="0 1 calc(50% - 32px)"
-fxFlex.lt-sm="100%">
-
-    
-  <mat-card-header>
-    <!-- <div mat-card-avatar  class="example-header-image"
-    [ngStyle]="{'background-image':'url('+ movie.posterPath+')'}"
-    >
-
-  
-    </div> -->
-    <div  class="example-header-image" mat-card-avatar >
-
-      <img  class="md-card-image"   mat-card-avatar [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}" >
-
-    </div>
-    <mat-card-title>
-      <a routerLink="/tv/details/{{movie.id}}">
-      {{movie.name}}
-       </a>
-      </mat-card-title>
-    <mat-card-subtitle>{{movie.rating}}/5 
-        <span *ngFor ="let number of [1,2,3,4,5] | slice:0:movie.rating; let i = index;">
-      <fa-icon [icon]="faCoffee" style="color:gold"></fa-icon>
-  </span>
- <div> <span class="mat-caption"> 
-  Last Watched on {{movie.lastWatched }}</span></div>
-      <!-- <mat-icon fontSet="fa" fontIcon="faCoffee"></mat-icon>
-      <br> -->
-      <!-- <mat-icon>home</mat-icon> <mat-icon fontSet="myfont"></mat-icon> -->
-    </mat-card-subtitle>
-  </mat-card-header>
-  
-  <img  [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}" width ="185" height="278">
-
-  <mat-card-content>
-    <p class="mat-small">
-    {{movie.overView}}
-    </p>
-  </mat-card-content>
-  
-</mat-card>
- </div>
- 
-  
+    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[8, 16, 24, 32]"
+      (page)="updatePageSize($event)">
+    </mat-paginator>
   </div>
+  <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="10px" class="card-deck-container">
+
+
+    <div  fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" class="card-item" *ngFor="let movie of movies ">
+
+      <mat-card  
+      routerLink="/movies/details/{{movie.id}}">
   
+        <mat-card-header>
+  
+  
+          <div class="example-header-image" mat-card-avatar>
+  
+            <img mat-card-avatar [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}"
+              >
+  
+          </div>
+          <mat-card-title  class="mat-subheading-2" >
+           
+              {{movie.name}}
+           
+          </mat-card-title>
+          <mat-card-subtitle>{{movie.rating}}/5
+            <span *ngFor="let number of [1,2,3,4,5] | slice:0:movie.rating; let i = index;">
+              <fa-icon [icon]="faCoffee" style="color:gold"></fa-icon>
+            </span>
+            <div> <span class="mat-caption">
+                Last Watched on {{movie.lastWatched }}</span></div>
+          
+          </mat-card-subtitle>
+        </mat-card-header>
+  
+        <img class="md-card-image" [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
+          alt="{{movie.name}}">
+  
+        <mat-card-content >
+          <p class="mat-small">
+            {{movie.overView}}
+          </p>
+        </mat-card-content>
+  
+      </mat-card>
+    </div>
+   
+  </div>
+
+
+</div>

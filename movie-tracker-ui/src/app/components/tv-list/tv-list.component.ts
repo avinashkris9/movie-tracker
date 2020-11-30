@@ -14,10 +14,10 @@ export class TvListComponent implements OnInit {
 
    movies:Movie[]=null;;
   length: number =1000;
-   pageSize:number =5;
+   pageSize:number =8;
    page: number =0;
    pageEvent: PageEvent;
-   previousPageSize: number=5;;
+   previousPageSize: number=8;;
   constructor( private tvService:TvService) { }
   faCoffee = faStar;
   ngOnInit() {
