@@ -9,7 +9,9 @@ mat-card
   
     
 }
-
+#review {
+      word-wrap: break-word;
+    }
 .poster{
      /* adjust as needed */
       object-fit: contain;

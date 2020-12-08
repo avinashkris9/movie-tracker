@@ -1,4 +1,7 @@
-<mat-card class="card">
+<div>
+
+
+  <mat-card class="card">
 
   <mat-card-header>
   
@@ -98,25 +101,29 @@
   </mat-card-footer>
 </mat-card>
 <mat-divider></mat-divider>
+<div id="review">
 
-<mat-card>
-<mat-card-title> Reviews</mat-card-title>
-  <mat-card-content>
-
-    <mat-list role="list" *ngFor="let reviewData of movie.reviews">
-      <mat-list-item role="listitem">
-       
-        
-        <mat-icon mat-list-icon>label</mat-icon>
-        <div mat-line> {{reviewData.lastReviewed | date}} </div>
-        <div mat-line>{{reviewData.review}}</div>
-        
-
-      </mat-list-item>
-    </mat-list>     
-      
   
-
-
-  </mat-card-content>
-</mat-card>
+<mat-card>
+  <mat-card-title> Reviews</mat-card-title>
+    <mat-card-content>
+  
+      <mat-list role="list" *ngFor="let reviewData of movie.reviews">
+        <mat-list-item role="listitem">
+         
+          
+          <mat-icon mat-list-icon>label</mat-icon>
+          <div mat-line> {{reviewData.lastReviewed | date}} </div>
+          <div mat-line>{{reviewData.review}}</div>
+          
+  
+        </mat-list-item>
+      </mat-list>     
+        
+    
+  
+  
+    </mat-card-content>
+  </mat-card>
+</div>
+</div>
