@@ -11,7 +11,8 @@ export class Movie {
     lastWatched:string;
     posterPath: string;
     originalLanguage:string;
-    reviews:MovieReviews
+    reviews:MovieReviews;
+    releaseDate: String;
     
 
 }

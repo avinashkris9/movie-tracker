@@ -11,6 +11,7 @@ import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -38,9 +39,10 @@ public class TheMovieDBService {
   @Value("${api.url.imagedb}")
   private String imageUrl;
   // values are injected after constructor call. So we cannot do a concatenation here.
-  private final String searchMovieUri = "/search/movie";
-  private  final String searchTvUri = "/search/tv";
+  private final String SEARCH_MOVIE_URI = "/search/movie";
+  private  final String SEARCH_TV_URI = "/search/tv";
 
+  private final String IMDB_URL="https://www.imdb.com/title";
   private final RestTemplate restTemplate;
   private final CustomModelMapper customModelMapper;
 
@@ -62,9 +64,9 @@ public class TheMovieDBService {
 
     String searchUrl = baseUrl;
     if (showType.equalsIgnoreCase(SHOW_TYPES.MOVIE.name())) {
-      searchUrl = searchUrl.concat(searchMovieUri);
+      searchUrl = searchUrl.concat(SEARCH_MOVIE_URI);
     } else if (showType.equalsIgnoreCase(SHOW_TYPES.TV.name())) {
-      searchUrl = searchUrl.concat(searchTvUri);
+      searchUrl = searchUrl.concat(SEARCH_TV_URI);
     } else {
       log.error(" Invalid SHOW TYPE");
     }
@@ -121,11 +123,11 @@ public class TheMovieDBService {
 
     URI uri = generateMovieDBSearchUrl(movieName, showType);
     log.info("Checking movie db for data {} on {}", movieName, uri);
-    MovieDBDetails movieDBDetails =
-        restTemplate.getForObject(uri, MovieDBDetails.class);
+    MovieDBDetails movieDBDetails =new MovieDBDetails();
+    movieDBDetails=restTemplate.getForObject(uri, MovieDBDetails.class);
     if (movieDBDetails.getMovieDBDetails().isEmpty()) {
       log.error(" No movie info present for {} " + movieName);
-      return null;//bad
+
     }
 
     return movieDBDetails;
@@ -160,10 +162,10 @@ public class TheMovieDBService {
       log.error(" Unknown Exception !",e);
       log.error(e.getMessage());
     }
-      return movieDB;
+    return movieDB;
 
 
-    
+
   }
 
 
@@ -189,13 +191,14 @@ public class TheMovieDBService {
 
 
     MovieDB movieDB = getMovieById(movieDetailsDTO.getExternalId(), showType);
-    Optional<MovieDB> opt = Optional.of(movieDB);
-    if(opt.isPresent())
+
+    if(!Objects.isNull(movieDB.getMovieId()))
     {
       movieDetailsDTO.setOverView(movieDB.getMovieSummary());
-      movieDetailsDTO.setImdbId(movieDB.getImdbId());
+      movieDetailsDTO.setImdbId( IMDB_URL+"/"+(movieDB.getImdbId()));
       movieDetailsDTO.setPosterPath(moviePosterPath(movieDB.getPosterPath()));
       movieDetailsDTO.setOriginalLanguage(movieDB.getOriginalLanguge());
+      movieDetailsDTO.setReleaseDate(movieDB.getReleaseDate());
     }
     else
     {

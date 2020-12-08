@@ -1,6 +1,7 @@
 package com.github.avinashkris9.movietracker.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import lombok.Data;
 public class MovieDBDetails {
 
   @JsonProperty("results")
-  List<MovieDB> movieDBDetails;
+  List<MovieDB> movieDBDetails=new ArrayList<>();
 
 
 }

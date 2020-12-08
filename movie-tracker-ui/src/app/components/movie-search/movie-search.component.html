@@ -21,7 +21,7 @@
     
           <mat-option *ngFor="let option of movies$ | async" [value]="option">
             <img class="example-option-img" aria-hidden [src]=" option.poster_path? option.poster_path : 'assets/logo.png'"
-              height="25" alt="asa">
+              height="40" width="25" alt="Image Missing!">
     
     
             <span>{{option.title}}</span>
@@ -44,37 +44,35 @@
 </mat-card-header>
 
      <mat-card-content    >
-     
-      <div fxLayout="row" 
-      fxLayout.lt-sm="column" 
-       fxLayoutGap="10px" fxLayoutAlign="start start" color="primary" >
-       <div 
-       fxFlex.lt-md="0 1 calc(50% - 32px)"
-       fxFlex.lt-sm="100%">
-       <img class="mat-image" [attr.src]="movieSearchDetails.poster_path? movieSearchDetails.poster_path :  'assets/logo.png'" alt="{{movieSearchDetails.title}}">
-       </div>
-   
+      <div fxLayout="row wrap"  fxLayout.lt-sm="column"  fxLayoutAlign="space-between center"  fxLayoutGap="10px">
 
-   
-      <div 
-      fxFlex.lt-md="0 1 calc(50% - 32px)"
-      fxFlex.lt-sm="100%" >
-      
-       <p >
-         <strong><bdi>Original Language</bdi></strong> {{movieSearchDetails.original_language}}
+        <div fxFlex="20"  fxLayoutAlign="flex-start"
+        fxFlex.lt-md="0 1 calc(50% - 32px)"
+        fxFlex.lt-sm="100%">
+          
+        
+          <img class="poster" [attr.src]=" movieSearchDetails.poster_path? movieSearchDetails.poster_path : 'assets/logo.png'"
+          alt="{{movieSearchDetails.title}}" >
+        </div>
+        <div fxLayout="column" fxFlex fxFlexFill fxLayoutAlign=”flex-start” fxFlex.lt-md="0 1 calc(50% - 32px)"
+        fxFlex.lt-sm="100%">
+          
+          <div fxFlex="30">
+            <strong><bdi>Langugage</bdi></strong> {{movieSearchDetails.original_language}} 
+          </div>
+          <div  fxFlex="30" style="padding-top:10px;"> 
+          
+            <a class="imdb-icon-color" mat-raised-button  href="{{movieSearchDetails.imdbId}} ">IMDb</a>
+           
+            <!-- <strong><bdi>Imdb Id:</bdi></strong> {{movie.imdbId}}  -->
+          </div>
 
-       </p>
-       <p>
-         <strong><bdi>Status</bdi></strong> Released
-       </p>
-       
-        <p style=" word-wrap: break-word;">
+
+          <div fxFlex="30"> <p>
           {{movieSearchDetails.overview}}
-        </p>
-      
-   
-     
-    </div>
+        </p></div>
+         
+        </div>
       </div>
 
    </mat-card-content>

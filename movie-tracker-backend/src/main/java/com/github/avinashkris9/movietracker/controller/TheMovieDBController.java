@@ -55,6 +55,9 @@ public class TheMovieDBController {
     MovieDBDetails movieDBDetails =
         theMovieDBService.getMovieDetailsBySearch(movieName, showType);
 
+    if(!movieDBDetails.getMovieDBDetails().isEmpty())
+    {
+
     movieDBDetails
         .getMovieDBDetails()
         .forEach(
@@ -63,7 +66,8 @@ public class TheMovieDBController {
                 f.setPosterPath(theMovieDBService.moviePosterPath(f.getPosterPath()));
               }
             });
-      log.debug(movieDBDetails.toString());
+    }
+
     return movieDBDetails;
   }
 }

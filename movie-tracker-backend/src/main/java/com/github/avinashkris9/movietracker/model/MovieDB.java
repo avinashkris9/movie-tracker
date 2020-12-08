@@ -9,7 +9,7 @@ import lombok.Data;
 public class MovieDB {
 
   @JsonProperty("id")
-  private long movieId;
+  private Long movieId;
 
   @JsonProperty("overview")
   private String movieSummary;
@@ -26,5 +26,7 @@ public class MovieDB {
   @JsonProperty("original_language")
   private String originalLanguge;
 
+  @JsonProperty("release_date")
+  private String releaseDate;
 
 }

@@ -1,4 +1,5 @@
-<div>
+
+<div id="movie-details" layout-fill>
 
 
   <mat-card class="card">
@@ -32,7 +33,7 @@
         fxFlex.lt-sm="100%">
           
         
-          <img class="mat-image" [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
+          <img class="poster" [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
           alt="{{movie.name}}" >
         </div>
         <div fxLayout="column" fxFlex fxFlexFill fxLayoutAlign=”flex-start” fxFlex.lt-md="0 1 calc(50% - 32px)"
@@ -42,9 +43,14 @@
               <fa-icon [icon]="faStar" style="color:gold"></fa-icon>
             </span>
           </div>
-
-          <div  fxFlex="30"> 
-            <strong><bdi>Imdb Id:</bdi></strong> {{movie.imdbId}} 
+          <div fxFlex="30">
+            <strong><bdi>Released on</bdi></strong> {{movie.releaseDate}} 
+          </div>
+          <div  fxFlex="30" style="padding-top:10px;"> 
+          
+            <a class="imdb-icon-color" mat-raised-button  href="{{movie.imdbId}} ">IMDb</a>
+           
+            <!-- <strong><bdi>Imdb Id:</bdi></strong> {{movie.imdbId}}  -->
           </div>
 
 
@@ -112,11 +118,16 @@
         <mat-list-item role="listitem">
          
           
+          
+          <!-- <div > <mat-icon mat-list-icon>label</mat-icon> </div>
+          <div mat-line>  {{reviewData.lastReviewed | date}} </div>
+         
+          <div >{{reviewData.review}}</div>
+          -->
           <mat-icon mat-list-icon>label</mat-icon>
-          <div mat-line> {{reviewData.lastReviewed | date}} </div>
+          <div mat-line> <em  class="mat-body-strong">{{reviewData.lastReviewed | date}} </em></div>
           <div mat-line>{{reviewData.review}}</div>
           
-  
         </mat-list-item>
       </mat-list>     
         

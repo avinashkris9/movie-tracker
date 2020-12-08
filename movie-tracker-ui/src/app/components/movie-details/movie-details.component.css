@@ -9,10 +9,23 @@ mat-card
   
     
 }
+
+.imdb-icon-color
+{
+      background-color: #f3ce13 ;
+}
 #review {
       word-wrap: break-word;
     }
 .poster{
      /* adjust as needed */
       object-fit: contain;
+      max-width: 185px;
+      max-height: 275;
     }
+
+    .mat-list-icon {
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+   

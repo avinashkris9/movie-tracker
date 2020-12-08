@@ -46,4 +46,6 @@ public class MovieDetailsDTO {
 //  @JsonInclude(Include.NON_NULL)
   private Set<MovieReviewDTO> reviews;
 
+  @JsonProperty(access = Access.READ_ONLY)
+  private String releaseDate;
 }

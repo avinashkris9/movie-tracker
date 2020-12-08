@@ -3,6 +3,7 @@ import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/model/movie';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { PageEvent } from '@angular/material';
+
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
@@ -16,12 +17,14 @@ export class MovieListComponent implements OnInit {
    page: number =0;
    pageEvent: PageEvent;
    previousPageSize: number=8;;
+   isLoading:boolean=true;
   
   constructor( private movieService:MovieService) { }
   faCoffee = faStar;
   ngOnInit() {
 
    this.getAllWatchedMovies();
+   
 
   }
 
@@ -59,11 +62,13 @@ export class MovieListComponent implements OnInit {
          {
           this.movies =data.movieDetails;
           this.length=data.totalElements;
+          this.isLoading=false;
           
     
          
          }
      );
+    
   }
 
 

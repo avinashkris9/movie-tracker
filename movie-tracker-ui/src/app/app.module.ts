@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSidenavModule, MatButtonModule, MatIconModule, MatCardModule, MatListModule, MatTabsModule, MatExpansionModule, MatProgressBarModule} from '@angular/material';
+import {MatSidenavModule, MatButtonModule, MatIconModule, MatCardModule, MatListModule, MatTabsModule, MatExpansionModule, MatProgressBarModule, MatProgressSpinnerModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { HttpClientModule }    from '@angular/common/http';
 import { MovieListComponent } from './components/movie-list/movie-list.component';
@@ -91,7 +91,7 @@ import { MediaQueryStatusComponent } from './components/media-query-status/media
     AppRoutingModule,
     MatDatepickerModule,
     MatPaginatorModule,
-    FormsModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule,MatTabsModule,MatExpansionModule,MatProgressBarModule, LayoutModule
+    FormsModule,MatProgressSpinnerModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule,MatTabsModule,MatExpansionModule,MatProgressBarModule, LayoutModule
   ],
   providers:[DatePipe]      ,
   bootstrap: [AppComponent],

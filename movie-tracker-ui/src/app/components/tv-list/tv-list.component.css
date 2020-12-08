@@ -11,7 +11,17 @@ mat-card {
 .ml-10 {
   margin-left: 10px;
 }
+.poster{
+  /* adjust as needed */
+   object-fit: contain;
+   max-width: 185px;
+   max-height: 275;
+ }
 
+ mat-card-image
+ {
+   padding-left: 10px;
+ }
 .card-deck-container {
    
   
@@ -41,5 +51,20 @@ mat-card-content
 }
 
 
+#loading-spinner
+{
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
 
-
+.poster{
+  /* adjust as needed */
+   object-fit: contain;
+   max-width: 185px;
+   max-height: 275;
+ }

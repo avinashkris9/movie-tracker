@@ -41,3 +41,10 @@ mat-card
   
     
 }
+
+.poster{
+  /* adjust as needed */
+   object-fit: contain;
+   max-width: 185px;
+   max-height: 275;
+ }

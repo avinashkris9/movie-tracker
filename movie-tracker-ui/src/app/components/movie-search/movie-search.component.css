@@ -1,9 +1,28 @@
 
-.app-mat-card {
-    width: 85%;
-    /* max-width: 800px; */
-    word-wrap: break-word;
-    margin-top:10px;
+
+  mat-card
+  {
+     
+           margin-top: 20px;
+              margin-left: 20px;
+        width: 80%;
+          
+         
+    
+      
+  }
+  .imdb-icon-color
+{
+      background-color: #f3ce13 ;
+}
+  .example-option-img {
+    vertical-align: middle;
+    margin-right: 3px;
+  }
+  
+  [dir='rtl'] .example-option-img {
+    margin-right: 0;
+    margin-left: 3px;
   }
   
   #search-bar

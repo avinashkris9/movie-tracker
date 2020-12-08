@@ -2,8 +2,22 @@
 mat-card {
   margin-bottom: 10px;
   width:500px;
-}
 
+}
+#loading-spinner
+{
+  position: absolute;
+  height: 100px;
+  width: 100px;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+mat-card-header
+{
+  min-height: 120px;
+}
 .mr-10 {
   margin-right: 10px;
 }
@@ -41,5 +55,10 @@ mat-card-content
 }
 
 
-
+.poster{
+  /* adjust as needed */
+   object-fit: contain;
+   max-width: 185px;
+   max-height: 275px
+ }
 

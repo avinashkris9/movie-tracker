@@ -1,6 +1,7 @@
 package com.github.avinashkris9.movietracker;
 
 import com.github.avinashkris9.movietracker.exception.RestTemplateResponseErrorHandler;
+import java.time.Duration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -32,6 +33,9 @@ public class MovieTrackerApplication {
   @Bean
   public RestTemplate restTemplate(RestTemplateBuilder builder) {
 
-    return builder.errorHandler(new RestTemplateResponseErrorHandler()).build();
+    return builder.errorHandler(new RestTemplateResponseErrorHandler())
+        .setConnectTimeout(Duration.ofSeconds(500))
+        .setReadTimeout(Duration.ofSeconds(500)).
+  build();
   }
 }

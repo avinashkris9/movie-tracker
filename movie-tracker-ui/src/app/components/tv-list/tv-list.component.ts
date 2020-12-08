@@ -11,7 +11,7 @@ import { TvService } from 'src/app/services/tv.service';
   styleUrls: ['./tv-list.component.css']
 })
 export class TvListComponent implements OnInit {
-
+  isLoading:boolean=true;
    movies:Movie[]=null;;
   length: number =1000;
    pageSize:number =8;
@@ -60,6 +60,7 @@ export class TvListComponent implements OnInit {
          {
           this.movies =data.movieDetails;
           this.length=data.totalElements;
+          this.isLoading=false;
           
     
          

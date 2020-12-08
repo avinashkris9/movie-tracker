@@ -1,5 +1,11 @@
+<div id="loading-spinner" *ngIf="isLoading  else loaded">
+  <mat-spinner></mat-spinner>
+</div>
 
-<div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10" 
+
+<ng-template #loaded>
+
+  <div fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="10px" ngClass.gt-xs="ml-10" 
  class="card-deck-container"
 >
   <mat-card fxFlex="20%" fxFlex.xs="100%" fxFlex.sm="100%" *ngFor="let movie of movies "  routerLink="/tv/details/{{movie.id}}">  
@@ -7,9 +13,9 @@
     <mat-card-header>
   
   
-      <div class="example-header-image" mat-card-avatar>
+      <div  mat-card-avatar>
 
-        <img mat-card-avatar [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}"
+        <img  mat-card-avatar [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'" alt="{{movie.name}}"
           >
 
       </div>
@@ -23,11 +29,11 @@
           <fa-icon [icon]="faCoffee" style="color:gold"></fa-icon>
         </span>
         <div> <span class="mat-caption">
-            Last Watched on {{movie.lastWatched }}</span></div>
+            Watched on {{movie.lastWatched }}</span></div>
       
       </mat-card-subtitle>
     </mat-card-header>
-    <img class="md-card-image" [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
+    <img  class="poster" [attr.src]=" movie.posterPath? movie.posterPath : 'assets/logo.png'"
     alt="{{movie.name}}">
 
   <mat-card-content >
@@ -45,6 +51,7 @@
     (page)="updatePageSize($event)">
   </mat-paginator>
 </div>
+</ng-template>
 
 <!-- Copyright 2019 Google Inc. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that

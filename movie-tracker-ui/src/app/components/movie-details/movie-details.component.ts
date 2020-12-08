@@ -3,7 +3,7 @@ import { MovieService } from 'src/app/services/movie.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Movie } from 'src/app/model/movie';
 import { faCalendar,faStar } from '@fortawesome/free-solid-svg-icons';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA,MatSpinner } from '@angular/material';
 import { MovieEditComponent } from '../movie-edit/movie-edit.component';
 @Component({
   selector: 'app-movie-details',
