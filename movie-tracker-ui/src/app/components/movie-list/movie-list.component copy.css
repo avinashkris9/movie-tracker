@@ -30,8 +30,13 @@ mat-cardx {
   cursor: pointer;
 }
 
+mat-card-content
+{
+  word-wrap: break-word;
+}
 
-.example-header-image {
+
+.header-image {
   
   background-size: cover;
 }

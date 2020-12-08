@@ -3,9 +3,14 @@ mat-card
    
          margin-top: 20px;
             margin-left: 20px;
-      width: 78%;
+      width: 80%;
         
        
   
     
 }
+
+.poster{
+     /* adjust as needed */
+      object-fit: contain;
+    }

@@ -99,6 +99,7 @@ public class TvService {
    */
   public MovieDetailsDTO getTvShowById(long tvId) {
     Optional<TvDetails> tvDetails = tvRepository.findById(tvId);
+
     if (tvDetails.isPresent()) {
 
       MovieDetailsDTO movieDetailsDTO = customModelMapper.tvEntity2MovieDTO(tvDetails.get());
@@ -107,6 +108,7 @@ public class TvService {
         theMovieDBService.appendTheMovieDBData(movieDetailsDTO, SHOW_TYPES.TV.name());
       }
 
+      log.debug(movieDetailsDTO.toString());
       return movieDetailsDTO;
     }
     throw new NotFoundException(APIUtils.API_CODES.NOT_FOUND.name());

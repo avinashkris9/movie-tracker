@@ -106,7 +106,7 @@ public class TheMovieDBService {
       log.error(" Invalid SHOW TYPE");
     }
     String url = baseUrl + "/" + showType + "/" + id + "?api_key=" + apiKey;
-
+    log.debug(url);
     return new URI(url);
   }
 
@@ -141,6 +141,7 @@ public class TheMovieDBService {
 
     MovieDB movieDB=new MovieDB();
 
+    log.info(" Querying data from themoviedb");
     URI uri = null;
     try {
       uri = movieIdUrl(movieId, showType);
@@ -155,7 +156,8 @@ public class TheMovieDBService {
       log.error(e.getMessage());
     }
     catch (Exception e) {
-      e.printStackTrace();
+
+      log.error(" Unknown Exception !",e);
       log.error(e.getMessage());
     }
       return movieDB;

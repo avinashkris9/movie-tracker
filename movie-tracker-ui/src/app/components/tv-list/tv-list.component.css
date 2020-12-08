@@ -1,4 +1,18 @@
-.mat-cards {
+/** No CSS for this example */
+mat-card {
+  margin-bottom: 10px;
+  width:500px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.card-deck-container {
    
   
  
@@ -19,45 +33,13 @@ mat-paginator {
   margin-left: 5px;
   margin-right: 5px;
 } 
-mat-cardx {
-  width: 85%;
-  /* max-width: 800px; */
-  word-wrap: break-word;
-  margin-top:10px;
 
-  padding: 10px;
-  vertical-align: top;
-  cursor: pointer;
-}
 
 mat-card-content
 {
   word-wrap: break-word;
 }
-.example-header-image {
-  
-  background-size: cover;
-}
-
-/* mat-card {
-  width: calc(100% - 70px);
-  height: calc(100% - 70px);
-} */
 
 
-.card-deck-containerx {
-  width: 100%;
-  max-width: 1200px;
-  position: relative;
-  border-radius: 2px;
-  padding: 10px 10px 30px;
-  margin: 10px 10px 10px 10px;
-  
-}
 
-.card-item {
- 
 
- padding: 3px 3px 3px 3px;
- margin-bottom: 7px;
-}
