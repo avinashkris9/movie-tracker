@@ -1,19 +1,16 @@
 
-<!-- 
-<div  *ngIf ="movieSearchDetails !=undefined"> -->
   <div>
-<!-- <mat-grid-list cols="2" rowHeight="2:1">
 
   
-  <mat-grid-tile> -->
     <form class="example-form" [formGroup]="movieForm" (ngSubmit)="onSubmit()" #formdir="ngForm">
 
       <div>
         
         <div class="form-group" *ngIf="movieSearchDetails !=undefined">
-          <mat-label for="movieName">Name</mat-label>
-          <mat-form-field class="full-width">
-            <input type="text" [style.width.px]=327 placeholder=" Use Search box above" aria-label="name" required matInput
+          
+          <!-- <mat-label for="movieName">Name</mat-label> -->
+          <mat-form-field >
+            <input type="text" placeholder=" Name" aria-label="name" required matInput
               id="movieName" formControlName="name" >
             
     
@@ -35,8 +32,16 @@
        </div>
         <mat-form-field class="form-group">
           <mat-label>Review</mat-label>
-          <textarea class="textarea" matInput placeholder="Ex. It makes me feel..."
-            formControlName="review"></textarea>
+        
+
+            <textarea class="textarea" matInput placeholder="Ex. It makes me feel..."
+            formControlName="review"
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="3"
+            cdkAutosizeMaxRows="5"
+            ></textarea>
+          
         </mat-form-field>
     
         <div class="form-group">

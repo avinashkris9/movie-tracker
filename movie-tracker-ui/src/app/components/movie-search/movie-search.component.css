@@ -1,39 +1,10 @@
 
-
-  mat-card
-  {
-     
-           margin-top: 20px;
-              margin-left: 20px;
-        width: 80%;
-          
-         
-    
-      
-  }
-  .imdb-icon-color
-{
-      background-color: #f3ce13 ;
-}
-  .example-option-img {
-    vertical-align: middle;
-    margin-right: 3px;
-  }
-  
-  [dir='rtl'] .example-option-img {
-    margin-right: 0;
-    margin-left: 3px;
-  }
-  
   #search-bar
   {
     padding-left: 10px;;
   }
-  mat-icon{
-    position: relative;
-  top: 7px;
-}
-  #search-box{
+
+  #search-dbox{
   
     
    
@@ -47,7 +18,7 @@
     margin-right: 16px;
     padding-left: 2px;;
   }
-  .search-box > input{
+  .search-dbox > input{
   
   
   
@@ -60,21 +31,47 @@
       
       height: 50%;
       } 
-  /* 
-    .example-option-img {
-      vertical-align: middle;
-      margin-right: 8px;
-    }
-   #search-box > input{
+  
+
+
+.container{
+  margin: 30px;
+ 
+  width: 75%;
+
+  padding: 16px;
+ }
+ mat-card-header
+ {
+   min-height: 30px;
+ }
+ mat-card >p{
+  word-wrap: break-word;
+ }
+ mat-card
+ {
   
   
+  height: 340px;
+  width: 185px;
+   margin-bottom: 10px;
+ }
+ mat-card-content
+{
+  word-wrap: break-word;
+  height: 20px;
+  margin-bottom:5px;
+}
+
+.poster{
+  /* adjust as needed */
   
-      border: none;
-      border-radius: 100px;
-     
-      padding: 5px 16px;
-      margin-left: 8px;
-      width: 100%;
-      
-      height: 50%;
-      -webkit-appearance: none;} */
+  
+  height: 278px;
+ 
+   overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #777;
+    position: relative;
+ }
+

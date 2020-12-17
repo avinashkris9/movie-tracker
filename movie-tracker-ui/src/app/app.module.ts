@@ -26,7 +26,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatNativeDateModule } from '@angular/material/core';
 import { MessagesComponent } from './components/messages/messages.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MovieEditComponent } from './components/movie-edit/movie-edit.component';
 import { DatePipe } from '@angular/common';
 import { AddTvComponent } from './components/add-tv/add-tv.component';
@@ -93,7 +93,7 @@ import { MediaQueryStatusComponent } from './components/media-query-status/media
     MatPaginatorModule,
     FormsModule,MatProgressSpinnerModule,MatNativeDateModule,MatDialogModule,MatTooltipModule,MatCardModule,FlexLayoutModule,HighchartsChartModule,MatTabsModule,MatExpansionModule,MatProgressBarModule, LayoutModule
   ],
-  providers:[DatePipe]      ,
+  providers:[DatePipe,{provide: MAT_DIALOG_DATA, useValue: {} }]      ,
   bootstrap: [AppComponent],
   // since we are dynamically adding this component
   entryComponents: [ MessagesComponent,MovieEditComponent,TvEditComponent ]

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChange, Inject } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Inject, Optional } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/app/model/movie';
@@ -39,12 +39,16 @@ export class AddMovieComponent implements OnInit {
   private searchTerms = new Subject<string>();
   movies$: Observable<MovieSearch[]>;
 
-  constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private datepipe: DatePipe,private watchListService :WatchListService) {
+  constructor(private movieService: MovieService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private datepipe: DatePipe,private watchListService :WatchListService,public dialogRef: MatDialogRef<AddMovieComponent>,
+    @Optional()  @Inject(MAT_DIALOG_DATA) public data: MovieSearch
+  ) {
 
   }
-
+//@TODO CLEANUP PLEASE >THis is shit
   ngOnInit() {
-   
+
+   this.movieSearchDetails=this.data;
+   console.log("Hello World "+this.movieSearchDetails);
     this.movieForm.get('name').setValue(this.movieSearchDetails.title);
   }
   ngOnChanges(changes: { [property: string]: SimpleChange }){
@@ -78,6 +82,7 @@ export class AddMovieComponent implements OnInit {
         data => {
          
           this.message = " Movie Successfully Added"
+          this.dialogRef.close();
           this.router.navigate(['/movies/details', data.id]);
 
         },

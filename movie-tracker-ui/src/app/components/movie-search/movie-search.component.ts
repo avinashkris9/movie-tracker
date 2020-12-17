@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MovieSearch } from 'src/app/model/movie-search';
 import { debounceTime, distinctUntilChanged, switchMap, startWith, map } from 'rxjs/operators';
 import { MovieService } from 'src/app/services/movie.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { WatchList } from 'src/app/model/watch-list';
 import { WatchListService } from 'src/app/services/watch-list.service';
+import {MatDialog} from '@angular/material/dialog';
+import { AddMovieComponent } from '../add-movie/add-movie.component';
 
 @Component({
   selector: 'app-movie-search',
@@ -13,17 +15,32 @@ import { WatchListService } from 'src/app/services/watch-list.service';
   styleUrls: ['./movie-search.component.css']
 })
 export class MovieSearchComponent implements OnInit {
-
+  
   private searchTerms = new Subject<string>();
   movies$: Observable<MovieSearch[]>;
   movieSearchDetails: MovieSearch;
   myControl = new FormControl();
   isNewAdd:boolean=false;
-  constructor(private movieService :MovieService,private watchListService:WatchListService) { }
+  @ViewChild('callAPIDialog', {static: false}) callAPIDialog: TemplateRef<any>;
+  constructor(private movieService :MovieService,private watchListService:WatchListService
+    ,public dialog: MatDialog) { }
  
 
+    openDialog( movie:MovieSearch) {
+      const  dialogRef = this.dialog.open(this.callAPIDialog,{ data: movie });
+     
+    }
 
-
+    openAddReviewDialog(movie:MovieSearch)
+    {
+    
+      let dialogRef = this.dialog.open(AddMovieComponent, {
+        width: '50%',
+        data: movie,
+      });
+  
+     
+    }
   ngOnInit() {
    
     
@@ -86,5 +103,7 @@ addToWatchList(movie:MovieSearch)
   rateAndReview(movie:MovieSearch)
   {
     this.isNewAdd=true;
+  
+    this.openAddReviewDialog(movie);
   }
 }

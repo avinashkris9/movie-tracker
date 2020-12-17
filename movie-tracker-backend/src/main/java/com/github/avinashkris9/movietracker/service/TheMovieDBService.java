@@ -7,6 +7,7 @@ import com.github.avinashkris9.movietracker.model.MovieDB;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
 import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
 import com.github.avinashkris9.movietracker.model.WatchListDTO;
+import com.github.avinashkris9.movietracker.utils.APIUtils;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import java.net.URI;
@@ -194,9 +195,15 @@ public class TheMovieDBService {
 
     if(!Objects.isNull(movieDB.getMovieId()))
     {
+
+      log.debug(movieDB.toString());
       movieDetailsDTO.setOverView(movieDB.getMovieSummary());
       movieDetailsDTO.setImdbId( IMDB_URL+"/"+(movieDB.getImdbId()));
-      movieDetailsDTO.setPosterPath(moviePosterPath(movieDB.getPosterPath()));
+     if(!APIUtils.isNullOrEmpty(movieDB.getPosterPath()))
+     {
+
+       movieDetailsDTO.setPosterPath(moviePosterPath(movieDB.getPosterPath()));
+     }
       movieDetailsDTO.setOriginalLanguage(movieDB.getOriginalLanguge());
       movieDetailsDTO.setReleaseDate(movieDB.getReleaseDate());
     }
