@@ -10,4 +10,5 @@ export class MovieSearch {
     imdbId : number;
     poster_path: string;
     original_language: string;
+    release_date: string;
 }

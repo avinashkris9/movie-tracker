@@ -8,6 +8,7 @@ import { WatchList } from 'src/app/model/watch-list';
 import { WatchListService } from 'src/app/services/watch-list.service';
 import {MatDialog} from '@angular/material/dialog';
 import { AddMovieComponent } from '../add-movie/add-movie.component';
+import { MessagesComponent } from '../messages/messages.component';
 
 @Component({
   selector: 'app-movie-search',
@@ -16,11 +17,13 @@ import { AddMovieComponent } from '../add-movie/add-movie.component';
 })
 export class MovieSearchComponent implements OnInit {
   
+  message: string='';
   private searchTerms = new Subject<string>();
   movies$: Observable<MovieSearch[]>;
   movieSearchDetails: MovieSearch;
   myControl = new FormControl();
   isNewAdd:boolean=false;
+  
   @ViewChild('callAPIDialog', {static: false}) callAPIDialog: TemplateRef<any>;
   constructor(private movieService :MovieService,private watchListService:WatchListService
     ,public dialog: MatDialog) { }
@@ -96,7 +99,28 @@ addToWatchList(movie:MovieSearch)
     
     this.watchListService.addToWatchList(movieWatchList).subscribe
     (
-      data => console.log(data)
+      data => console.log(data),
+      
+      (error) => {                              //Error callback
+        console.error('error caught in component')
+        // this.errorMessage = error;
+        // this.loading = false;
+
+        console.log(error);
+
+        if (error.error.code == 'DUPLICATE') {
+          // this.openSnackBar("Movie Exists","Please update")
+
+          this.message = "Movie Already in your watch list!"
+        }
+        else {
+          // this.openSnackBar("Sorry, Error Occurred","Please Try Again")
+          
+          this.message = "Sorry Error Occured. Please try after sometime!";
+
+        }
+        this.displayMessage(this.message);
+      }
     );
   }
 
@@ -105,5 +129,15 @@ addToWatchList(movie:MovieSearch)
     this.isNewAdd=true;
   
     this.openAddReviewDialog(movie);
+  }
+
+  displayMessage(message: string) {
+    this.dialog.open(MessagesComponent, {
+
+
+      data: {
+        message: message
+      }
+    });
   }
 }

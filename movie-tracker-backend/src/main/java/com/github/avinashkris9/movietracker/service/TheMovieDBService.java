@@ -130,7 +130,7 @@ public class TheMovieDBService {
       log.error(" No movie info present for {} " + movieName);
 
     }
-
+    log.debug(movieDBDetails.toString());
     return movieDBDetails;
   }
 

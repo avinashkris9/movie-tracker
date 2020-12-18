@@ -4,7 +4,11 @@
     padding-left: 10px;;
     margin: 5px;;
   }
-
+  .imdb-icon-color
+  {
+        background-color: #f3ce13 ;
+  }
+  
   #search-dbox{
   
     
@@ -42,14 +46,14 @@
 
   padding: 16px;
  }
- mat-card-header
+mat-card-header
  {
    min-height: 30px;
  }
  mat-card >p{
   word-wrap: break-word;
  }
- mat-card
+mat-card
  {
   
   
