@@ -1,6 +1,6 @@
 <div id="search-bar">
 
-  <h3 class="mat-h3"> Watched new movie ? How was the experience ?</h3>
+  <h3 class="mat-h2"> Watched new movie ? How was the experience ?</h3>
 
 
   <div id="search-box">
@@ -94,6 +94,12 @@
     </div>
     <div>
       <p class="mat-body">{{data.overview}}</p>
+    </div>
+
+    <div>
+      <strong><bdi>Langugage</bdi></strong> {{data.original_language}} 
+      <a class="imdb-icon-color" mat-raised-button  href="{{data.imdbId}} ">IMDb</a>
+
     </div>
   </div>
 
