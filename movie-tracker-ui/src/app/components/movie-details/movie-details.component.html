@@ -116,17 +116,14 @@
   
       <mat-list role="list" *ngFor="let reviewData of movie.reviews">
         <mat-list-item role="listitem">
-         
-          
-          
-          <!-- <div > <mat-icon mat-list-icon>label</mat-icon> </div>
-          <div mat-line>  {{reviewData.lastReviewed | date}} </div>
-         
-          <div >{{reviewData.review}}</div>
-          -->
+   
           <mat-icon mat-list-icon>label</mat-icon>
           <div mat-line> <em  class="mat-body-strong">{{reviewData.lastReviewed | date}} </em></div>
-          <div mat-line>{{reviewData.review}}</div>
+          <div mat-line class="review-data">
+            
+            <p>{{reviewData.review}}</p>
+          
+          </div>
           
         </mat-list-item>
       </mat-list>     
