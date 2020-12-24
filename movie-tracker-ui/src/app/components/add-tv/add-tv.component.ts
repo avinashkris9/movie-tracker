@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, Inject, Optional } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subject, Observable } from 'rxjs';
 import { MovieSearch } from 'src/app/model/movie-search';
 import { TvService } from 'src/app/services/tv.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DatePipe } from '@angular/common';
 import { MessagesComponent } from 'src/app/components/messages/messages.component';
 import { Movie } from 'src/app/model/movie';
@@ -33,8 +33,11 @@ export class AddTvComponent implements OnInit {
   
   private searchTerms = new Subject<string>();
   tv$: Observable<MovieSearch[]>;
-
-  constructor(private tvService: TvService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private datepipe: DatePipe) { }
+//@TODO CLEANUP PLEASE >THis is shit
+  constructor(private tvService: TvService, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private datepipe: DatePipe,
+    public dialogRef: MatDialogRef<AddTvComponent>,
+    @Optional()  @Inject(MAT_DIALOG_DATA) public data: MovieSearch
+    ) { }
   ngOnChanges(changes: { [property: string]: SimpleChange }){
     // Extract changes to the input property by its name
     let change: SimpleChange = changes['tvSearchDetails']; 
@@ -46,6 +49,7 @@ export class AddTvComponent implements OnInit {
  this.tvForm.get('name').setValue(this.tvSearchDetails.name);
  }
   ngOnInit() {
+    this.tvSearchDetails=this.data;
     this.tvForm.get('name').setValue(this.tvSearchDetails.name);
   }
 
@@ -61,7 +65,8 @@ export class AddTvComponent implements OnInit {
       (
         data => {
          
-          this.message = " Movie Successfully Added"
+          this.message = " Movie Successfully Added";
+          this.dialogRef.close();
           this.router.navigate(['/tv/details', data.id]);
 
         },

@@ -243,4 +243,23 @@ public class MovieService {
     //@TODO Optimise
     return  output.stream().collect(Collectors.toMap( x -> (Integer)x[0] , x -> (Long)x[1]));
   }
+
+
+  public List<MovieDetailsDTO> getDumps()
+  {
+    List<MovieDetails> movieDetails= movieRepository.findAll();
+    if(movieDetails.isEmpty())
+    {
+
+      throw new NotFoundException("ERR_404");
+    }
+
+    List<MovieDetailsDTO> movieDetailsDTOList =
+        movieDetails.stream()
+            .map(
+                x-> customModelMapper.movieEntity2MovieDTO(x))
+            .collect(Collectors.toList());
+    return movieDetailsDTOList;
+  }
+
 }

@@ -6,6 +6,11 @@ import { FormControl } from '@angular/forms';
 import { WatchListService } from 'src/app/services/watch-list.service';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { WatchList } from 'src/app/model/watch-list';
+import { MatDialog } from '@angular/material';
+import { TemplateRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { AddTvComponent } from '../add-tv/add-tv.component';
+import { MessagesComponent } from '../messages/messages.component';
 
 @Component({
   selector: 'app-tv-search',
@@ -20,8 +25,31 @@ export class TvSearchComponent implements OnInit {
   movieSearchDetails: MovieSearch;
   myControl = new FormControl();
   isNewAdd:boolean=false;
-  constructor(private movieService :TvService,private watchListService:WatchListService) { }
+  constructor(private movieService :TvService,private watchListService:WatchListService
+    ,public dialog: MatDialog) { }
  
+
+
+  @ViewChild('callAPIDialog', {static: false}) callAPIDialog: TemplateRef<any>;
+
+ 
+
+    openDialog( movie:MovieSearch) {
+      const  dialogRef = this.dialog.open(this.callAPIDialog,{ data: movie });
+     
+    }
+
+    openAddReviewDialog(movie:MovieSearch)
+    {
+    
+      console.log(movie)
+      let dialogRef = this.dialog.open(AddTvComponent, {
+        width: '50%',
+        data: movie,
+      });
+  
+     
+    }
 
 
 
@@ -42,6 +70,8 @@ export class TvSearchComponent implements OnInit {
 
 
   }
+
+  
  // Push a search term into the observable stream.
  search(term: string): void {
   
@@ -83,9 +113,27 @@ addToWatchList(movie:MovieSearch)
     );
   }
 
+  
+
   rateAndReview(movie:MovieSearch)
   {
     this.isNewAdd=true;
+    if(!movie.title)
+    {
+      movie.title=movie.name;
+    }
+  
+    this.openAddReviewDialog(movie);
+  }
+
+  displayMessage(message: string) {
+    this.dialog.open(MessagesComponent, {
+
+
+      data: {
+        message: message
+      }
+    });
   }
 }
 

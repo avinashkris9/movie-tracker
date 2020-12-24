@@ -1,27 +1,86 @@
-#search-box{
 
-  display: flex;
- 
-  align-items: center;
-  width: 100%;
-  min-width: 150px;
-  height: 100%;
-  margin-right: 16px;
-}
-.example-option-img {
-  vertical-align: middle;
-  margin-right: 8px;
-}
-#search-box > input{
-
-
-
-  border: none;
-  border-radius: 100px;
- 
-  padding: 5px 16px;
-  margin-left: 8px;
-  width: 100%;
+  #search-bar
+  {
+    padding-left: 10px;;
+    margin: 5px;;
+  }
+  .imdb-icon-color
+  {
+        background-color: #f3ce13 ;
+  }
   
-  height: 50%;
-  -webkit-appearance: none;}
+  #search-dbox{
+  
+    
+   
+    align-items: center;
+    width: 100%;
+    min-width: 150px;
+    height: 100%;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    margin-right: 16px;
+    padding-left: 2px;;
+  }
+  .search-dbox > input{
+  
+  
+  
+      border: none;
+      border-radius: 100px;
+     
+      padding: 5px 16px;
+      margin-left: 8px;
+   
+      
+      height: 50%;
+      } 
+  
+
+
+.container{
+  margin: 30px;
+ 
+  width: 75%;
+
+  padding: 16px;
+ }
+mat-card-header
+ {
+   min-height: 30px;
+ }
+ mat-card >p{
+  word-wrap: break-word;
+ }
+mat-card
+ {
+  
+  
+  height: 340px;
+  width: 185px;
+   margin-bottom: 10px;
+ }
+ mat-card-content
+{
+  word-wrap: break-word;
+  height: 20px;
+  margin-bottom:5px;
+}
+
+#tv-search
+{
+  
+}
+.poster{
+  /* adjust as needed */
+  
+  
+  height: 278px;
+ 
+   overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 0 2px #777;
+    position: relative;
+ }
+

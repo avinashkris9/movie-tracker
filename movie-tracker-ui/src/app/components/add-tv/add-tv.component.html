@@ -1,94 +1,107 @@
 
-
-
-
-
-
-
-<div >
+  <div>
 
   
-      <form class="input-form" [formGroup]="tvForm" (ngSubmit)="onSubmit()" #formdir="ngForm">
-  
-        <div>
+    <form class="example-form" [formGroup]="tvForm" (ngSubmit)="onSubmit()" #formdir="ngForm">
+
+      <div>
+        
+        <div class="form-group" *ngIf="tvSearchDetails !=undefined">
           
-          <div class="form-group" *ngIf="tvSearchDetails !=undefined">
-            <mat-label for="movieName">Name</mat-label>
-            <mat-form-field class="example-full-width">
-              <input type="text" [style.width.px]=327 placeholder=" Use Search box above" aria-label="name" required matInput
-                id="movieName" formControlName="name" >
-              
+          <!-- <mat-label for="movieName">Name</mat-label> -->
+          <mat-form-field >
+            <input type="text" placeholder=" Name" aria-label="name" required matInput
+              id="movieName" formControlName="name" >
+            
+    
+            <mat-error> <div *ngIf="movieName.invalid && (movieName.dirty || movieName.touched)" class="alert alert-danger">
+    
+              <div *ngIf="movieName.errors.required">
+                Name is required.
+              </div>
       
-              <mat-error> <div *ngIf="movieName.invalid && (movieName.dirty || movieName.touched)" class="alert alert-danger">
-      
-                <div *ngIf="movieName.errors.required">
-                  Name is required.
+            </div>
+          </mat-error>
+          </mat-form-field>
+         
+           
+        </div>
+       <div>
+    
+    
+       </div>
+        <mat-form-field class="form-group">
+          <mat-label>Review</mat-label>
+        
+
+            <textarea class="textarea" matInput placeholder="Ex. It makes me feel..."
+            formControlName="review"
+            matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="3"
+            cdkAutosizeMaxRows="5"
+            ></textarea>
+          
+        </mat-form-field>
+    
+        <div class="form-group">
+    
+    
+    
+          <mat-form-field >
+            <mat-label>Rating</mat-label>
+            <select matNativeControl required formControlName="rating">
+              <option value="1">1/5</option>
+              <option value="2">2/5</option>
+              <option value="3">3/5</option>
+              <option value="4">4/5</option>
+              <option value="5">5/5</option>
+            </select>
+            <mat-error>
+    
+              <div *ngIf="rating.invalid && (rating.dirty || rating.touched)" class="alert alert-danger">
+    
+                <div *ngIf="rating.errors.required">
+                  Do you mind adding rating ?
                 </div>
         
               </div>
             </mat-error>
-            </mat-form-field>
-           
-             
-          </div>
-         <div>
-      
-      
-         </div>
-          <mat-form-field class="example-full-width">
-            <mat-label>Review</mat-label>
-            <textarea class="example-text-box" matInput placeholder="Ex. It makes me feel..."
-              formControlName="review"></textarea>
           </mat-form-field>
-      
-          <div class="form-group">
-      
-      
-      
-            <mat-form-field >
-              <mat-label>Rating</mat-label>
-              <select matNativeControl required formControlName="rating">
-                <option value="1">1/5</option>
-                <option value="2">2/5</option>
-                <option value="3">3/5</option>
-                <option value="4">4/5</option>
-                <option value="5">5/5</option>
-              </select>
-              <mat-error>
-      
-                <div *ngIf="rating.invalid && (rating.dirty || rating.touched)" class="alert alert-danger">
-      
-                  <div *ngIf="rating.errors.required">
-                    Do you mind adding rating ?
-                  </div>
-          
-                </div>
-              </mat-error>
-            </mat-form-field>
-      
-           
-          </div>
-      
-      
-      
-          <mat-form-field color="accent">
-            <mat-label>Watched on </mat-label>
-            <input [value]="date" matInput [matDatepicker]="picker1"  [max]="maxDate" formControlName="lastWatched">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field>
-      
-      
-          <button mat-button type="submit" mat-button color="primary" [disabled]="tvForm.invalid"
-           >
-      
-            Add
-      
-      
-      
-          </button>
+    
+         
         </div>
-      </form>
-  
-   
+    
+    
+    
+        <mat-form-field color="accent">
+          <mat-label>Watched on </mat-label>
+          <input [value]="date" matInput [matDatepicker]="picker1"  [max]="maxDate" formControlName="lastWatched">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+    
+    
+        <button onclick="" mat-button type="submit" mat-button color="primary" [disabled]="tvForm.invalid"
+          aria-label="Snack bar notification">
+    
+          Add
+    
+    
+    
+        </button>
+      </div>
+    </form>
+
+  <!-- </mat-grid-tile> -->
+
+  <!-- <div  *ngIf ="movieDetails!=undefined" >
+    <mat-grid-tile>{{movieDetails.name}}</mat-grid-tile>
+  </div> -->
+ 
+<!-- </mat-grid-list> -->
 </div>
+
+
+
+ 

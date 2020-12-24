@@ -1,5 +1,6 @@
 package com.github.avinashkris9.movietracker.service;
 
+import com.github.avinashkris9.movietracker.entity.MovieDetails;
 import com.github.avinashkris9.movietracker.entity.TvDetails;
 import com.github.avinashkris9.movietracker.entity.TvReview;
 import com.github.avinashkris9.movietracker.exception.EntityExistsException;
@@ -237,4 +238,21 @@ public class TvService {
     return tvRepository.countByRating(5);
   }
 
+
+  public List<MovieDetailsDTO> getDumps()
+  {
+    List<TvDetails> movieDetails= tvRepository.findAll();
+    if(movieDetails.isEmpty())
+    {
+
+      throw new NotFoundException("ERR_404");
+    }
+
+    List<MovieDetailsDTO> movieDetailsDTOList =
+        movieDetails.stream()
+            .map(
+                x-> customModelMapper.tvEntity2MovieDTO(x))
+            .collect(Collectors.toList());
+    return movieDetailsDTOList;
+  }
 }

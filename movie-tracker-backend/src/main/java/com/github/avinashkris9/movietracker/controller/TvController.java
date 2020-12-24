@@ -147,4 +147,10 @@ public class TvController {
   {
     tvReviewService.deleteReviewById(tvId,reviewId);
   }
+
+  @GetMapping("/dumpdata")
+  List<MovieDetailsDTO> getDumps()
+  {
+    return tvService.getDumps();
+  }
 }

@@ -96,10 +96,12 @@ addToWatchList(movie:MovieSearch)
     movieWatchList.name=movie.title;
     movieWatchList.externalId=movie.id;
     movieWatchList.showType="MOVIE";
-    
+    movie.addToWatchList=true;
     this.watchListService.addToWatchList(movieWatchList).subscribe
     (
-      data => console.log(data),
+      data => {
+
+      },
       
       (error) => {                              //Error callback
         console.error('error caught in component')

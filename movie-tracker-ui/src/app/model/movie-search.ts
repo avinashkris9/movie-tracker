@@ -11,4 +11,5 @@ export class MovieSearch {
     poster_path: string;
     original_language: string;
     release_date: string;
+    addToWatchList: boolean;
 }

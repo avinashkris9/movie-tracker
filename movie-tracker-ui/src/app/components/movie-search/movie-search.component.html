@@ -54,9 +54,22 @@
 
 
             <button color="accent" (click)="addToWatchList(movie)" mat-button mat-icon-button>
-              <mat-icon>
-                playlist_add
-              </mat-icon>Watchlist
+            
+              <div  *ngIf="movie.addToWatchList">
+                <mat-icon >
+                  done
+                </mat-icon>
+                To Watch
+              </div>
+             
+              <div  *ngIf="!movie.addToWatchList">
+
+                <mat-icon >
+                  playlist_add
+                </mat-icon>Watchlist
+               </div>
+                  
+              
             </button>
             <button color="accent" (click)="rateAndReview(movie)" mat-button mat-icon-button>
               <mat-icon>

@@ -137,4 +137,10 @@ public class MovieController {
   {
      movieReviewService.deleteReviewById(movieId,reviewId);
   }
+
+  @GetMapping("/dumpdata")
+  List<MovieDetailsDTO> getDumps()
+  {
+    return movieService.getDumps();
+  }
 }
