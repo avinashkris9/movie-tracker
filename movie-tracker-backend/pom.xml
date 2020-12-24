@@ -41,6 +41,11 @@
       <artifactId>spring-boot-starter-web</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
+
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.boot</groupId>-->
+<!--      <artifactId>spring-boot-starter-oauth2-client</artifactId>-->
+<!--    </dependency>-->
 <!--    <dependency>-->
 <!--      <artifactId>mysql-connector-java</artifactId>-->
 <!--      <groupId>mysql</groupId>-->
@@ -64,6 +69,7 @@
       <version>${project.version}</version>
       <scope>runtime</scope>
     </dependency>
+
     <dependency>
 
       <groupId>org.springframework.boot</groupId>

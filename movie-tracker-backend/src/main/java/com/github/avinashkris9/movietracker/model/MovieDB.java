@@ -2,31 +2,31 @@ package com.github.avinashkris9.movietracker.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Arrays;
 import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class MovieDB {
+public class MovieDB{
+@JsonProperty("id")
+private Long movieId;
 
-  @JsonProperty("id")
-  private Long movieId;
+@JsonProperty("overview")
+private String movieSummary;
 
-  @JsonProperty("overview")
-  private String movieSummary;
+@JsonProperty("imdb_id")
+private String imdbId;
 
-  @JsonProperty("imdb_id")
-  private String imdbId;
+private String title;
 
-  private String title;
+private String name;
+@JsonProperty("poster_path")
+private String posterPath;
 
-  private String name;
-  @JsonProperty("poster_path")
-  private String posterPath;
+@JsonProperty("original_language")
+private String originalLanguge;
 
-  @JsonProperty("original_language")
-  private String originalLanguge;
+@JsonProperty("release_date")
+private String releaseDate;
 
-  @JsonProperty("release_date")
-  private String releaseDate;
-
-}
+    }
