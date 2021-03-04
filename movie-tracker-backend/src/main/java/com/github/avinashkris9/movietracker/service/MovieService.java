@@ -21,11 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
-public class MovieService {
+public class MovieService implements ShowManagementService<MovieDetailsDTO, PageMovieDetailsDTO> {
 
   private final MovieRepository movieRepository;
   private final TheMovieDBService theMovieDBService;
@@ -51,7 +50,7 @@ public class MovieService {
 
 
 
-  public MovieDetailsDTO insertNewWatchedMovie(MovieDetailsDTO movieDetails) {
+  public MovieDetailsDTO addShowWatched(MovieDetailsDTO movieDetails) {
 
     if (Objects.isNull(movieDetails.getLastWatched())) {
       log.info(" No watched date provided so setting today's date");
@@ -92,7 +91,8 @@ public class MovieService {
 
     movieDetailsEntity =
         movieRepository.save(movieDetailsEntity);
-    log.info("Sasa {}", movieDetails);
+    log.info("DTO {}", movieDetails);
+    log.info("Entity {}", movieDetailsEntity);
     movieDetails.setId(movieDetailsEntity.getId());
     return customModelMapper.movieEntity2MovieDTO(movieDetailsEntity);
   }
@@ -104,7 +104,7 @@ public class MovieService {
    * @param movieId primary key to identify database entry
    * @return MovieDetailsDTO DTO object
    */
-  public MovieDetailsDTO updateWatchedMovie(MovieDetailsDTO movieDetailsDTO, long movieId) {
+  public MovieDetailsDTO updateShowWatched(MovieDetailsDTO movieDetailsDTO, long movieId) {
 
     Optional<MovieDetails> movieFromDb = movieRepository.findById(movieId);
     LocalDate today = LocalDate.now();
@@ -155,7 +155,7 @@ public class MovieService {
    * @return DTO object for movie details
    * @throws NotFoundException if no entry found for movieId
    */
-  public MovieDetailsDTO getMovieById(long movieId) {
+  public MovieDetailsDTO getShowByShowId(long movieId) {
     Optional<MovieDetails> movieDetails = movieRepository.findById(movieId);
     if (movieDetails.isPresent()) {
       log.debug(movieDetails.toString());
@@ -175,7 +175,7 @@ public class MovieService {
    * @return List of all movies matching the movie name
    * @throws NotFoundException if no movies are found for the search string
    */
-  public List<MovieDetailsDTO> getMoviesByMovieName(String movieName) {
+  public List<MovieDetailsDTO> getShowByShowName(String movieName) {
     List<MovieDetails> moviesByName = movieRepository.findByMovieNameContainsIgnoreCase(movieName);
     if (moviesByName.isEmpty()) {
       throw new NotFoundException("No movies");
@@ -197,7 +197,7 @@ public class MovieService {
    * @return PageMovieDetailsDTO object holding list of movies and paging information
    * @throws NotFoundException if no movies found in database
    */
-  public PageMovieDetailsDTO getAllMoviesWatched(Pageable pageRequest) {
+  public PageMovieDetailsDTO getAllShowsWatched(Pageable pageRequest) {
 
     Page<MovieDetails> movieDetails = movieRepository.findAll(pageRequest);
     // throw exception if there are no movies
@@ -220,7 +220,7 @@ public class MovieService {
    * @param movieId primary key
    * @throws NotFoundException if no movie matching movieId present in db.
    */
-  public void deleteWatchedMovie(long movieId) {
+  public void deleteShowWatched(long movieId) {
     Optional<MovieDetails> movieDetails = movieRepository.findById(movieId);
     movieDetails.orElseThrow(() -> new NotFoundException("Not found"));
     movieRepository.delete(movieDetails.get());

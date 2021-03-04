@@ -1,11 +1,10 @@
 package com.github.avinashkris9.movietracker.controller;
 
-import com.github.avinashkris9.movietracker.entity.MovieReview;
 import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
 import com.github.avinashkris9.movietracker.model.MovieReviewDTO;
 import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
+import com.github.avinashkris9.movietracker.service.ShowManagementService;
 import com.github.avinashkris9.movietracker.service.TvReviewService;
-import com.github.avinashkris9.movietracker.service.TvService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TvController {
 
 
-  private final TvService tvService;
+  private final ShowManagementService<MovieDetailsDTO, PageMovieDetailsDTO> tvService;
   private final TvReviewService tvReviewService;
 
 
@@ -52,7 +51,7 @@ public class TvController {
 
     Pageable pageRequest = PageRequest.of(page, size, Sort.by("lastWatched").descending());
 
-    return tvService.getAllTvShowsWatched(pageRequest);
+    return tvService.getAllShowsWatched(pageRequest);
   }
 
   /**
@@ -65,7 +64,7 @@ public class TvController {
   @GetMapping("/{tvId}")
   public MovieDetailsDTO getMovieById(@PathVariable Long tvId) {
 
-    return tvService.getTvShowById(tvId);
+    return tvService.getShowByShowId(tvId);
   }
 
 
@@ -77,7 +76,7 @@ public class TvController {
    */
   @GetMapping("/search")
   public List<MovieDetailsDTO> searchTvshows(@RequestParam String name) {
-    return tvService.getTvShowsByName(name);
+    return tvService.getShowByShowName(name);
   }
 
   /**
@@ -91,7 +90,7 @@ public class TvController {
 
     log.info("------ New Tv Show Received-----");
     log.info(tvDetails.toString());
-    return tvService.insertNewWatchedTvShow(tvDetails);
+    return tvService.addShowWatched(tvDetails);
   }
 
   /**
@@ -107,7 +106,7 @@ public class TvController {
   public MovieDetailsDTO updateMovieDetails(
       @PathVariable long tvId, @RequestBody MovieDetailsDTO tvDetails) {
 
-    return tvService.updateWatchedTvShow(tvDetails, tvId);
+    return tvService.updateShowWatched(tvDetails, tvId);
   }
 
   /**
@@ -118,7 +117,7 @@ public class TvController {
   @DeleteMapping("/{tvId}")
   public void deleteMovieDetails(@PathVariable long tvId) {
     log.debug(" Delete Tv Request for {}",tvId );
-    tvService.deleteWatchedTv(tvId);
+    tvService.deleteShowWatched(tvId);
   }
 
 
@@ -151,6 +150,6 @@ public class TvController {
   @GetMapping("/dumpdata")
   List<MovieDetailsDTO> getDumps()
   {
-    return tvService.getDumps();
+    return null;// tvService.getDumps();
   }
 }

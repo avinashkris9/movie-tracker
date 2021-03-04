@@ -33,6 +33,7 @@ public class TheMovieDBController {
     this.theMovieDBService = theMovieDBService;
   }
 
+
   @GetMapping("/movies/{movieId}")
   public MovieDB getMovieDetails(@PathVariable long movieId) throws URISyntaxException {
 

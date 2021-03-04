@@ -1,6 +1,5 @@
 package com.github.avinashkris9.movietracker.service;
 
-import com.github.avinashkris9.movietracker.entity.MovieDetails;
 import com.github.avinashkris9.movietracker.entity.TvDetails;
 import com.github.avinashkris9.movietracker.entity.TvReview;
 import com.github.avinashkris9.movietracker.exception.EntityExistsException;
@@ -25,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class TvService {
+public class TvService implements ShowManagementService<MovieDetailsDTO, PageMovieDetailsDTO> {
 
   private final TvRepository tvRepository;
   private final TheMovieDBService theMovieDBService;
@@ -47,7 +46,7 @@ public class TvService {
    * @return PageMovieDetailsDTO object holding list of movies  and paging information
    * @throws NotFoundException if no movies found in database
    */
-  public PageMovieDetailsDTO getAllTvShowsWatched(Pageable pageRequest) {
+  public PageMovieDetailsDTO getAllShowsWatched(Pageable pageRequest) {
 
     Page<TvDetails> tvShowDetails = tvRepository.findAll(pageRequest);
     //throw exception if there are no movies
@@ -74,7 +73,7 @@ public class TvService {
    * @return List of all movies matching the movie name
    * @throws NotFoundException if no movies are found for the search string
    */
-  public List<MovieDetailsDTO> getTvShowsByName(String movieName) {
+  public List<MovieDetailsDTO> getShowByShowName(String movieName) {
     List<TvDetails> tvShows = tvRepository.findByTvShowNameContainsIgnoreCase(movieName);
 
 
@@ -98,7 +97,7 @@ public class TvService {
    * @return DTO object for movie details
    * @throws NotFoundException if no entry found for movieId
    */
-  public MovieDetailsDTO getTvShowById(long tvId) {
+  public MovieDetailsDTO getShowByShowId(long tvId) {
     Optional<TvDetails> tvDetails = tvRepository.findById(tvId);
 
     if (tvDetails.isPresent()) {
@@ -124,7 +123,7 @@ public class TvService {
    * @return DTO object with extra enrichment information
    * @throws EntityExistsException if same movie name present in database.
    */
-  public MovieDetailsDTO insertNewWatchedTvShow(MovieDetailsDTO tvDetails) {
+  public MovieDetailsDTO addShowWatched(MovieDetailsDTO tvDetails) {
 
     if (Objects.isNull(tvDetails.getLastWatched())) {
       log.info("No watched date provided so setting today's date");
@@ -178,7 +177,7 @@ public class TvService {
    * @param tvId      primary key to identify database entry
    * @return MovieDetailsDTO DTO object
    */
-  public MovieDetailsDTO updateWatchedTvShow(MovieDetailsDTO tvDetails, long tvId) {
+  public MovieDetailsDTO updateShowWatched(MovieDetailsDTO tvDetails, long tvId) {
 
     Optional<TvDetails> tvShowFromDb = tvRepository.findById(tvId);
     LocalDate today = LocalDate.now();
@@ -221,7 +220,7 @@ public class TvService {
    * @param tvId primary key
    * @throws  NotFoundException if no movie matching tvId present in db.
    */
-  public void deleteWatchedTv(long tvId) {
+  public void deleteShowWatched(long tvId) {
     Optional<TvDetails> tvDetails = tvRepository.findById(tvId);
     tvDetails.orElseThrow(() -> new NotFoundException(APIUtils.TV_NOT_FOUND));
     tvRepository.deleteById(tvId);

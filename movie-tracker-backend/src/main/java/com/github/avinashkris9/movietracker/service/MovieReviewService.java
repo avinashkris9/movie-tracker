@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class MovieReviewService {
+public class MovieReviewService  {
 
   private final MovieReviewRepository movieReviewRepository;
   private final MovieRepository movieRepository;
@@ -26,10 +26,9 @@ public class MovieReviewService {
 
   public List<MovieReview> getAllMovieReviewsByMovieId(long movieDetailsId)
   {
-    List<MovieReview> lists= movieReviewRepository.findByMovieDetailsId(movieDetailsId);
 
+    return  movieReviewRepository.findByMovieDetailsId(movieDetailsId);
 
-    return lists;
   }
 
   public MovieReviewDTO addNewMovieReview(long movieDetailsId, MovieReviewDTO movieReviewDTO)

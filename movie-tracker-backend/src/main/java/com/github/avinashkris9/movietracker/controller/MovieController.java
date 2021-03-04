@@ -6,7 +6,7 @@ import com.github.avinashkris9.movietracker.model.MovieReviewDTO;
 import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
 import com.github.avinashkris9.movietracker.service.MovieReviewService;
 import com.github.avinashkris9.movietracker.service.MovieService;
-import java.time.LocalDate;
+import com.github.avinashkris9.movietracker.service.ShowManagementService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class MovieController {
 
-  private final MovieService movieService;
+  private final ShowManagementService<MovieDetailsDTO, PageMovieDetailsDTO> movieService;
   private final MovieReviewService movieReviewService;
 
   public MovieController(MovieService movieService,MovieReviewService movieReviewService) {
@@ -47,7 +47,7 @@ public class MovieController {
   @GetMapping
   public PageMovieDetailsDTO getAllMovieDetails(@RequestParam(value = "page", defaultValue ="0") int page,@RequestParam(value = "size",defaultValue = "5") int size ) {
     Pageable pageRequest = PageRequest.of(page, size, Sort.by("lastWatched").descending());
-    return movieService.getAllMoviesWatched(pageRequest);
+    return movieService.getAllShowsWatched(pageRequest);
   }
 
   /**
@@ -59,7 +59,7 @@ public class MovieController {
    */
   @GetMapping("/{movieId}")
   public MovieDetailsDTO getMovieById(@PathVariable Long movieId) {
-    return movieService.getMovieById(movieId);
+    return movieService.getShowByShowId(movieId);
   }
 
 
@@ -72,7 +72,7 @@ public class MovieController {
    */
   @GetMapping("/search")
   public List<MovieDetailsDTO> searchMovies(@RequestParam String name) {
-    return movieService.getMoviesByMovieName(name);
+    return movieService.getShowByShowName(name);
   }
 
   /**
@@ -86,7 +86,7 @@ public class MovieController {
     log.info("------ New Movie Received-----");
     log.info(movieDetails.toString());
 
-    return movieService.insertNewWatchedMovie(movieDetails);
+    return movieService.addShowWatched(movieDetails);
   }
 
   /**
@@ -100,7 +100,7 @@ public class MovieController {
   public MovieDetailsDTO updateMovieDetails(
       @PathVariable long movieId, @Valid @RequestBody MovieDetailsDTO movieDetails) {
 
-    return movieService.updateWatchedMovie(movieDetails, movieId);
+    return movieService.updateShowWatched(movieDetails, movieId);
   }
 
   /**
@@ -111,7 +111,7 @@ public class MovieController {
   @DeleteMapping("/{movieId}")
   public void deleteMovieDetails(@PathVariable long movieId) {
     log.debug(" Delete Request for movieId {} ",movieId);
-    movieService.deleteWatchedMovie(movieId);
+    movieService.deleteShowWatched(movieId);
   }
 
   @GetMapping("/{movieId}/reviews")
@@ -141,6 +141,7 @@ public class MovieController {
   @GetMapping("/dumpdata")
   List<MovieDetailsDTO> getDumps()
   {
-    return movieService.getDumps();
+    return null;
+   // return movieService.getDumps();
   }
 }
