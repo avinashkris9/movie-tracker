@@ -1,8 +1,8 @@
 package com.github.avinashkris9.movietracker.controller;
 
-import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
-import com.github.avinashkris9.movietracker.model.MovieReviewDTO;
-import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.MovieResponse;
+import com.github.avinashkris9.movietracker.model.MovieReviewResponse;
+import com.github.avinashkris9.movietracker.model.PageMovieResponse;
 import com.github.avinashkris9.movietracker.service.ShowManagementService;
 import com.github.avinashkris9.movietracker.service.TvReviewService;
 import java.util.List;
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TvController {
 
 
-  private final ShowManagementService<MovieDetailsDTO, PageMovieDetailsDTO> tvService;
+  private final ShowManagementService<MovieResponse, PageMovieResponse> tvService;
   private final TvReviewService tvReviewService;
 
 
@@ -45,7 +45,7 @@ public class TvController {
    * @return PageMovieDetailsDTO List of movie details dto with paging data
    */
   @GetMapping
-  public PageMovieDetailsDTO getAllTvShowDetails(
+  public PageMovieResponse getAllTvShowDetails(
       @RequestParam(value = "page", defaultValue = "0") int page,
       @RequestParam(value = "size", defaultValue = "5") int size) {
 
@@ -62,7 +62,7 @@ public class TvController {
    * @throws com.github.avinashkris9.movietracker.exception.NotFoundException if movie not found
    */
   @GetMapping("/{tvId}")
-  public MovieDetailsDTO getMovieById(@PathVariable Long tvId) {
+  public MovieResponse getMovieById(@PathVariable Long tvId) {
 
     return tvService.getShowByShowId(tvId);
   }
@@ -75,7 +75,7 @@ public class TvController {
    * @return List of dto objects matching the movie name searched
    */
   @GetMapping("/search")
-  public List<MovieDetailsDTO> searchTvshows(@RequestParam String name) {
+  public List<MovieResponse> searchTvshows(@RequestParam String name) {
     return tvService.getShowByShowName(name);
   }
 
@@ -86,7 +86,7 @@ public class TvController {
    * @return MovieDetailsDTO object with additional enrichment
    */
   @PostMapping
-  public MovieDetailsDTO insertNewMovieDetails(@RequestBody MovieDetailsDTO tvDetails) {
+  public MovieResponse insertNewMovieDetails(@RequestBody MovieResponse tvDetails) {
 
     log.info("------ New Tv Show Received-----");
     log.info(tvDetails.toString());
@@ -103,8 +103,8 @@ public class TvController {
    *                                                                          movie id
    */
   @PutMapping("/{tvId}")
-  public MovieDetailsDTO updateMovieDetails(
-      @PathVariable long tvId, @RequestBody MovieDetailsDTO tvDetails) {
+  public MovieResponse updateMovieDetails(
+      @PathVariable long tvId, @RequestBody MovieResponse tvDetails) {
 
     return tvService.updateShowWatched(tvDetails, tvId);
   }
@@ -124,19 +124,19 @@ public class TvController {
 
 
   @GetMapping("/{tvId}/reviews")
-  public List<MovieReviewDTO> getAllTvReviews(@PathVariable long tvId)
+  public List<MovieReviewResponse> getAllTvReviews(@PathVariable long tvId)
   {
     return tvReviewService.getAllTvReviewsByTvId(tvId);
   }
 
   @PostMapping("/{tvId}/reviews")
-  MovieReviewDTO addNewTvReview(@RequestBody MovieReviewDTO tvReview, @PathVariable long tvId)
+  MovieReviewResponse addNewTvReview(@RequestBody MovieReviewResponse tvReview, @PathVariable long tvId)
   {
     return tvReviewService.addNewTvReview(tvId,tvReview);
   }
 
   @PutMapping("/{tvId}/reviews/{reviewId}")
-  MovieReviewDTO updateTvReview(@RequestBody MovieReviewDTO tvReview, @PathVariable long tvId,@PathVariable long reviewId)
+  MovieReviewResponse updateTvReview(@RequestBody MovieReviewResponse tvReview, @PathVariable long tvId,@PathVariable long reviewId)
   {
     return tvReviewService.updateTvReview(tvId,reviewId,tvReview);
   }
@@ -148,7 +148,7 @@ public class TvController {
   }
 
   @GetMapping("/dumpdata")
-  List<MovieDetailsDTO> getDumps()
+  List<MovieResponse> getDumps()
   {
     return null;// tvService.getDumps();
   }

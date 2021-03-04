@@ -9,14 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.avinashkris9.movietracker.entity.MovieDetails;
-import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
-import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.MovieResponse;
 import com.github.avinashkris9.movietracker.repository.MovieRepository;
 import com.github.avinashkris9.movietracker.service.MovieService;
 import com.github.avinashkris9.movietracker.utils.APIUtils.API_CODES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import javax.transaction.Transactional;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,29 +42,29 @@ public class MovieIntegrationTests {
   @Autowired
   private MovieRepository movieRepository;
 
-  MovieDetailsDTO movieDetailsDTO=new MovieDetailsDTO();
+  MovieResponse movieResponse =new MovieResponse();
 
   @Test@Order(1)
   @Transactional
   void addNewMovieSuccess() throws Exception {
 
     //movieRepository.deleteById(1763L);
-    MovieDetailsDTO movieDetailsDTO=new MovieDetailsDTO();
-    movieDetailsDTO.setName("Hello");
-    movieDetailsDTO.setRating(4);
+    MovieResponse movieResponse =new MovieResponse();
+    movieResponse.setName("Hello");
+    movieResponse.setRating(4);
 
 
     mockMvc.perform(post("/api/movies" )
         .contentType("application/json")
 
-        .content(objectMapper.writeValueAsString(movieDetailsDTO)))
+        .content(objectMapper.writeValueAsString(movieResponse)))
         .andExpect(status().isOk());
 
     MovieDetails userEntity = movieRepository.findByMovieName("Hello");
     System.out.println(userEntity);
     assertThat(userEntity.getMovieName()=="Hello");
 
-    this.movieDetailsDTO =customModelMapper.movieEntity2MovieDTO(movieRepository.findByMovieName("Hello"));
+    this.movieResponse =customModelMapper.movieEntity2MovieDTO(movieRepository.findByMovieName("Hello"));
 
   }
 
@@ -110,8 +108,8 @@ public class MovieIntegrationTests {
   {
 
 
-    this.movieDetailsDTO.setNumberOfWatch(12);
-    String movie=mockMvc.perform(put("/api/movies/{movieId}",this.movieDetailsDTO.getId())).andExpect(status().isNotFound())
+    this.movieResponse.setNumberOfWatch(12);
+    String movie=mockMvc.perform(put("/api/movies/{movieId}",this.movieResponse.getId())).andExpect(status().isNotFound())
         .andReturn().getResponse().getContentAsString();
 
     System.out.println(movie);
@@ -125,7 +123,7 @@ public class MovieIntegrationTests {
   {
 
 
-    this.movieDetailsDTO.setNumberOfWatch(12);
+    this.movieResponse.setNumberOfWatch(12);
     mockMvc.perform(delete("/api/movies/{movieId}",1764)).andExpect(status().isOk())
         .andReturn();
 

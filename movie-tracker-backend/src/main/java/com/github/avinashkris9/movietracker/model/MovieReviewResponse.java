@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Data
 @Valid
-public class MovieReviewDTO {
+public class MovieReviewResponse {
 
 
   private Long reviewId;

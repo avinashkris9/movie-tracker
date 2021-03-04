@@ -5,8 +5,8 @@ import com.github.avinashkris9.movietracker.entity.TvReview;
 import com.github.avinashkris9.movietracker.exception.EntityExistsException;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
-import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
-import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.MovieResponse;
+import com.github.avinashkris9.movietracker.model.PageMovieResponse;
 import com.github.avinashkris9.movietracker.repository.TvRepository;
 import com.github.avinashkris9.movietracker.utils.APIUtils;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class TvService implements ShowManagementService<MovieDetailsDTO, PageMovieDetailsDTO> {
+public class TvService implements ShowManagementService<MovieResponse, PageMovieResponse> {
 
   private final TvRepository tvRepository;
   private final TheMovieDBService theMovieDBService;
@@ -46,7 +46,7 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
    * @return PageMovieDetailsDTO object holding list of movies  and paging information
    * @throws NotFoundException if no movies found in database
    */
-  public PageMovieDetailsDTO getAllShowsWatched(Pageable pageRequest) {
+  public PageMovieResponse getAllShowsWatched(Pageable pageRequest) {
 
     Page<TvDetails> tvShowDetails = tvRepository.findAll(pageRequest);
     //throw exception if there are no movies
@@ -55,13 +55,13 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
       throw new NotFoundException(APIUtils.API_CODES.NOT_FOUND.name());
     }
 
-    List<MovieDetailsDTO> movieDetailsDTOList =
+    List<MovieResponse> movieResponseList =
         tvShowDetails.getContent().stream()
             .map(theMovieDBService::transformTvEntity).collect(Collectors.toList()
 
         );
 
-    return new PageMovieDetailsDTO(movieDetailsDTOList,
+    return new PageMovieResponse(movieResponseList,
 
         tvShowDetails.getTotalElements(), tvShowDetails.getTotalPages());
 
@@ -73,20 +73,20 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
    * @return List of all movies matching the movie name
    * @throws NotFoundException if no movies are found for the search string
    */
-  public List<MovieDetailsDTO> getShowByShowName(String movieName) {
+  public List<MovieResponse> getShowByShowName(String movieName) {
     List<TvDetails> tvShows = tvRepository.findByTvShowNameContainsIgnoreCase(movieName);
 
 
     if (tvShows.isEmpty()) {
       throw new NotFoundException(APIUtils.API_CODES.NOT_FOUND.name());
     }
-    List<MovieDetailsDTO> movieDetailsDTOS = new ArrayList<>();
+    List<MovieResponse> movieResponses = new ArrayList<>();
     for (TvDetails md : tvShows) {
-      MovieDetailsDTO movieDetailsDTO = customModelMapper.tvEntity2MovieDTO(md);
-      theMovieDBService.appendTheMovieDBData(movieDetailsDTO, SHOW_TYPES.TV.name());
-      movieDetailsDTOS.add(movieDetailsDTO);
+      MovieResponse movieResponse = customModelMapper.tvEntity2MovieDTO(md);
+      theMovieDBService.appendTheMovieDBData(movieResponse, SHOW_TYPES.TV.name());
+      movieResponses.add(movieResponse);
     }
-    return movieDetailsDTOS;
+    return movieResponses;
   }
 
   /**
@@ -97,19 +97,19 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
    * @return DTO object for movie details
    * @throws NotFoundException if no entry found for movieId
    */
-  public MovieDetailsDTO getShowByShowId(long tvId) {
+  public MovieResponse getShowByShowId(long tvId) {
     Optional<TvDetails> tvDetails = tvRepository.findById(tvId);
 
     if (tvDetails.isPresent()) {
 
-      MovieDetailsDTO movieDetailsDTO = customModelMapper.tvEntity2MovieDTO(tvDetails.get());
+      MovieResponse movieResponse = customModelMapper.tvEntity2MovieDTO(tvDetails.get());
       long externalId = tvDetails.get().getExternalId();
       if (externalId != 0) {
-        theMovieDBService.appendTheMovieDBData(movieDetailsDTO, SHOW_TYPES.TV.name());
+        theMovieDBService.appendTheMovieDBData(movieResponse, SHOW_TYPES.TV.name());
       }
 
-      log.debug(movieDetailsDTO.toString());
-      return movieDetailsDTO;
+      log.debug(movieResponse.toString());
+      return movieResponse;
     }
     throw new NotFoundException(APIUtils.API_CODES.NOT_FOUND.name());
   }
@@ -123,7 +123,7 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
    * @return DTO object with extra enrichment information
    * @throws EntityExistsException if same movie name present in database.
    */
-  public MovieDetailsDTO addShowWatched(MovieDetailsDTO tvDetails) {
+  public MovieResponse addShowWatched(MovieResponse tvDetails) {
 
     if (Objects.isNull(tvDetails.getLastWatched())) {
       log.info("No watched date provided so setting today's date");
@@ -143,8 +143,8 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
       MovieDBDetails optionalMovieDBDetails =
           theMovieDBService
               .getMovieDetailsBySearch(tvDetails.getName(), SHOW_TYPES.TV.name());
-      if (!optionalMovieDBDetails.getMovieDBDetails().isEmpty()) {
-        long themovieDBMovieId = optionalMovieDBDetails.getMovieDBDetails().get(0).getMovieId();
+      if (!optionalMovieDBDetails.getMovieDBResponseDetails().isEmpty()) {
+        long themovieDBMovieId = optionalMovieDBDetails.getMovieDBResponseDetails().get(0).getMovieId();
         log.debug("The movie db entry found with external id {} ", themovieDBMovieId);
         tvDetails.setExternalId(themovieDBMovieId);
       }
@@ -177,7 +177,7 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
    * @param tvId      primary key to identify database entry
    * @return MovieDetailsDTO DTO object
    */
-  public MovieDetailsDTO updateShowWatched(MovieDetailsDTO tvDetails, long tvId) {
+  public MovieResponse updateShowWatched(MovieResponse tvDetails, long tvId) {
 
     Optional<TvDetails> tvShowFromDb = tvRepository.findById(tvId);
     LocalDate today = LocalDate.now();
@@ -238,7 +238,7 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
   }
 
 
-  public List<MovieDetailsDTO> getDumps()
+  public List<MovieResponse> getDumps()
   {
     List<TvDetails> movieDetails= tvRepository.findAll();
     if(movieDetails.isEmpty())
@@ -247,11 +247,11 @@ public class TvService implements ShowManagementService<MovieDetailsDTO, PageMov
       throw new NotFoundException("ERR_404");
     }
 
-    List<MovieDetailsDTO> movieDetailsDTOList =
+    List<MovieResponse> movieResponseList =
         movieDetails.stream()
             .map(
                 x-> customModelMapper.tvEntity2MovieDTO(x))
             .collect(Collectors.toList());
-    return movieDetailsDTOList;
+    return movieResponseList;
   }
 }

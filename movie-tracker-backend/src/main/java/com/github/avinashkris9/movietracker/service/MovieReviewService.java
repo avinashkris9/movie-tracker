@@ -2,7 +2,7 @@ package com.github.avinashkris9.movietracker.service;
 
 import com.github.avinashkris9.movietracker.entity.MovieReview;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
-import com.github.avinashkris9.movietracker.model.MovieReviewDTO;
+import com.github.avinashkris9.movietracker.model.MovieReviewResponse;
 import com.github.avinashkris9.movietracker.repository.MovieRepository;
 import com.github.avinashkris9.movietracker.repository.MovieReviewRepository;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
@@ -31,9 +31,9 @@ public class MovieReviewService  {
 
   }
 
-  public MovieReviewDTO addNewMovieReview(long movieDetailsId, MovieReviewDTO movieReviewDTO)
+  public MovieReviewResponse addNewMovieReview(long movieDetailsId, MovieReviewResponse movieReviewResponse)
   {
-    MovieReview movieReview=customModelMapper.movieReviewDTO2MovieReviewEntity(movieReviewDTO);
+    MovieReview movieReview=customModelMapper.movieReviewDTO2MovieReviewEntity(movieReviewResponse);
     movieReview.setLastReviewed(LocalDate.now());
     return  movieRepository.findById(movieDetailsId).map(
 
@@ -46,9 +46,10 @@ public class MovieReviewService  {
     ).orElseThrow(() -> new NotFoundException("Movie Not Found"));
   }
 
-  public MovieReviewDTO updateMovieReview(long movieDetailsId, long reviewId,MovieReviewDTO movieReviewDTO)
+  public MovieReviewResponse updateMovieReview(long movieDetailsId, long reviewId,
+      MovieReviewResponse movieReviewResponse)
   {
-    MovieReview movieReview=customModelMapper.movieReviewDTO2MovieReviewEntity(movieReviewDTO);
+    MovieReview movieReview=customModelMapper.movieReviewDTO2MovieReviewEntity(movieReviewResponse);
     if(!movieRepository.existsById(movieDetailsId))
     {
       throw  new NotFoundException("Movie Not Found to add review");

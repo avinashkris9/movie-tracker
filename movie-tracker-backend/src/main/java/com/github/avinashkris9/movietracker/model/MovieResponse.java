@@ -1,20 +1,17 @@
 package com.github.avinashkris9.movietracker.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class MovieDetailsDTO {
+public class MovieResponse {
 
   private long id;
 
@@ -44,7 +41,7 @@ public class MovieDetailsDTO {
 
   @Valid
 //  @JsonInclude(Include.NON_NULL)
-  private Set<MovieReviewDTO> reviews;
+  private Set<MovieReviewResponse> reviews;
 
   @JsonProperty(access = Access.READ_ONLY)
   private String releaseDate;

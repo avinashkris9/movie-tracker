@@ -9,7 +9,7 @@ import lombok.Data;
 public class MovieDBDetails {
 
   @JsonProperty("results")
-  List<MovieDB> movieDBDetails=new ArrayList<>();
+  List<MovieDBResponse> movieDBResponseDetails =new ArrayList<>();
 
 
 }

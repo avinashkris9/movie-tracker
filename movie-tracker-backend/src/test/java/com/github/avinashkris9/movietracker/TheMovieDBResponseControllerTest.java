@@ -57,7 +57,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 //@WebAppConfiguration
 
-class TheMovieDBControllerTest {
+class TheMovieDBResponseControllerTest {
 
 
 

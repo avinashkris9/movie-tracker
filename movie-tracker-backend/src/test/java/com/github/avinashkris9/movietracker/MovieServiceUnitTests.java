@@ -1,37 +1,27 @@
 package com.github.avinashkris9.movietracker;
 
-import static org.hamcrest.Matchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import com.github.avinashkris9.movietracker.entity.MovieDetails;
-import com.github.avinashkris9.movietracker.model.MovieDB;
+import com.github.avinashkris9.movietracker.model.MovieDBResponse;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
-import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.MovieResponse;
 import com.github.avinashkris9.movietracker.repository.MovieRepository;
-import com.github.avinashkris9.movietracker.service.MovieService;
 import com.github.avinashkris9.movietracker.service.TheMovieDBService;
-import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -59,18 +49,18 @@ import org.mockito.quality.Strictness;
 
   MovieDBDetails mockMovieDB ()
   {
-    MovieDB movieDB=new MovieDB();
-    movieDB.setMovieId(12L);
-    movieDB.setMovieSummary("Test movie");
-    movieDB.setImdbId("12");
-    movieDB.setPosterPath("/test");
-    movieDB.setTitle("Hello-World");
+    MovieDBResponse movieDBResponse =new MovieDBResponse();
+    movieDBResponse.setMovieId(12L);
+    movieDBResponse.setMovieSummary("Test movie");
+    movieDBResponse.setImdbId("12");
+    movieDBResponse.setPosterPath("/test");
+    movieDBResponse.setTitle("Hello-World");
 
 
-  List<MovieDB> movieDBList=new ArrayList<>();
-  movieDBList.add(movieDB);
+  List<MovieDBResponse> movieDBResponseList =new ArrayList<>();
+  movieDBResponseList.add(movieDBResponse);
     MovieDBDetails movieDBDetails=new MovieDBDetails();
-    movieDBDetails.setMovieDBDetails(movieDBList);
+    movieDBDetails.setMovieDBResponseDetails(movieDBResponseList);
     return movieDBDetails;
   }
 
@@ -89,10 +79,10 @@ import org.mockito.quality.Strictness;
   @Test
  void addShowWatchedSuccess()
   {
-    MovieDetailsDTO movieDetailsDTO=new MovieDetailsDTO();
-    movieDetailsDTO.setName("Hello");
-    movieDetailsDTO.setExternalId(12);
-    movieDetailsDTO.setRating(5);
+    MovieResponse movieResponse =new MovieResponse();
+    movieResponse.setName("Hello");
+    movieResponse.setExternalId(12);
+    movieResponse.setRating(5);
 
 
     MovieDetails movieDetails=new MovieDetails();
@@ -106,7 +96,7 @@ import org.mockito.quality.Strictness;
         theMovieDBService.getMovieDetailsBySearch(anyString(),anyString()))
         .thenReturn(mockMovieDB());
 
-    MovieDetails movieDetailsEntity=customModelMapper.movieDTO2MovieEntity(movieDetailsDTO);
+    MovieDetails movieDetailsEntity=customModelMapper.movieDTO2MovieEntity(movieResponse);
 
 
    when(movieRepository.save(movieDetailsEntity)).thenReturn(movieDetails);
@@ -115,19 +105,19 @@ import org.mockito.quality.Strictness;
 
     when(customModelMapper.movieEntity2MovieDTO(Mockito.any(MovieDetails.class))).thenCallRealMethod();
 
-    MovieDetailsDTO movieDetailsDTO1=movieService.addShowWatched(movieDetailsDTO);
+    MovieResponse movieResponse1 =movieService.addShowWatched(movieResponse);
 
 
-    Assertions.assertEquals(12L,movieDetailsDTO1.getExternalId());
+    Assertions.assertEquals(12L, movieResponse1.getExternalId());
   }
 
   @Test
   void getShowWatchedSuccess()
   {
-    MovieDetailsDTO movieDetailsDTO=new MovieDetailsDTO();
-    movieDetailsDTO.setName("Hello");
-    movieDetailsDTO.setExternalId(12);
-    movieDetailsDTO.setRating(5);
+    MovieResponse movieResponse =new MovieResponse();
+    movieResponse.setName("Hello");
+    movieResponse.setExternalId(12);
+    movieResponse.setRating(5);
 
     MovieDetails movieDetails=new MovieDetails();
     movieDetails.setId(112L);
@@ -140,7 +130,7 @@ import org.mockito.quality.Strictness;
         theMovieDBService.getMovieDetailsBySearch(anyString(),anyString()))
         .thenReturn(mockMovieDB());
 
-    MovieDetails movieDetailsEntity=customModelMapper.movieDTO2MovieEntity(movieDetailsDTO);
+    MovieDetails movieDetailsEntity=customModelMapper.movieDTO2MovieEntity(movieResponse);
 
 
     when(movieRepository.findById(112L)).thenReturn(Optional.of(movieDetails));
@@ -149,10 +139,10 @@ import org.mockito.quality.Strictness;
 
     when(customModelMapper.movieEntity2MovieDTO(Mockito.any(MovieDetails.class))).thenCallRealMethod();
 
-    MovieDetailsDTO movieDetailsDTO1=movieService.getShowByShowId(112L);
+    MovieResponse movieResponse1 =movieService.getShowByShowId(112L);
 
 
-    Assertions.assertEquals(12L,movieDetailsDTO1.getExternalId());
+    Assertions.assertEquals(12L, movieResponse1.getExternalId());
   }
 
 

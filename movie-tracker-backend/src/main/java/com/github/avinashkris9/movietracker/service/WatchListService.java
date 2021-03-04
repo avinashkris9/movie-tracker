@@ -42,8 +42,8 @@ public class WatchListService {
             theMovieDBService.getMovieDetailsBySearch(
                 watchListDTO.getName(), watchListDTO.getShowType());
 
-        if (!optionalMovieDBDetails.getMovieDBDetails().isEmpty()) {
-          long theMovieDbId = optionalMovieDBDetails.getMovieDBDetails().get(0).getMovieId();
+        if (!optionalMovieDBDetails.getMovieDBResponseDetails().isEmpty()) {
+          long theMovieDbId = optionalMovieDBDetails.getMovieDBResponseDetails().get(0).getMovieId();
           log.debug("The movie db entry found with external id {} ", theMovieDbId);
           watchListDTO.setExternalId(theMovieDbId);
           theMovieDBService.appendTheMovieDBDataToWatchList(watchListDTO, watchListDTO.getShowType());

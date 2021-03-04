@@ -3,20 +3,18 @@ package com.github.avinashkris9.movietracker.service;
 import com.github.avinashkris9.movietracker.entity.MovieDetails;
 import com.github.avinashkris9.movietracker.entity.TvDetails;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
-import com.github.avinashkris9.movietracker.model.MovieDB;
+import com.github.avinashkris9.movietracker.model.MovieDBResponse;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
-import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.MovieResponse;
 import com.github.avinashkris9.movietracker.model.WatchListDTO;
 import com.github.avinashkris9.movietracker.utils.APIUtils;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -126,7 +124,7 @@ public class TheMovieDBService {
     log.info("Checking movie db for data {} on {}", movieName, uri);
     MovieDBDetails movieDBDetails =new MovieDBDetails();
     movieDBDetails=restTemplate.getForObject(uri, MovieDBDetails.class);
-    if (movieDBDetails.getMovieDBDetails().isEmpty()) {
+    if (movieDBDetails.getMovieDBResponseDetails().isEmpty()) {
       log.error(" No movie info present for {} " + movieName);
 
     }
@@ -140,16 +138,16 @@ public class TheMovieDBService {
    * @param movieId id primary key for movie
    * @return MovieDB object with moviedb data
    */
-  public MovieDB getMovieById(long movieId, String showType) {
+  public MovieDBResponse getMovieById(long movieId, String showType) {
 
-    MovieDB movieDB=new MovieDB();
+    MovieDBResponse movieDBResponse =new MovieDBResponse();
 
     log.info(" Querying data from themoviedb");
     URI uri = null;
     try {
       uri = movieIdUrl(movieId, showType);
-      movieDB = restTemplate.getForObject(uri, MovieDB.class);
-      if (Objects.isNull(movieDB)) {
+      movieDBResponse = restTemplate.getForObject(uri, MovieDBResponse.class);
+      if (Objects.isNull(movieDBResponse)) {
         log.info(" No movie found in movieDB for id {}", movieId);
         throw new NotFoundException("ERR_NOT IN MOVIE_DB");
       }
@@ -163,7 +161,7 @@ public class TheMovieDBService {
       log.error(" Unknown Exception !",e);
       log.error(e.getMessage());
     }
-    return movieDB;
+    return movieDBResponse;
 
 
 
@@ -185,43 +183,43 @@ public class TheMovieDBService {
    * Helper function to append moviedb api data. Extract ExternalId from object and use
    * TheMovieDBService function to find out theMovieDB API data
    *
-   * @param movieDetailsDTO movie data
+   * @param movieResponse movie data
    * @return MovieDetailsDTO object with updated information from theMovieDB
    */
-  public MovieDetailsDTO appendTheMovieDBData(MovieDetailsDTO movieDetailsDTO, String showType) {
+  public MovieResponse appendTheMovieDBData(MovieResponse movieResponse, String showType) {
 
 
-    MovieDB movieDB = getMovieById(movieDetailsDTO.getExternalId(), showType);
+    MovieDBResponse movieDBResponse = getMovieById(movieResponse.getExternalId(), showType);
 
-    if(!Objects.isNull(movieDB.getMovieId()))
+    if(!Objects.isNull(movieDBResponse.getMovieId()))
     {
 
-      log.debug(movieDB.toString());
-      movieDetailsDTO.setOverView(movieDB.getMovieSummary());
-      movieDetailsDTO.setImdbId( IMDB_URL+"/"+(movieDB.getImdbId()));
-     if(!APIUtils.isNullOrEmpty(movieDB.getPosterPath()))
+      log.debug(movieDBResponse.toString());
+      movieResponse.setOverView(movieDBResponse.getMovieSummary());
+      movieResponse.setImdbId( IMDB_URL+"/"+(movieDBResponse.getImdbId()));
+     if(!APIUtils.isNullOrEmpty(movieDBResponse.getPosterPath()))
      {
 
-       movieDetailsDTO.setPosterPath(moviePosterPath(movieDB.getPosterPath()));
+       movieResponse.setPosterPath(moviePosterPath(movieDBResponse.getPosterPath()));
      }
-      movieDetailsDTO.setOriginalLanguage(movieDB.getOriginalLanguge());
-      movieDetailsDTO.setReleaseDate(movieDB.getReleaseDate());
+      movieResponse.setOriginalLanguage(movieDBResponse.getOriginalLanguge());
+      movieResponse.setReleaseDate(movieDBResponse.getReleaseDate());
     }
     else
     {
       log.error(" No info from the movie db !!!!!!!!!!!!!!!!!!!!!!!!");
     }
 
-    return movieDetailsDTO;
+    return movieResponse;
   }
 
   public WatchListDTO appendTheMovieDBDataToWatchList(WatchListDTO watchListDTO, String showType) {
 
-    MovieDB movieDB = getMovieById(watchListDTO.getExternalId(), showType);
-    watchListDTO.setOverView(movieDB.getMovieSummary());
-    watchListDTO.setImdbId(movieDB.getImdbId());
-    watchListDTO.setPosterPath(moviePosterPath(movieDB.getPosterPath()));
-    watchListDTO.setOriginalLanguage(movieDB.getOriginalLanguge());
+    MovieDBResponse movieDBResponse = getMovieById(watchListDTO.getExternalId(), showType);
+    watchListDTO.setOverView(movieDBResponse.getMovieSummary());
+    watchListDTO.setImdbId(movieDBResponse.getImdbId());
+    watchListDTO.setPosterPath(moviePosterPath(movieDBResponse.getPosterPath()));
+    watchListDTO.setOriginalLanguage(movieDBResponse.getOriginalLanguge());
     return watchListDTO;
   }
   /**
@@ -231,15 +229,15 @@ public class TheMovieDBService {
    * @param movieDetails Entity object from db
    * @return DTO object with updated information.
    */
-  public MovieDetailsDTO transformMovieEntity(MovieDetails movieDetails) {
-    MovieDetailsDTO movieDetailsDTO = customModelMapper.movieEntity2MovieDTO(movieDetails);
-    log.info(movieDetailsDTO.toString());
+  public MovieResponse transformMovieEntity(MovieDetails movieDetails) {
+    MovieResponse movieResponse = customModelMapper.movieEntity2MovieDTO(movieDetails);
+    log.info(movieResponse.toString());
     long externalMovieId = movieDetails.getExternalId();
     if (externalMovieId != 0) {
-      appendTheMovieDBData(movieDetailsDTO, SHOW_TYPES.MOVIE.toString());
-      return movieDetailsDTO;
+      appendTheMovieDBData(movieResponse, SHOW_TYPES.MOVIE.toString());
+      return movieResponse;
     }
-    return movieDetailsDTO;
+    return movieResponse;
 
   }
 
@@ -250,16 +248,16 @@ public class TheMovieDBService {
    * @param tvDetails Entity object from db
    * @return DTO object with updated information.
    */
-  public MovieDetailsDTO transformTvEntity(TvDetails tvDetails) {
-    MovieDetailsDTO movieDetailsDTO = customModelMapper.tvEntity2MovieDTO(tvDetails);
+  public MovieResponse transformTvEntity(TvDetails tvDetails) {
+    MovieResponse movieResponse = customModelMapper.tvEntity2MovieDTO(tvDetails);
     log.debug(" Performing TheMovieDB Query for {} with id {} ", tvDetails.getTvShowName(),
         tvDetails.getExternalId());
     long externalMovieId = tvDetails.getExternalId();
     if (externalMovieId != 0) {
-      appendTheMovieDBData(movieDetailsDTO, SHOW_TYPES.TV.toString());
-      return movieDetailsDTO;
+      appendTheMovieDBData(movieResponse, SHOW_TYPES.TV.toString());
+      return movieResponse;
     }
-    return movieDetailsDTO;
+    return movieResponse;
 
   }
 }

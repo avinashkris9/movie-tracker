@@ -1,7 +1,7 @@
 package com.github.avinashkris9.movietracker.controller;
 
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
-import com.github.avinashkris9.movietracker.model.MovieDB;
+import com.github.avinashkris9.movietracker.model.MovieDBResponse;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
 import com.github.avinashkris9.movietracker.service.TheMovieDBService;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
@@ -35,16 +35,16 @@ public class TheMovieDBController {
 
 
   @GetMapping("/movies/{movieId}")
-  public MovieDB getMovieDetails(@PathVariable long movieId) throws URISyntaxException {
+  public MovieDBResponse getMovieDetails(@PathVariable long movieId) throws URISyntaxException {
 
-    MovieDB movieDB =
+    MovieDBResponse movieDBResponse =
         restTemplate.getForObject(
-            theMovieDBService.movieIdUrl(movieId, SHOW_TYPES.MOVIE.name()), MovieDB.class);
+            theMovieDBService.movieIdUrl(movieId, SHOW_TYPES.MOVIE.name()), MovieDBResponse.class);
 
-    if (Objects.isNull(movieDB)) {
+    if (Objects.isNull(movieDBResponse)) {
       throw new NotFoundException("MovieDB entry not found");
     }
-    return movieDB;
+    return movieDBResponse;
   }
 
   @GetMapping("/search")
@@ -56,11 +56,11 @@ public class TheMovieDBController {
     MovieDBDetails movieDBDetails =
         theMovieDBService.getMovieDetailsBySearch(movieName, showType);
 
-    if(!movieDBDetails.getMovieDBDetails().isEmpty())
+    if(!movieDBDetails.getMovieDBResponseDetails().isEmpty())
     {
 
     movieDBDetails
-        .getMovieDBDetails()
+        .getMovieDBResponseDetails()
         .forEach(
             f -> {
               if (f.getPosterPath() != null) {
