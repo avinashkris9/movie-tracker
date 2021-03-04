@@ -5,8 +5,8 @@ import com.github.avinashkris9.movietracker.entity.MovieReview;
 import com.github.avinashkris9.movietracker.entity.TvDetails;
 import com.github.avinashkris9.movietracker.entity.TvReview;
 import com.github.avinashkris9.movietracker.entity.WatchList;
-import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
-import com.github.avinashkris9.movietracker.model.MovieReviewDTO;
+import com.github.avinashkris9.movietracker.model.MovieResponse;
+import com.github.avinashkris9.movietracker.model.MovieReviewResponse;
 import com.github.avinashkris9.movietracker.model.WatchListDTO;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -14,21 +14,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomModelMapper {
 
-  public MovieDetails movieDTO2MovieEntity(MovieDetailsDTO movieDetailsDTO) {
+  public MovieDetails movieDTO2MovieEntity(MovieResponse movieResponse) {
 
-    if (movieDetailsDTO == null) return null;
+    if (movieResponse == null) return null;
     else {
       MovieDetails movieDetails = new MovieDetails();
 
-      movieDetails.setLastWatched(movieDetailsDTO.getLastWatched());
-      movieDetails.setNumberOfWatch(movieDetailsDTO.getNumberOfWatch());
-      movieDetails.setExternalId(movieDetailsDTO.getExternalId());
-      movieDetails.setMovieName(movieDetailsDTO.getName());
-      movieDetails.setRating(movieDetailsDTO.getRating());
+      movieDetails.setLastWatched(movieResponse.getLastWatched());
+      movieDetails.setNumberOfWatch(movieResponse.getNumberOfWatch());
+      movieDetails.setExternalId(movieResponse.getExternalId());
+      movieDetails.setMovieName(movieResponse.getName());
+      movieDetails.setRating(movieResponse.getRating());
 
       if (!movieDetails.getMovieReviews().isEmpty()) {
         movieDetails.setMovieReviews(
-            movieDetailsDTO.getReviews().stream()
+            movieResponse.getReviews().stream()
                 .map(this::movieReviewDTO2MovieReviewEntity)
                 .collect(Collectors.toSet()));
       }
@@ -36,13 +36,13 @@ public class CustomModelMapper {
     }
   }
 
-  public MovieDetailsDTO movieEntity2MovieDTO(MovieDetails movieDetails) {
+  public MovieResponse movieEntity2MovieDTO(MovieDetails movieDetails) {
 
     if (movieDetails == null) return null;
     else {
 
 
-    MovieDetailsDTO details = new MovieDetailsDTO();
+    MovieResponse details = new MovieResponse();
     details.setLastWatched(movieDetails.getLastWatched());
     details.setNumberOfWatch(movieDetails.getNumberOfWatch());
     details.setExternalId(movieDetails.getExternalId());
@@ -60,21 +60,21 @@ public class CustomModelMapper {
     }
   }
 
-  public TvDetails movieDetailsDTO2TvEntity(MovieDetailsDTO movieDetailsDTO) {
+  public TvDetails movieDetailsDTO2TvEntity(MovieResponse movieResponse) {
 
-    if (movieDetailsDTO == null) return null;
+    if (movieResponse == null) return null;
     else {
 
       TvDetails tvDetails = new TvDetails();
 
-      tvDetails.setLastWatched(movieDetailsDTO.getLastWatched());
-      tvDetails.setExternalId(movieDetailsDTO.getExternalId());
-      tvDetails.setTvShowName(movieDetailsDTO.getName());
-      tvDetails.setRating(movieDetailsDTO.getRating());
+      tvDetails.setLastWatched(movieResponse.getLastWatched());
+      tvDetails.setExternalId(movieResponse.getExternalId());
+      tvDetails.setTvShowName(movieResponse.getName());
+      tvDetails.setRating(movieResponse.getRating());
 
       if (!tvDetails.getTvReviews().isEmpty()) {
         tvDetails.setTvReviews(
-            movieDetailsDTO.getReviews().stream()
+            movieResponse.getReviews().stream()
                 .map(this::movieReviewDTO2TvReviewEntity)
                 .collect(Collectors.toSet()));
       }
@@ -82,12 +82,12 @@ public class CustomModelMapper {
     }
   }
 
-  public MovieDetailsDTO tvEntity2MovieDTO(TvDetails tvDetails) {
+  public MovieResponse tvEntity2MovieDTO(TvDetails tvDetails) {
 
     if (tvDetails == null) return null;
     else {
 
-      MovieDetailsDTO details = new MovieDetailsDTO();
+      MovieResponse details = new MovieResponse();
       details.setLastWatched(tvDetails.getLastWatched());
 
       details.setExternalId(tvDetails.getExternalId());
@@ -137,51 +137,51 @@ public class CustomModelMapper {
 
 
 
-  public MovieReview movieReviewDTO2MovieReviewEntity(MovieReviewDTO movieReviewDTO)
+  public MovieReview movieReviewDTO2MovieReviewEntity(MovieReviewResponse movieReviewResponse)
   {
-    if (movieReviewDTO == null) return null;
+    if (movieReviewResponse == null) return null;
     else {
       MovieReview movieReview = new MovieReview();
-      movieReview.setReview(movieReviewDTO.getReview());
-      movieReview.setReviewId(movieReviewDTO.getReviewId());
-      movieReview.setLastReviewed(movieReviewDTO.getLastReviewed());
+      movieReview.setReview(movieReviewResponse.getReview());
+      movieReview.setReviewId(movieReviewResponse.getReviewId());
+      movieReview.setLastReviewed(movieReviewResponse.getLastReviewed());
       return movieReview;
     }
   }
 
-  public MovieReviewDTO movieReviewEntity2MoviewReviewDTO(MovieReview movieReview)
+  public MovieReviewResponse movieReviewEntity2MoviewReviewDTO(MovieReview movieReview)
   {
     if (movieReview == null) return null;
     else {
-      MovieReviewDTO movieReviewDTO = new MovieReviewDTO();
-      movieReviewDTO.setReviewId(movieReview.getReviewId());
-      movieReviewDTO.setReview(movieReview.getReview());
-      movieReviewDTO.setLastReviewed(movieReview.getLastReviewed());
-      return movieReviewDTO;
+      MovieReviewResponse movieReviewResponse = new MovieReviewResponse();
+      movieReviewResponse.setReviewId(movieReview.getReviewId());
+      movieReviewResponse.setReview(movieReview.getReview());
+      movieReviewResponse.setLastReviewed(movieReview.getLastReviewed());
+      return movieReviewResponse;
     }
   }
 
-  public TvReview movieReviewDTO2TvReviewEntity(MovieReviewDTO movieReviewDTO)
+  public TvReview movieReviewDTO2TvReviewEntity(MovieReviewResponse movieReviewResponse)
   {
-    if (movieReviewDTO == null) return null;
+    if (movieReviewResponse == null) return null;
     else {
       TvReview movieReview = new TvReview();
-      movieReview.setReview(movieReviewDTO.getReview());
-      movieReview.setReviewId(movieReviewDTO.getReviewId());
-      movieReview.setLastReviewed(movieReviewDTO.getLastReviewed());
+      movieReview.setReview(movieReviewResponse.getReview());
+      movieReview.setReviewId(movieReviewResponse.getReviewId());
+      movieReview.setLastReviewed(movieReviewResponse.getLastReviewed());
       return movieReview;
     }
   }
 
-  public MovieReviewDTO tvReviewEntity2MoviewReviewDTO(TvReview movieReview)
+  public MovieReviewResponse tvReviewEntity2MoviewReviewDTO(TvReview movieReview)
   {
     if (movieReview == null) return null;
     else {
-      MovieReviewDTO movieReviewDTO = new MovieReviewDTO();
-      movieReviewDTO.setReviewId(movieReview.getReviewId());
-      movieReviewDTO.setReview(movieReview.getReview());
-      movieReviewDTO.setLastReviewed(movieReview.getLastReviewed());
-      return movieReviewDTO;
+      MovieReviewResponse movieReviewResponse = new MovieReviewResponse();
+      movieReviewResponse.setReviewId(movieReview.getReviewId());
+      movieReviewResponse.setReview(movieReview.getReview());
+      movieReviewResponse.setLastReviewed(movieReview.getLastReviewed());
+      return movieReviewResponse;
 
     }
   }

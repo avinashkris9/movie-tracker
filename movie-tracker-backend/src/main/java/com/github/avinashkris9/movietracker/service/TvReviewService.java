@@ -1,10 +1,8 @@
 package com.github.avinashkris9.movietracker.service;
 
-import com.github.avinashkris9.movietracker.entity.MovieReview;
 import com.github.avinashkris9.movietracker.entity.TvReview;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
-import com.github.avinashkris9.movietracker.model.MovieReviewDTO;
-import com.github.avinashkris9.movietracker.repository.MovieRepository;
+import com.github.avinashkris9.movietracker.model.MovieReviewResponse;
 import com.github.avinashkris9.movietracker.repository.TvRepository;
 import com.github.avinashkris9.movietracker.repository.TvReviewRepository;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
@@ -27,7 +25,7 @@ public class TvReviewService {
 
 
 
-  public List<MovieReviewDTO> getAllTvReviewsByTvId(long tvDetailsId)
+  public List<MovieReviewResponse> getAllTvReviewsByTvId(long tvDetailsId)
   {
     List<TvReview> lists= tvReviewRepository.findByTvDetailsId(tvDetailsId);
 
@@ -36,9 +34,9 @@ public class TvReviewService {
         Collectors.toList());
   }
 
-  public MovieReviewDTO addNewTvReview(long tvDetailsId, MovieReviewDTO movieReviewDTO)
+  public MovieReviewResponse addNewTvReview(long tvDetailsId, MovieReviewResponse movieReviewResponse)
   {
-    TvReview tvReview=customModelMapper.movieReviewDTO2TvReviewEntity(movieReviewDTO);
+    TvReview tvReview=customModelMapper.movieReviewDTO2TvReviewEntity(movieReviewResponse);
     tvReview.setLastReviewed(LocalDate.now());
     return  tvRepository.findById(tvDetailsId).map(
 
@@ -51,9 +49,10 @@ public class TvReviewService {
     ).orElseThrow(() -> new NotFoundException("Movie Not Found"));
   }
 
-  public MovieReviewDTO updateTvReview(long tvDetailsId, long reviewId,MovieReviewDTO movieReviewDTO)
+  public MovieReviewResponse updateTvReview(long tvDetailsId, long reviewId,
+      MovieReviewResponse movieReviewResponse)
   {
-    TvReview tvReview=customModelMapper.movieReviewDTO2TvReviewEntity(movieReviewDTO);
+    TvReview tvReview=customModelMapper.movieReviewDTO2TvReviewEntity(movieReviewResponse);
     if(!tvRepository.existsById(tvDetailsId))
     {
       throw  new NotFoundException("Movie Not Found to add review");

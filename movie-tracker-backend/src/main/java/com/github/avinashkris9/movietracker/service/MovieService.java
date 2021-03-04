@@ -5,8 +5,8 @@ import com.github.avinashkris9.movietracker.entity.MovieReview;
 import com.github.avinashkris9.movietracker.exception.EntityExistsException;
 import com.github.avinashkris9.movietracker.exception.NotFoundException;
 import com.github.avinashkris9.movietracker.model.MovieDBDetails;
-import com.github.avinashkris9.movietracker.model.MovieDetailsDTO;
-import com.github.avinashkris9.movietracker.model.PageMovieDetailsDTO;
+import com.github.avinashkris9.movietracker.model.MovieResponse;
+import com.github.avinashkris9.movietracker.model.PageMovieResponse;
 import com.github.avinashkris9.movietracker.repository.MovieRepository;
 import com.github.avinashkris9.movietracker.utils.APIUtils.SHOW_TYPES;
 import com.github.avinashkris9.movietracker.utils.CustomModelMapper;
@@ -21,11 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Slf4j
-public class MovieService {
+public class MovieService implements ShowManagementService<MovieResponse, PageMovieResponse> {
 
   private final MovieRepository movieRepository;
   private final TheMovieDBService theMovieDBService;
@@ -51,7 +50,7 @@ public class MovieService {
 
 
 
-  public MovieDetailsDTO insertNewWatchedMovie(MovieDetailsDTO movieDetails) {
+  public MovieResponse addShowWatched(MovieResponse movieDetails) {
 
     if (Objects.isNull(movieDetails.getLastWatched())) {
       log.info(" No watched date provided so setting today's date");
@@ -71,8 +70,8 @@ public class MovieService {
           theMovieDBService.getMovieDetailsBySearch(
               movieDetails.getName(), SHOW_TYPES.MOVIE.name());
 
-      if (!optionalMovieDBDetails.getMovieDBDetails().isEmpty()) {
-        long themovieDBMovieId = optionalMovieDBDetails.getMovieDBDetails().get(0).getMovieId();
+      if (!optionalMovieDBDetails.getMovieDBResponseDetails().isEmpty()) {
+        long themovieDBMovieId = optionalMovieDBDetails.getMovieDBResponseDetails().get(0).getMovieId();
         log.debug("The movie db entry found with external id {} ", themovieDBMovieId);
         movieDetails.setExternalId(themovieDBMovieId);
 
@@ -92,7 +91,8 @@ public class MovieService {
 
     movieDetailsEntity =
         movieRepository.save(movieDetailsEntity);
-    log.info("Sasa {}", movieDetails);
+    log.info("DTO {}", movieDetails);
+    log.info("Entity {}", movieDetailsEntity);
     movieDetails.setId(movieDetailsEntity.getId());
     return customModelMapper.movieEntity2MovieDTO(movieDetailsEntity);
   }
@@ -100,11 +100,11 @@ public class MovieService {
   /**
    * Update database with the new information received
    *
-   * @param movieDetailsDTO DTO object for movie
+   * @param movieResponse DTO object for movie
    * @param movieId primary key to identify database entry
    * @return MovieDetailsDTO DTO object
    */
-  public MovieDetailsDTO updateWatchedMovie(MovieDetailsDTO movieDetailsDTO, long movieId) {
+  public MovieResponse updateShowWatched(MovieResponse movieResponse, long movieId) {
 
     Optional<MovieDetails> movieFromDb = movieRepository.findById(movieId);
     LocalDate today = LocalDate.now();
@@ -113,27 +113,27 @@ public class MovieService {
     }
     MovieDetails movieEntityFromDb =movieFromDb.get();
     log.debug("DB Entry iss {}", movieEntityFromDb);
-    if (Objects.isNull(movieDetailsDTO.getLastWatched())) {
+    if (Objects.isNull(movieResponse.getLastWatched())) {
       log.info("No date provided. setting LastWatched data as today");
       movieEntityFromDb.setLastWatched(today);
     } else {
       // if data is older than what's in db. Don't replace it.
-      if (!movieDetailsDTO.getLastWatched().isBefore(movieEntityFromDb.getLastWatched())) {
-        movieEntityFromDb.setLastWatched(movieDetailsDTO.getLastWatched());
+      if (!movieResponse.getLastWatched().isBefore(movieEntityFromDb.getLastWatched())) {
+        movieEntityFromDb.setLastWatched(movieResponse.getLastWatched());
       }
     }
 
-    movieEntityFromDb.setNumberOfWatch(movieDetailsDTO.getNumberOfWatch() + 1);
+    movieEntityFromDb.setNumberOfWatch(movieResponse.getNumberOfWatch() + 1);
     log.info("update movie details {}", movieEntityFromDb);
 
 
 
-    if(!(movieDetailsDTO.getReview() ==null || movieDetailsDTO.getReview().isEmpty()))
+    if(!(movieResponse.getReview() ==null || movieResponse.getReview().isEmpty()))
     {
       MovieReview movieReview=new MovieReview();
       movieReview.setMovieDetails(movieEntityFromDb);
       movieReview.setLastReviewed(movieEntityFromDb.getLastWatched());
-      movieReview.setReview(movieDetailsDTO.getReview());
+      movieReview.setReview(movieResponse.getReview());
 //      movieDetails1.getMovieReviews().add(movieReview);
       movieEntityFromDb.addReview(movieReview);
 
@@ -155,16 +155,16 @@ public class MovieService {
    * @return DTO object for movie details
    * @throws NotFoundException if no entry found for movieId
    */
-  public MovieDetailsDTO getMovieById(long movieId) {
+  public MovieResponse getShowByShowId(long movieId) {
     Optional<MovieDetails> movieDetails = movieRepository.findById(movieId);
     if (movieDetails.isPresent()) {
       log.debug(movieDetails.toString());
-      MovieDetailsDTO movieDetailsDTO = customModelMapper.movieEntity2MovieDTO(movieDetails.get());
+      MovieResponse movieResponse = customModelMapper.movieEntity2MovieDTO(movieDetails.get());
       long externalMovieId = movieDetails.get().getExternalId();
       if (externalMovieId != 0) {
-        theMovieDBService.appendTheMovieDBData(movieDetailsDTO, SHOW_TYPES.MOVIE.name());
+        theMovieDBService.appendTheMovieDBData(movieResponse, SHOW_TYPES.MOVIE.name());
       }
-      return movieDetailsDTO;
+      return movieResponse;
     }
     throw new NotFoundException("ERR_404");
   }
@@ -175,19 +175,19 @@ public class MovieService {
    * @return List of all movies matching the movie name
    * @throws NotFoundException if no movies are found for the search string
    */
-  public List<MovieDetailsDTO> getMoviesByMovieName(String movieName) {
+  public List<MovieResponse> getShowByShowName(String movieName) {
     List<MovieDetails> moviesByName = movieRepository.findByMovieNameContainsIgnoreCase(movieName);
     if (moviesByName.isEmpty()) {
       throw new NotFoundException("No movies");
     }
-    List<MovieDetailsDTO> movieDetailsDTOS = new ArrayList<>();
+    List<MovieResponse> movieResponses = new ArrayList<>();
     for (MovieDetails md : moviesByName) {
-      MovieDetailsDTO movieDetailsDTO = customModelMapper.movieEntity2MovieDTO(md);
-      theMovieDBService.appendTheMovieDBData(movieDetailsDTO, SHOW_TYPES.MOVIE.name());
-      movieDetailsDTOS.add(movieDetailsDTO);
+      MovieResponse movieResponse = customModelMapper.movieEntity2MovieDTO(md);
+      theMovieDBService.appendTheMovieDBData(movieResponse, SHOW_TYPES.MOVIE.name());
+      movieResponses.add(movieResponse);
     }
 
-    return movieDetailsDTOS;
+    return movieResponses;
   }
 
   /**
@@ -197,7 +197,7 @@ public class MovieService {
    * @return PageMovieDetailsDTO object holding list of movies and paging information
    * @throws NotFoundException if no movies found in database
    */
-  public PageMovieDetailsDTO getAllMoviesWatched(Pageable pageRequest) {
+  public PageMovieResponse getAllShowsWatched(Pageable pageRequest) {
 
     Page<MovieDetails> movieDetails = movieRepository.findAll(pageRequest);
     // throw exception if there are no movies
@@ -206,12 +206,12 @@ public class MovieService {
       throw new NotFoundException("ERR_404");
     }
     log.info(movieDetails.getContent().toString());
-    List<MovieDetailsDTO> movieDetailsDTOList =
+    List<MovieResponse> movieResponseList =
         movieDetails.getContent().stream()
             .map(theMovieDBService::transformMovieEntity)
             .collect(Collectors.toList());
-    return new PageMovieDetailsDTO(
-        movieDetailsDTOList, movieDetails.getTotalElements(), movieDetails.getTotalPages());
+    return new PageMovieResponse(
+        movieResponseList, movieDetails.getTotalElements(), movieDetails.getTotalPages());
   }
 
   /**
@@ -220,7 +220,7 @@ public class MovieService {
    * @param movieId primary key
    * @throws NotFoundException if no movie matching movieId present in db.
    */
-  public void deleteWatchedMovie(long movieId) {
+  public void deleteShowWatched(long movieId) {
     Optional<MovieDetails> movieDetails = movieRepository.findById(movieId);
     movieDetails.orElseThrow(() -> new NotFoundException("Not found"));
     movieRepository.delete(movieDetails.get());
@@ -245,7 +245,7 @@ public class MovieService {
   }
 
 
-  public List<MovieDetailsDTO> getDumps()
+  public List<MovieResponse> getDumps()
   {
     List<MovieDetails> movieDetails= movieRepository.findAll();
     if(movieDetails.isEmpty())
@@ -254,12 +254,12 @@ public class MovieService {
       throw new NotFoundException("ERR_404");
     }
 
-    List<MovieDetailsDTO> movieDetailsDTOList =
+    List<MovieResponse> movieResponseList =
         movieDetails.stream()
             .map(
                 x-> customModelMapper.movieEntity2MovieDTO(x))
             .collect(Collectors.toList());
-    return movieDetailsDTOList;
+    return movieResponseList;
   }
 
 }

@@ -4,7 +4,7 @@ mat-card
          margin-top: 20px;
             margin-left: 20px;
       width: 80%;
-        
+      word-wrap: break-word;
        
   
     
@@ -16,6 +16,10 @@ mat-card
 }
 #review {
       word-wrap: break-word;
+      white-space: pre-wrap !important;
+    }
+    .review-data{
+      white-space: pre-wrap !important;
     }
 .poster{
      /* adjust as needed */

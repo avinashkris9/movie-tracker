@@ -3,29 +3,29 @@ package com.github.avinashkris9.movietracker.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageMovieDetailsDTO {
+public class PageMovieResponse {
 
 
-  private List<MovieDetailsDTO> movieDetails=new ArrayList<>();
+  private List<MovieResponse> movieDetails=new ArrayList<>();
   private long totalElements;
   private int totalPages;
 
-  public PageMovieDetailsDTO(
-      List<MovieDetailsDTO> movieDetails, long totalElements, int totalPages) {
+  public PageMovieResponse(
+      List<MovieResponse> movieDetails, long totalElements, int totalPages) {
     this.movieDetails = movieDetails;
     this.totalElements = totalElements;
     this.totalPages = totalPages;
   }
 
-  public PageMovieDetailsDTO() {
+  public PageMovieResponse() {
   }
 
-  public List<MovieDetailsDTO> getMovieDetails() {
+  public List<MovieResponse> getMovieDetails() {
     return movieDetails;
   }
 
   public void setMovieDetails(
-      List<MovieDetailsDTO> movieDetails) {
+      List<MovieResponse> movieDetails) {
     this.movieDetails = movieDetails;
   }
 

@@ -38,4 +38,14 @@ public class MovieTrackerApplication {
         .setReadTimeout(Duration.ofSeconds(500)).
   build();
   }
+
+
+  @Bean
+  public RestTemplate restTemplates(RestTemplateBuilder builder) {
+
+    return builder.errorHandler(new RestTemplateResponseErrorHandler())
+        .setConnectTimeout(Duration.ofSeconds(500))
+        .setReadTimeout(Duration.ofSeconds(500)).
+            build();
+  }
 }

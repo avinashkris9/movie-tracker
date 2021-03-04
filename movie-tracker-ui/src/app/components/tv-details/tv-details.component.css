@@ -29,7 +29,9 @@
     padding: 20px;
 } */
 
-
+.review-data{
+  white-space: pre-wrap !important;
+}
 mat-card
 {
    

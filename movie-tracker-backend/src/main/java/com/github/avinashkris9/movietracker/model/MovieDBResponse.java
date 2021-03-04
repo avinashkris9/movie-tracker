@@ -7,7 +7,7 @@ import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class MovieDB{
+public class MovieDBResponse {
 @JsonProperty("id")
 private Long movieId;
 
